@@ -44,3 +44,5 @@ and [earlier experiments that didn't work as well](https://github.com/Larkooo/la
 repository.
 
 I'd love to hear what you guys think!
+
+I'd like to lead an upstream implementation if there's interest.

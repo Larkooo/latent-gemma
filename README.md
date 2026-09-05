@@ -4,6 +4,8 @@ Continuous-state reasoning experiments with Gemma and MLX. A learned bridge feed
 hidden states back into the transformer, replacing part of a text reasoning
 trace. The model then generates the remaining reasoning and answer.
 
+Author and maintainer: [Larkooo](https://github.com/Larkooo).
+
 ## Results
 
 The current Gemma 4 E2B experiment uses two latent positions followed by a fixed
