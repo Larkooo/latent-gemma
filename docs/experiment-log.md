@@ -316,3 +316,13 @@ diagnostic candidate, retained CoT, and trained shortened-text control remain at
 frozen historical reports are unchanged. All 84 tests passed after the scoring
 fix, including exact decimal comparisons, source preservation, metadata retention,
 and rejection of mixed-policy comparisons.
+
+A visible-continuation audit checks whether the arithmetic improvement depends
+on regenerating removed text. Correct answers with exactly the intended shortened
+equation occur on 46/53 questions for the latent candidate and 16/53 for the
+trained control. Each model has three additional correct but noncanonical
+continuations. Thus the 30-question gain also appears under this stricter metric,
+while the 96/100 answer score does not imply universal compliance with the short
+target. The [compression audit](../reports/arithmetic-compression-audit/README.md)
+preserves every continuation and a standalone reproduction script. It does not
+decode or interpret latent activations.

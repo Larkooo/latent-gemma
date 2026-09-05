@@ -1,0 +1,874 @@
+{
+  "metric": "Correct final answer and exact remaining annotated equation, ignoring whitespace and final periods.",
+  "data_sha256": "4ef66261de53a8944ca49982e70438b8ecc0738a853e14409f2f3a652e0c51ef",
+  "runs": {
+    "latent": {
+      "source": "curriculum-boundary-stage1/hybrid.jsonl",
+      "source_sha256": "7fb5c343851355fffa3a3e2333f25849b0019345ebd04d89090ba27da028b20e",
+      "n": 53,
+      "compressed_correct": 46,
+      "final_correct": 49,
+      "correct_noncanonical_continuations": 3,
+      "rows": [
+        {
+          "id": "097fb83d25a973e5b61f",
+          "expected_continuation": "255 + 17 = 272.",
+          "generated_continuation": "15 * 17 = 255. 255 + 17 = 272.",
+          "canonical_remaining_equation": false,
+          "final_correct": true,
+          "compressed_correct": false
+        },
+        {
+          "id": "8de657713463a76c68df",
+          "expected_continuation": "60 + 10 = 70.",
+          "generated_continuation": "60 + 10 = 70.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "a42f5c99ea3c29f776b9",
+          "expected_continuation": "14 * 9 = 126.",
+          "generated_continuation": "1 + 13 = 14. 14 * 9 = 126.",
+          "canonical_remaining_equation": false,
+          "final_correct": true,
+          "compressed_correct": false
+        },
+        {
+          "id": "180bd4bd7b1b8cb26d6c",
+          "expected_continuation": "18 * 3 = 54.",
+          "generated_continuation": "18 * 3 = 54.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "9e0244d53236ea4a6e12",
+          "expected_continuation": "270 + 1 = 271.",
+          "generated_continuation": "270 + 1 = 271.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "f3cf4b795cf0546cd004",
+          "expected_continuation": "121 + 17 = 138.",
+          "generated_continuation": "121 + 17 = 138.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "4649917bfd3ee2340469",
+          "expected_continuation": "11 * 5 = 55.",
+          "generated_continuation": "11 * 5 = 55.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "ec4f4039b599861531a9",
+          "expected_continuation": "24 * 8 = 192.",
+          "generated_continuation": "24 * 8 = 192.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "504db571a06c229d3a09",
+          "expected_continuation": "36 * 7 = 252.",
+          "generated_continuation": "36 * 7 = 252.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "96808c8fbbf976d080dd",
+          "expected_continuation": "12 * 14 = 168.",
+          "generated_continuation": "12 * 14 = 168.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "9411c8d378690f0cba5e",
+          "expected_continuation": "54 + 7 = 61.",
+          "generated_continuation": "54 + 7 = 61.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "981bc843911b33cfdbee",
+          "expected_continuation": "19 * 4 = 76.",
+          "generated_continuation": "19 * 4 = 76.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "375bbec320ba20cb3bdd",
+          "expected_continuation": "48 + 15 = 63.",
+          "generated_continuation": "48 + 15 = 63.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "1cef747bf0c0d4e71e40",
+          "expected_continuation": "99 + 9 = 108.",
+          "generated_continuation": "94 + 9 = 103.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "cb6d76656de57ff26292",
+          "expected_continuation": "29 * 17 = 493.",
+          "generated_continuation": "29 * 17 = 493.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "adf3ea518faef63a3690",
+          "expected_continuation": "152 + 20 = 172.",
+          "generated_continuation": "152 + 20 = 172.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "390272addabae6447d06",
+          "expected_continuation": "18 * 20 = 360.",
+          "generated_continuation": "18 * 20 = 360.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "6f66780d9308d3a84d74",
+          "expected_continuation": "12 + 9 = 21.",
+          "generated_continuation": "12 + 9 = 21.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "499d09f7a8a85bbd5e73",
+          "expected_continuation": "17 * 7 = 119.",
+          "generated_continuation": "17 * 7 = 119.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "eb2752ff7d01b180b2ed",
+          "expected_continuation": "31 * 7 = 217.",
+          "generated_continuation": "31 * 7 = 217.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "f62701b9ccc71dbda18e",
+          "expected_continuation": "17 * 5 = 85.",
+          "generated_continuation": "17 * 5 = 85.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "129896dd122d94e87b45",
+          "expected_continuation": "24 * 5 = 120.",
+          "generated_continuation": "24 * 5 = 120.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "cf28883fc610cf337ab0",
+          "expected_continuation": "24 * 19 = 456.",
+          "generated_continuation": "24 * 19 = 456.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "899d12c79cbc26e3ba04",
+          "expected_continuation": "8 * 9 = 72.",
+          "generated_continuation": "8 * 9 = 72.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "c82fcce1f58dc7e6b2da",
+          "expected_continuation": "1 + 4 = 5.",
+          "generated_continuation": "1 + 4 = 5.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "08a34f6f5ddffc83b478",
+          "expected_continuation": "14 + 13 = 27.",
+          "generated_continuation": "14 + 13 = 27.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "1438617140422f9cb1d3",
+          "expected_continuation": "20 * 17 = 340.",
+          "generated_continuation": "20 * 17 = 340.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "e9f4d41b30ce5e61c894",
+          "expected_continuation": "17 * 18 = 306.",
+          "generated_continuation": "17 * 18 = 306.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "a14ee8ff0b8ac3f92002",
+          "expected_continuation": "60 + 19 = 79.",
+          "generated_continuation": "60 + 19 = 79.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "02919f9b920ccb043319",
+          "expected_continuation": "34 + 12 = 46.",
+          "generated_continuation": "34 + 12 = 46.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "6060b7c9347d0648c3ca",
+          "expected_continuation": "36 + 3 = 39.",
+          "generated_continuation": "36 + 3 = 39.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "53474b258fad9b330185",
+          "expected_continuation": "8 + 12 = 20.",
+          "generated_continuation": "8 + 12 = 20.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "98af88adc8bd6e7e7857",
+          "expected_continuation": "16 * 10 = 160.",
+          "generated_continuation": "16 * 10 = 160.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "706f70b54d427ed44ebd",
+          "expected_continuation": "102 + 1 = 103.",
+          "generated_continuation": "102 + 1 = 103.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "6000fa2dfde0d226f251",
+          "expected_continuation": "220 + 4 = 224.",
+          "generated_continuation": "230 + 4 = 234.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "809ba431ab0d677ae4b7",
+          "expected_continuation": "22 * 1 = 22.",
+          "generated_continuation": "22 + 8 = 30.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "1b95faeb2ad2e1080a6d",
+          "expected_continuation": "24 * 8 = 192.",
+          "generated_continuation": "24 * 8 = 192.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "6175b46197d8d298bfaf",
+          "expected_continuation": "28 * 19 = 532.",
+          "generated_continuation": "28 * 19 = 532.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "1c7c4d251de28156294d",
+          "expected_continuation": "40 + 15 = 55.",
+          "generated_continuation": "40 + 15 = 55.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "36e03bf9c0792c3e9b88",
+          "expected_continuation": "29 * 13 = 377.",
+          "generated_continuation": "29 * 13 = 377.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "240cbcf56b5bfac5d422",
+          "expected_continuation": "23 * 13 = 299.",
+          "generated_continuation": "23 * 13 = 299.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "cc2d6b419111f40ba2e4",
+          "expected_continuation": "20 * 15 = 300.",
+          "generated_continuation": "20 * 15 = 300.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "46292f99e07e9f294510",
+          "expected_continuation": "156 + 1 = 157.",
+          "generated_continuation": "156 + 1 = 157.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "4d7f054df591d9c5862c",
+          "expected_continuation": "8 + 9 = 17.",
+          "generated_continuation": "8 + 9 = 17. 1 * 17 = 17.",
+          "canonical_remaining_equation": false,
+          "final_correct": true,
+          "compressed_correct": false
+        },
+        {
+          "id": "e6055cc76bda0d0d4c0d",
+          "expected_continuation": "25 * 13 = 325.",
+          "generated_continuation": "25 * 13 = 325.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "249840b39fdb93c6f2db",
+          "expected_continuation": "31 * 9 = 279.",
+          "generated_continuation": "31 * 9 = 279.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "5ca0b66b2966d9054d2f",
+          "expected_continuation": "18 * 12 = 216.",
+          "generated_continuation": "18 * 12 = 216.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "cc3b30231fda09bb6f5b",
+          "expected_continuation": "60 + 7 = 67.",
+          "generated_continuation": "60 + 7 = 67.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "971a1acb48966021a390",
+          "expected_continuation": "80 + 17 = 97.",
+          "generated_continuation": "80 + 17 = 97.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "62f17db1bea708015794",
+          "expected_continuation": "14 * 19 = 266.",
+          "generated_continuation": "24 * 19 = 456.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "36d1c9d946adf99e4c40",
+          "expected_continuation": "23 * 1 = 23.",
+          "generated_continuation": "23 * 1 = 23.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "0fc14969d6657d9031ad",
+          "expected_continuation": "39 + 16 = 55.",
+          "generated_continuation": "39 + 16 = 55.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "f22b53c1c3b3b7bf9d13",
+          "expected_continuation": "120 + 19 = 139.",
+          "generated_continuation": "120 + 19 = 139.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        }
+      ]
+    },
+    "trained_control": {
+      "source": "matched-short-text-control/hybrid.jsonl",
+      "source_sha256": "7586d9855d768aae523360e363eb9204a089083cdda066e5dec28db96212c4df",
+      "n": 53,
+      "compressed_correct": 16,
+      "final_correct": 19,
+      "correct_noncanonical_continuations": 3,
+      "rows": [
+        {
+          "id": "097fb83d25a973e5b61f",
+          "expected_continuation": "255 + 17 = 272.",
+          "generated_continuation": "245 + 17 = 262.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "8de657713463a76c68df",
+          "expected_continuation": "60 + 10 = 70.",
+          "generated_continuation": "10 * 3 = 30. 30 + 10 = 40.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "a42f5c99ea3c29f776b9",
+          "expected_continuation": "14 * 9 = 126.",
+          "generated_continuation": "14 * 9 = 126.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "180bd4bd7b1b8cb26d6c",
+          "expected_continuation": "18 * 3 = 54.",
+          "generated_continuation": "18 * 3 = 54.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "9e0244d53236ea4a6e12",
+          "expected_continuation": "270 + 1 = 271.",
+          "generated_continuation": "270 + 1 = 271.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "f3cf4b795cf0546cd004",
+          "expected_continuation": "121 + 17 = 138.",
+          "generated_continuation": "11 * 11 = 121. 121 + 17 = 138.",
+          "canonical_remaining_equation": false,
+          "final_correct": true,
+          "compressed_correct": false
+        },
+        {
+          "id": "4649917bfd3ee2340469",
+          "expected_continuation": "11 * 5 = 55.",
+          "generated_continuation": "12 * 5 = 60.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "ec4f4039b599861531a9",
+          "expected_continuation": "24 * 8 = 192.",
+          "generated_continuation": "24 * 8 = 192.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "504db571a06c229d3a09",
+          "expected_continuation": "36 * 7 = 252.",
+          "generated_continuation": "24 * 7 = 168.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "96808c8fbbf976d080dd",
+          "expected_continuation": "12 * 14 = 168.",
+          "generated_continuation": "12 * 14 = 168.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "9411c8d378690f0cba5e",
+          "expected_continuation": "54 + 7 = 61.",
+          "generated_continuation": "27 + 7 = 34.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "981bc843911b33cfdbee",
+          "expected_continuation": "19 * 4 = 76.",
+          "generated_continuation": "20 * 4 = 80.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "375bbec320ba20cb3bdd",
+          "expected_continuation": "48 + 15 = 63.",
+          "generated_continuation": "48 + 15 = 63.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "1cef747bf0c0d4e71e40",
+          "expected_continuation": "99 + 9 = 108.",
+          "generated_continuation": "110 + 9 = 119.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "cb6d76656de57ff26292",
+          "expected_continuation": "29 * 17 = 493.",
+          "generated_continuation": "29 * 17 = 493.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "adf3ea518faef63a3690",
+          "expected_continuation": "152 + 20 = 172.",
+          "generated_continuation": "144 + 20 = 164.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "390272addabae6447d06",
+          "expected_continuation": "18 * 20 = 360.",
+          "generated_continuation": "18 * 20 = 360.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "6f66780d9308d3a84d74",
+          "expected_continuation": "12 + 9 = 21.",
+          "generated_continuation": "14 + 9 = 23.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "499d09f7a8a85bbd5e73",
+          "expected_continuation": "17 * 7 = 119.",
+          "generated_continuation": "24 * 7 = 168.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "eb2752ff7d01b180b2ed",
+          "expected_continuation": "31 * 7 = 217.",
+          "generated_continuation": "21 * 7 = 147.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "f62701b9ccc71dbda18e",
+          "expected_continuation": "17 * 5 = 85.",
+          "generated_continuation": "17 * 5 = 85.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "129896dd122d94e87b45",
+          "expected_continuation": "24 * 5 = 120.",
+          "generated_continuation": "24 * 5 = 120.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "cf28883fc610cf337ab0",
+          "expected_continuation": "24 * 19 = 456.",
+          "generated_continuation": "33 * 19 = 627.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "899d12c79cbc26e3ba04",
+          "expected_continuation": "8 * 9 = 72.",
+          "generated_continuation": "18 * 9 = 162.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "c82fcce1f58dc7e6b2da",
+          "expected_continuation": "1 + 4 = 5.",
+          "generated_continuation": "1 + 4 = 5.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "08a34f6f5ddffc83b478",
+          "expected_continuation": "14 + 13 = 27.",
+          "generated_continuation": "14 + 13 = 27.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "1438617140422f9cb1d3",
+          "expected_continuation": "20 * 17 = 340.",
+          "generated_continuation": "14 * 17 = 238.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "e9f4d41b30ce5e61c894",
+          "expected_continuation": "17 * 18 = 306.",
+          "generated_continuation": "14 * 18 = 252.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "a14ee8ff0b8ac3f92002",
+          "expected_continuation": "60 + 19 = 79.",
+          "generated_continuation": "20 + 19 = 39.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "02919f9b920ccb043319",
+          "expected_continuation": "34 + 12 = 46.",
+          "generated_continuation": "2 * 17 = 34. 34 + 12 = 46.",
+          "canonical_remaining_equation": false,
+          "final_correct": true,
+          "compressed_correct": false
+        },
+        {
+          "id": "6060b7c9347d0648c3ca",
+          "expected_continuation": "36 + 3 = 39.",
+          "generated_continuation": "12 + 3 = 15.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "53474b258fad9b330185",
+          "expected_continuation": "8 + 12 = 20.",
+          "generated_continuation": "13 + 12 = 25.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "98af88adc8bd6e7e7857",
+          "expected_continuation": "16 * 10 = 160.",
+          "generated_continuation": "25 * 10 = 250.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "706f70b54d427ed44ebd",
+          "expected_continuation": "102 + 1 = 103.",
+          "generated_continuation": "14 * 17 = 238.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "6000fa2dfde0d226f251",
+          "expected_continuation": "220 + 4 = 224.",
+          "generated_continuation": "253 + 4 = 257.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "809ba431ab0d677ae4b7",
+          "expected_continuation": "22 * 1 = 22.",
+          "generated_continuation": "16 * 1 = 16.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "1b95faeb2ad2e1080a6d",
+          "expected_continuation": "24 * 8 = 192.",
+          "generated_continuation": "24 * 8 = 192.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "6175b46197d8d298bfaf",
+          "expected_continuation": "28 * 19 = 532.",
+          "generated_continuation": "24 * 19 = 456.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "1c7c4d251de28156294d",
+          "expected_continuation": "40 + 15 = 55.",
+          "generated_continuation": "140 + 15 = 155.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "36e03bf9c0792c3e9b88",
+          "expected_continuation": "29 * 13 = 377.",
+          "generated_continuation": "22 * 13 = 286.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "240cbcf56b5bfac5d422",
+          "expected_continuation": "23 * 13 = 299.",
+          "generated_continuation": "11 * 13 = 143.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "cc2d6b419111f40ba2e4",
+          "expected_continuation": "20 * 15 = 300.",
+          "generated_continuation": "20 * 15 = 300.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "46292f99e07e9f294510",
+          "expected_continuation": "156 + 1 = 157.",
+          "generated_continuation": "144 + 1 = 145.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "4d7f054df591d9c5862c",
+          "expected_continuation": "8 + 9 = 17.",
+          "generated_continuation": "13 + 9 = 22.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "e6055cc76bda0d0d4c0d",
+          "expected_continuation": "25 * 13 = 325.",
+          "generated_continuation": "25 * 13 = 325.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "249840b39fdb93c6f2db",
+          "expected_continuation": "31 * 9 = 279.",
+          "generated_continuation": "2 * 9 = 18. 10 * 9 = 90. 12 * 9 = 108. 19 * 9 = 171.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "5ca0b66b2966d9054d2f",
+          "expected_continuation": "18 * 12 = 216.",
+          "generated_continuation": "2 + 16 = 18. 18 * 12 = 216.",
+          "canonical_remaining_equation": false,
+          "final_correct": true,
+          "compressed_correct": false
+        },
+        {
+          "id": "cc3b30231fda09bb6f5b",
+          "expected_continuation": "60 + 7 = 67.",
+          "generated_continuation": "14 + 7 = 21.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "971a1acb48966021a390",
+          "expected_continuation": "80 + 17 = 97.",
+          "generated_continuation": "160 + 17 = 177.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "62f17db1bea708015794",
+          "expected_continuation": "14 * 19 = 266.",
+          "generated_continuation": "2 * 19 = 38. 14 + 38 = 52.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "36d1c9d946adf99e4c40",
+          "expected_continuation": "23 * 1 = 23.",
+          "generated_continuation": "23 * 1 = 23.",
+          "canonical_remaining_equation": true,
+          "final_correct": true,
+          "compressed_correct": true
+        },
+        {
+          "id": "0fc14969d6657d9031ad",
+          "expected_continuation": "39 + 16 = 55.",
+          "generated_continuation": "14 * 3 = 42. 42 + 16 = 58.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        },
+        {
+          "id": "f22b53c1c3b3b7bf9d13",
+          "expected_continuation": "120 + 19 = 139.",
+          "generated_continuation": "14.",
+          "canonical_remaining_equation": false,
+          "final_correct": false,
+          "compressed_correct": false
+        }
+      ]
+    }
+  }
+}
