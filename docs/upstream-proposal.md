@@ -1,7 +1,25 @@
 # Proposed contribution: continuous embedding inputs for Gemma research
 
 Status: local working draft. No issue or pull request has been submitted. Measured
-results and final scope must be added before this is proposed upstream.
+latency, independent test results, and final scope must be added before this is
+proposed upstream.
+
+## Current evidence
+
+The standalone MLX implementation passes continuous activations through a learned
+bridge into new transformer positions, then generates remaining text reasoning.
+On 100 diagnostic validation questions, the fixed-boundary hybrid scored 96/100
+versus 99/100 for text CoT. A separately trained control with the same shortened
+text targets and maximum update budget scored 66/100, while retaining 99/100 in
+full text mode. The hybrid solved 30 additional questions and lost none, with a
+paired bootstrap accuracy-difference interval of [21, 39] percentage points.
+See the [matched-training report](../reports/matched-short-text-control/README.md).
+
+This supports useful latent computation under the tested recipe. It is one seed,
+simple diagnostic tasks, and exploratory validation that overlaps checkpoint
+selection. Training FLOPs are not matched. Repeated latency measurements, public
+transfer, and independent test/OOD evaluation remain outstanding. No speedup or
+broad reasoning improvement should be claimed in an upstream submission yet.
 
 ## Problem
 
@@ -18,6 +36,21 @@ position/mask metadata. Normal token inputs preserve existing behavior. The
 per-layer embedding policy is explicit rather than silently recovering the
 nearest vocabulary token. Hidden-state outputs support a separately implemented
 experimental sampler and training recipe.
+
+At inspected Gemma commit `7b785991bd78626c73b317eb43fdbb6c292f7b9c`, Gemma 4
+already exposes `return_hidden_states` on its token-based `Transformer.__call__`.
+The internal `_Inputs` structure carries embeddings, positions, global/sliding
+masks, input masks, and per-layer inputs into `_apply_attention`. The concrete
+extension to discuss is a supported continuous-input path reusing that machinery,
+rather than another transformer implementation. Whether it is a separate method
+or a general input option should follow the maintainers' API preference.
+
+The contract must specify embedding scaling, per-layer input construction when
+token IDs are absent, cache updates, and hidden-state versus vocabulary outputs.
+The existing method constructs vocabulary logits even when hidden states are
+requested; actual execution can depend on compiler elimination of unused results.
+A research-facing hidden-only path should make that intent explicit without
+relying on a caller's compilation context.
 
 Our MLX prototype retains the projected, continuous per-layer input branch and
 sets the token-indexed contribution to zero at latent positions. It keeps the
@@ -36,6 +69,12 @@ claim that released weights were trained for such inputs.
 - Clear scope: experiments on text inputs; no claim about multimodal reasoning
   unless separately evaluated. No claim to reproduce another lab's architecture.
 
+The MLX tests establish prototype behavior; they do not validate a JAX/Flax port.
+Any proposed Gemma implementation needs its own token-versus-embedding equivalence
+tests, shared-cache and sliding-mask checks, and differentiation through multiple
+continuous positions. Existing token and multimodal entry points should preserve
+their current behavior.
+
 ## Contribution sequence
 
 1. Share the standalone experiment and evidence in a maintainer discussion.
@@ -52,4 +91,3 @@ References:
 - https://github.com/google-deepmind/gemma/blob/main/CONTRIBUTING.md
 - https://github.com/google-deepmind/gemma/blob/7b785991bd78626c73b317eb43fdbb6c292f7b9c/gemma/gm/nn/gemma4/_transformer.py
 - https://developers.googleblog.com/en/unlock-global-communication-gemma-projects/
-
