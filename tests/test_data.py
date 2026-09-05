@@ -6,6 +6,7 @@ from latent_gemma.data import (
     extract_answer,
     generate_dataset,
     read_examples,
+    remaining_reasoning,
 )
 from latent_gemma.train import make_batch
 
@@ -65,3 +66,46 @@ def test_first_answer_token_is_supervised_despite_whitespace_merging(mode):
     _, target, mask = encode_example(MergingTokenizer(), example, mode)
     assert target == [3, 4, 5, 7, 99]
     assert mask == [0.0, 0.0, 0.0, 1.0, 1.0]
+
+
+@pytest.mark.parametrize(
+    "task,reasoning,drop,expected",
+    [
+        ("arithmetic", "2 + 3 = 5. 5 * 4 = 20.", 1, "5 * 4 = 20."),
+        ("arithmetic", "2 + 3 = 5. 5 * 4 = 20.", 2, ""),
+        ("links", "A -> B -> C -> D.", 1, "B -> C -> D."),
+        ("links", "A -> B -> C -> D.", 2, "C -> D."),
+        ("links", "A -> B -> C -> D.", 3, ""),
+        (
+            "gsm8k",
+            "First calculation.\n\nSecond calculation.\nFinal calculation.",
+            1,
+            "Second calculation.\nFinal calculation.",
+        ),
+    ],
+)
+def test_curriculum_removes_only_initial_reasoning_steps(task, reasoning, drop, expected):
+    example = Example("test", task, "Question", reasoning, "answer", "train")
+    assert remaining_reasoning(example, drop) == expected
+    assert remaining_reasoning(example, 0) == reasoning
+    assert remaining_reasoning(example, 100) == ""
+
+
+def test_hybrid_supervises_remaining_text_without_leaking_removed_steps():
+    class CharacterTokenizer:
+        eos_token_id = 0
+
+        def apply_chat_template(self, messages, **kwargs):
+            return messages[0]["content"]
+
+        def encode(self, text, **kwargs):
+            return list(map(ord, text))
+
+    example = Example("test", "arithmetic", "Question", "2 + 3 = 5. 5 * 4 = 20.", "20", "train")
+    prompt, target, mask = encode_example(CharacterTokenizer(), example, "hybrid", 1)
+    assert "2 + 3 = 5" not in "".join(map(chr, prompt))
+    assert "".join(map(chr, target[:-1])) == "5 * 4 = 20.\nAnswer: 20"
+    assert mask == [1.0] * len(target)
+    _, final, final_mask = encode_example(CharacterTokenizer(), example, "hybrid", 2)
+    assert "".join(map(chr, final[:-1])) == "\nAnswer: 20"
+    assert final_mask == [1.0] * len(final)

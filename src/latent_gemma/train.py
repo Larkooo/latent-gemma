@@ -28,12 +28,12 @@ def make_batch(records, pad_id: int):
     return prompts, targets, masks
 
 
-def encoded_buckets(tokenizer, examples, modes):
+def encoded_buckets(tokenizer, examples, modes, reasoning_steps_to_drop=0):
     result = {}
     for mode in modes:
         buckets = defaultdict(list)
         for example in examples:
-            record = encode_example(tokenizer, example, mode)
+            record = encode_example(tokenizer, example, mode, reasoning_steps_to_drop)
             buckets[len(record[0])].append(record)
         result[mode] = list(buckets.values())
     return result
@@ -55,11 +55,14 @@ def train(
     eval_every: int = 100,
     log_every: int = 10,
     source_adapter: str | None = None,
+    reasoning_steps_to_drop: int = 0,
 ) -> dict:
     if output.exists():
         raise FileExistsError(f"Refusing to overwrite training run: {output}")
-    if not modes or any(mode not in {"direct", "cot", "latent"} for mode in modes):
-        raise ValueError("Choose direct, cot, and/or latent training modes")
+    if not modes or any(mode not in {"direct", "cot", "latent", "hybrid"} for mode in modes):
+        raise ValueError("Choose direct, cot, latent, and/or hybrid training modes")
+    if reasoning_steps_to_drop < 0:
+        raise ValueError("reasoning_steps_to_drop must be nonnegative")
     if steps <= 0 or batch_size <= 0 or eval_every <= 0 or log_every <= 0:
         raise ValueError("Training counts must be positive")
     output.mkdir(parents=True)
@@ -75,6 +78,7 @@ def train(
         "batch_size": batch_size,
         "learning_rate": learning_rate,
         "latent_steps": latent_steps,
+        "reasoning_steps_to_drop": reasoning_steps_to_drop,
         "modes": modes,
         "seed": seed,
         "eval_every": eval_every,
@@ -94,9 +98,10 @@ def train(
     ):
         raise ValueError("Training requires train/validation splits; never use test examples")
     print(json.dumps({"status": "encoding", **config}), flush=True)
-    buckets = encoded_buckets(tokenizer, examples, modes)
+    buckets = encoded_buckets(tokenizer, examples, modes, reasoning_steps_to_drop)
     val_records = {
-        mode: [encode_example(tokenizer, x, mode) for x in validation[:32]] for mode in modes
+        mode: [encode_example(tokenizer, x, mode, reasoning_steps_to_drop) for x in validation[:32]]
+        for mode in modes
     }
     optimizer = optim.AdamW(learning_rate=learning_rate, weight_decay=0.0)
     loss_and_grad = nn.value_and_grad(model, token_loss)
@@ -108,7 +113,7 @@ def train(
             bucket = rng.choices(buckets[mode], weights=[len(b) for b in buckets[mode]])[0]
             records = rng.choices(bucket, k=batch_size)
             batch = make_batch(records, tokenizer.pad_token_id or 0)
-            k = latent_steps if mode == "latent" else 0
+            k = latent_steps if mode in {"latent", "hybrid"} else 0
             model.train()
             loss, grads = loss_and_grad(model, *batch, k)
             grads, norm = optim.clip_grad_norm(grads, max_norm=1.0)
@@ -142,7 +147,7 @@ def train(
                 model.eval()
                 val_losses = {}
                 for val_mode, items in val_records.items():
-                    k_val = latent_steps if val_mode == "latent" else 0
+                    k_val = latent_steps if val_mode in {"latent", "hybrid"} else 0
                     losses = [
                         token_loss(
                             model, *make_batch([r], tokenizer.pad_token_id or 0), k_val
@@ -152,7 +157,9 @@ def train(
                     val_losses[val_mode] = sum(losses) / len(losses)
                 # Mode-specific selection avoids choosing latent checkpoints based
                 # on improvements in a different output format.
-                score = val_losses.get("latent", sum(val_losses.values()) / len(val_losses))
+                score = val_losses.get(
+                    "latent", val_losses.get("hybrid", sum(val_losses.values()) / len(val_losses))
+                )
                 metadata = {
                     "model_path": model_path,
                     "run": config,

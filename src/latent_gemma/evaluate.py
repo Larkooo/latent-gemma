@@ -22,7 +22,7 @@ def generate(
     max_tokens: int = 96,
     ablation: str = "none",
 ) -> dict:
-    if mode not in {"direct", "cot", "latent", "native"}:
+    if mode not in {"direct", "cot", "latent", "native", "hybrid"}:
         raise ValueError(f"Unknown mode: {mode}")
     prompt = mx.array(
         [
@@ -31,13 +31,13 @@ def generate(
             )
         ]
     )
-    latent_steps = steps if mode == "latent" else 0
+    latent_steps = steps if mode in {"latent", "hybrid"} else 0
     model.eval()
     mx.synchronize()
     started = time.perf_counter()
     state, cache = model.prefill(prompt, latent_steps, ablation)
     forced_count = 0
-    if mode not in {"cot", "native"}:
+    if mode not in {"cot", "native", "hybrid"}:
         suffix = tokenizer.encode("\nAnswer: ", add_special_tokens=False)
         forced_count = len(suffix)
         state = model.hidden(mx.array([suffix]), cache=cache)[:, -1:, :]

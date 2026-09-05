@@ -39,9 +39,12 @@ def main():
             cmd.add_argument("--modes", nargs="+", default=["direct", "cot", "latent"])
             cmd.add_argument("--eval-every", type=int, default=100)
             cmd.add_argument("--log-every", type=int, default=10)
+            cmd.add_argument("--reasoning-steps-to-drop", type=int, default=0)
         else:
             cmd.add_argument("--data", type=Path, required=True)
-            cmd.add_argument("--mode", choices=["direct", "cot", "latent", "native"], required=True)
+            cmd.add_argument(
+                "--mode", choices=["direct", "cot", "latent", "native", "hybrid"], required=True
+            )
             cmd.add_argument("--limit", type=int)
             cmd.add_argument("--max-tokens", type=int, default=96)
             cmd.add_argument(
@@ -86,6 +89,7 @@ def main():
             args.eval_every,
             args.log_every,
             str(args.adapter) if args.adapter else None,
+            args.reasoning_steps_to_drop,
         )
         print(json.dumps(result))
     else:

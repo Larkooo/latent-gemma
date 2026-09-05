@@ -115,15 +115,38 @@ def prompt_text(tokenizer, example: Example, native_thinking: bool = False) -> s
     return text if native_thinking else text + "Reasoning: "
 
 
-def encode_example(tokenizer, example: Example, mode: str):
-    if mode not in {"direct", "cot", "latent"}:
+def remaining_reasoning(example: Example, steps_to_drop: int) -> str:
+    """Remove a prefix of annotated reasoning, without supplying it in the prompt."""
+    if steps_to_drop < 0:
+        raise ValueError("steps_to_drop must be nonnegative")
+    if steps_to_drop == 0:
+        return example.reasoning
+    if example.task == "links":
+        nodes = example.reasoning.rstrip(".").split(" -> ")
+        return " -> ".join(nodes[steps_to_drop:]) + "." if steps_to_drop < len(nodes) - 1 else ""
+    if example.task == "arithmetic":
+        # Diagnostic arithmetic uses two integer equations separated by '. '.
+        steps = example.reasoning.split(". ")
+        return ". ".join(steps[steps_to_drop:])
+    if example.task == "gsm8k":
+        # The official worked solutions use newline-separated reasoning steps.
+        steps = [line.strip() for line in example.reasoning.splitlines() if line.strip()]
+        return "\n".join(steps[steps_to_drop:])
+    raise ValueError(f"No reasoning-step annotation policy for {example.task}")
+
+
+def encode_example(tokenizer, example: Example, mode: str, reasoning_steps_to_drop: int = 0):
+    if mode not in {"direct", "cot", "latent", "hybrid"}:
         raise ValueError(f"Unknown mode: {mode}")
     prompt = tokenizer.encode(prompt_text(tokenizer, example), add_special_tokens=False)
     suffix = "\nAnswer: "
-    if mode == "cot":
-        ids = tokenizer.encode(
-            example.reasoning + suffix + example.answer, add_special_tokens=False
+    if mode in {"cot", "hybrid"}:
+        reasoning = (
+            remaining_reasoning(example, reasoning_steps_to_drop)
+            if mode == "hybrid"
+            else example.reasoning
         )
+        ids = tokenizer.encode(reasoning + suffix + example.answer, add_special_tokens=False)
         prefix_len = 0
     else:
         # Match the decoder's forced prefix exactly. Encoding the concatenated
@@ -142,7 +165,7 @@ def extract_answer(text: str, task: str, mode: str) -> str | None:
         if "<channel|>" not in text:
             return None
         text = text.rsplit("<channel|>", 1)[-1]
-    if mode in {"cot", "native"}:
+    if mode in {"cot", "native", "hybrid"}:
         parts = re.split(r"Answer:\s*", text, flags=re.IGNORECASE)
         if len(parts) < 2 or not parts[-1].strip():
             return None

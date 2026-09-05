@@ -70,6 +70,37 @@ the numerical and token-alignment failures that were corrected during developmen
 Fix configuration choices on validation data before evaluating the test set.
 An increase in output token efficiency alone is not evidence of lower latency.
 
+## Staged compression
+
+`hybrid` mode runs the latent loop, then generates the remaining text reasoning
+and answer. During training, `--reasoning-steps-to-drop` removes initial reasoning
+steps from the supervised continuation. It does not insert those steps into the
+prompt. For example, a first curriculum stage can replace one reasoning step with
+two latent positions:
+
+```sh
+.venv/bin/latent-gemma train \
+  --model ../work/models/gemma4 --data ../work/data/diagnostics \
+  --adapter ../work/runs/warmup/best --output ../work/runs/stage1 \
+  --modes cot hybrid --latent-steps 2 --reasoning-steps-to-drop 1 \
+  --steps 400 --batch-size 4 --learning-rate 0.00002
+.venv/bin/latent-gemma evaluate \
+  --model ../work/models/gemma4 --adapter ../work/runs/stage1/best \
+  --data ../work/data/diagnostics/validation.jsonl --mode hybrid \
+  --latent-steps 2 --max-tokens 96 --output ../work/runs/stage1-validation.jsonl
+```
+
+Each new training invocation resets Adam's state and records the source adapter.
+Arithmetic steps are the generated equations, link steps are graph edges, and
+GSM8K steps are nonempty lines in its worked solution. When every step is removed,
+the hybrid target contains only the answer delimiter and answer. Inference always
+uses only the question, with a fixed latent count; no gold reasoning is supplied.
+This follows the staged-compression idea in [Coconut](https://arxiv.org/html/2412.06769v2),
+with different model adaptation and boundary handling. Its accuracy benefits in
+this implementation still require measurement.
+
+## Public benchmark data
+
 ```sh
 .venv/bin/python scripts/prepare_gsm8k.py ../work/data/gsm8k
 ```
