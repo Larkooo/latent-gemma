@@ -126,3 +126,26 @@ Python skipped the editable-package `.pth` file because it carried macOS's hidde
 flag. Clearing that flag restored imports. Queued workers now set an explicit
 source path, so later flag changes do not break their child processes. No model
 update or inference result was produced by that failed invocation.
+
+## Transition and measurement follow-up
+
+An intermediate stage-1 checkpoint (step 200) was audited on ten validation
+examples. Four answers were correct, and one generation hit its 96-token cap.
+Failures included unrelated dates and repeated digit strings. This small audit
+ran alongside training; its timings are excluded from benchmark comparisons.
+The saved checkpoint and audit predictions remain in the local run directory.
+
+A controlled follow-up can add a fixed `Reasoning:` boundary between latent
+positions and generated text. Training masks the fixed prefix, concatenates its
+tokens separately to preserve the generation boundary, and supervises all
+remaining content. The original stage-1 run retains its no-boundary behavior.
+Tests check prefix alignment, masking, and absence of removed reasoning in the
+prompt. Old checkpoints default to the original behavior.
+
+New evaluations record warm end-to-end request time as well as model latency.
+Paired comparisons can select either field and reject missing, nonfinite, or
+nonpositive measurements. Old runs are not assigned invented end-to-end times.
+The updated CPU test suite passes 52 tests; formatting and lint checks pass.
+A real-tokenizer audit also passed on all 6,000 diagnostic and 6,973 GSM8K training
+examples: the fixed boundary matches inference, all remaining text tokens are
+supervised, content round-trips, and prompts are identical to the CoT prompts.

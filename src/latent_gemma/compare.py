@@ -13,7 +13,14 @@ def read_predictions(path: Path) -> list[dict]:
     return rows
 
 
-def compare(baseline: list[dict], candidate: list[dict], seed: int = 42) -> dict:
+def compare(
+    baseline: list[dict],
+    candidate: list[dict],
+    seed: int = 42,
+    latency_field: str = "latency_s",
+) -> dict:
+    if latency_field not in {"latency_s", "end_to_end_latency_s"}:
+        raise ValueError(f"Unknown latency field: {latency_field}")
     a = {x["id"]: x for x in baseline}
     b = {x["id"]: x for x in candidate}
     if not a or len(a) != len(baseline) or len(b) != len(candidate) or a.keys() != b.keys():
@@ -21,6 +28,10 @@ def compare(baseline: list[dict], candidate: list[dict], seed: int = 42) -> dict
     for key in a:
         if a[key]["answer"] != b[key]["answer"] or a[key]["task"] != b[key]["task"]:
             raise ValueError(f"Different targets for example {key}")
+        for row in (a[key], b[key]):
+            value = row.get(latency_field)
+            if not isinstance(value, (int, float)) or not np.isfinite(value) or value <= 0:
+                raise ValueError(f"Missing or invalid {latency_field} for example {key}")
     result = {}
     rng = np.random.default_rng(seed)
     tasks = ["overall", *sorted({x["task"] for x in baseline})]
@@ -30,9 +41,10 @@ def compare(baseline: list[dict], candidate: list[dict], seed: int = 42) -> dict
         bootstrap = np.array(
             [rng.choice(delta, len(delta), replace=True).mean() for _ in range(10000)]
         )
-        before_latency = np.array([a[k]["latency_s"] for k in keys])
-        after_latency = np.array([b[k]["latency_s"] for k in keys])
+        before_latency = np.array([a[k][latency_field] for k in keys])
+        after_latency = np.array([b[k][latency_field] for k in keys])
         result[task] = {
+            "latency_field": latency_field,
             "n": len(keys),
             "baseline_accuracy": float(np.mean([a[k]["correct"] for k in keys])),
             "candidate_accuracy": float(np.mean([b[k]["correct"] for k in keys])),

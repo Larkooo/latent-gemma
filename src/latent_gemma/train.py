@@ -13,7 +13,7 @@ import mlx.core as mx
 import mlx.nn as nn
 import mlx.optimizers as optim
 
-from .data import encode_example, read_examples
+from .data import encode_example, hybrid_boundary_text, read_examples
 from .model import parameter_counts, token_loss
 from .provenance import capture
 
@@ -28,12 +28,14 @@ def make_batch(records, pad_id: int):
     return prompts, targets, masks
 
 
-def encoded_buckets(tokenizer, examples, modes, reasoning_steps_to_drop=0):
+def encoded_buckets(tokenizer, examples, modes, reasoning_steps_to_drop=0, hybrid_boundary="none"):
     result = {}
     for mode in modes:
         buckets = defaultdict(list)
         for example in examples:
-            record = encode_example(tokenizer, example, mode, reasoning_steps_to_drop)
+            record = encode_example(
+                tokenizer, example, mode, reasoning_steps_to_drop, hybrid_boundary
+            )
             buckets[len(record[0])].append(record)
         result[mode] = list(buckets.values())
     return result
@@ -56,6 +58,7 @@ def train(
     log_every: int = 10,
     source_adapter: str | None = None,
     reasoning_steps_to_drop: int = 0,
+    hybrid_boundary: str = "none",
 ) -> dict:
     if output.exists():
         raise FileExistsError(f"Refusing to overwrite training run: {output}")
@@ -63,6 +66,7 @@ def train(
         raise ValueError("Choose direct, cot, latent, and/or hybrid training modes")
     if reasoning_steps_to_drop < 0:
         raise ValueError("reasoning_steps_to_drop must be nonnegative")
+    hybrid_boundary_text(hybrid_boundary)
     if steps <= 0 or batch_size <= 0 or eval_every <= 0 or log_every <= 0:
         raise ValueError("Training counts must be positive")
     output.mkdir(parents=True)
@@ -79,6 +83,7 @@ def train(
         "learning_rate": learning_rate,
         "latent_steps": latent_steps,
         "reasoning_steps_to_drop": reasoning_steps_to_drop,
+        "hybrid_boundary": hybrid_boundary,
         "modes": modes,
         "seed": seed,
         "eval_every": eval_every,
@@ -98,9 +103,12 @@ def train(
     ):
         raise ValueError("Training requires train/validation splits; never use test examples")
     print(json.dumps({"status": "encoding", **config}), flush=True)
-    buckets = encoded_buckets(tokenizer, examples, modes, reasoning_steps_to_drop)
+    buckets = encoded_buckets(tokenizer, examples, modes, reasoning_steps_to_drop, hybrid_boundary)
     val_records = {
-        mode: [encode_example(tokenizer, x, mode, reasoning_steps_to_drop) for x in validation[:32]]
+        mode: [
+            encode_example(tokenizer, x, mode, reasoning_steps_to_drop, hybrid_boundary)
+            for x in validation[:32]
+        ]
         for mode in modes
     }
     optimizer = optim.AdamW(learning_rate=learning_rate, weight_decay=0.0)

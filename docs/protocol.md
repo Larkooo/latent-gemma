@@ -6,6 +6,12 @@ Build a working continuous-activation reasoning implementation for Gemma, measur
 accuracy and performance, and prepare a technically justified ecosystem proposal.
 This is not an implementation or reproduction of Astra's undisclosed architecture.
 
+The acceptance target is to match the text-reasoning reference's answer accuracy
+while reducing time to the completed answer. Lower compute is a separate target:
+wall-clock speed, memory use, and operation count are not interchangeable. Report
+paired uncertainty rather than treating a small observed accuracy gap as proof of
+equivalence. Faster answers with materially worse accuracy do not pass.
+
 ## Mechanism
 
 Prompt -> transformer hidden state -> learned normalization/projection bridge ->
@@ -23,6 +29,12 @@ reproduce its exact training curriculum or results.
 - Select settings/checkpoints using validation only. Freeze settings before test.
 - Measure exact-answer accuracy, per-task counts, uncertainty, median/p95 latency,
   generated text tokens, latent positions, and peak memory. Synchronize GPU timing.
+- New runs measure both model latency (`latency_s`) and warm request latency
+  (`end_to_end_latency_s`). The latter includes prompt formatting/tokenization,
+  prompt prefill, latent computation, forced prefixes, generation through stop or
+  cap, detokenization, and answer extraction. Model loading, warmup, and external
+  serving/network overhead are excluded. Never substitute model latency when an
+  old run lacks the end-to-end field; rerun both sides for that comparison.
 - Compare accuracy versus measured latency, not just token counts. CoT has more
   text positions; latent positions still consume transformer computation.
 - Ablate latent states (zero, corrupted features, repeated first state). This
@@ -37,14 +49,38 @@ reproduce its exact training curriculum or results.
 Start with Gemma 3 270M on Apple Silicon to debug training and caching, then move
 to a larger checkpoint when the pipeline works. MLX supplies the existing model
 implementation and LoRA; custom code supplies only feedback, data, and experiments.
-The initial performance target is within two percentage points of the matched
-text-CoT baseline, with lower measured answer latency. Report uncertainty and
-failures even if this target is not reached. An implementation that works but
-does not retain useful accuracy is not a successful end state.
+The initial pilot used a two-percentage-point accuracy tolerance against the
+matched text-CoT baseline. The subsequently clarified objective above targets
+matching accuracy and improving latency; the earlier tolerance remains recorded
+for interpreting that historical pilot. Report uncertainty and failures even if
+the target is not reached. An implementation that works but does not retain
+useful accuracy is not a successful end state.
 
 Retain legible reasoning as an explicit alternative mode. Text explanations and
 activation probes are not assumed faithful or sufficient for oversight. Monitorability
 is a separate research question; this small experiment cannot establish safety.
+
+## Cost and compression hypotheses
+
+A useful approximation for a warm request is prompt-processing time plus
+`K * cost_per_latent_step + T * cost_per_text_step`, plus text preparation and
+decoding overhead. The two step costs need not be equal. Avoiding the vocabulary
+projection saves some work, but a full-transformer latent step remains expensive.
+Nominal transformer positions are a diagnostic counter, not a measured FLOP count;
+lazy execution can eliminate computations that do not affect the output.
+
+First test gradual replacement of text steps and a fixed transition back into
+text. Sweep latent count and retained text using validation, preserving a strong
+text reference and feedback ablations. A shortened text solution that works
+equally well without the latent state is not evidence of useful latent reasoning.
+
+If full-transformer recurrence becomes the limiting cost after accuracy is
+retained, investigate a smaller recurrent block and the adaptation it requires.
+Reusing only part of Gemma would change its computation and cache semantics;
+simply skipping pretrained layers does not establish a valid recurrent model.
+[Published recurrent-depth work](https://arxiv.org/abs/2502.05171) demonstrates
+training a shared internal block, with more recurrence spending more computation.
+It does not establish Astra's architecture or guarantee a faster Gemma conversion.
 
 ## Upstream path
 

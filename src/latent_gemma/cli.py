@@ -28,6 +28,7 @@ def main():
         cmd.add_argument("--lora-layers", type=int, default=6)
         cmd.add_argument("--rank", type=int, default=16)
         cmd.add_argument("--seed", type=int, default=42)
+        cmd.add_argument("--hybrid-boundary", choices=["none", "reasoning"])
         cmd.add_argument(
             "--compute-dtype", choices=["auto", "original", "float32", "bfloat16"], default="auto"
         )
@@ -69,10 +70,13 @@ def main():
         seed=args.seed,
         compute_dtype=args.compute_dtype,
     )
+    hybrid_boundary = args.hybrid_boundary or "none"
     if args.adapter:
         saved = json.loads((args.adapter / "config.json").read_text())
         config = AdapterConfig(**saved["adapter"])
         validate_adapter_model(saved, args.model)
+        if args.hybrid_boundary is None:
+            hybrid_boundary = saved.get("run", {}).get("hybrid_boundary", "none")
     model, tokenizer = load_model(args.model, config, args.adapter)
     if args.command == "train":
         result = train(
@@ -92,6 +96,7 @@ def main():
             args.log_every,
             str(args.adapter) if args.adapter else None,
             args.reasoning_steps_to_drop,
+            hybrid_boundary,
         )
         print(json.dumps(result))
     else:
@@ -121,6 +126,7 @@ def main():
             args.max_tokens,
             args.ablation,
             metadata,
+            hybrid_boundary,
         )
 
 

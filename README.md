@@ -82,6 +82,11 @@ for latency comparisons. See the [experiment log](docs/experiment-log.md) for
 the numerical and token-alignment failures that were corrected during development.
 Fix configuration choices on validation data before evaluating the test set.
 An increase in output token efficiency alone is not evidence of lower latency.
+New evaluations also record `end_to_end_latency_s`, from prompt formatting through
+final decoding and answer extraction on a warm model. Compare that field with
+`scripts/compare_runs.py --latency-field end_to_end_latency_s`; both prediction
+files must contain it. Historical `latency_s` excludes prompt preparation and final
+decoding. Neither measurement includes model loading or external serving overhead.
 
 ## Staged compression
 
@@ -111,6 +116,14 @@ uses only the question, with a fixed latent count; no gold reasoning is supplied
 This follows the staged-compression idea in [Coconut](https://arxiv.org/html/2412.06769v2),
 with different model adaptation and boundary handling. Its accuracy benefits in
 this implementation still require measurement.
+
+An optional `--hybrid-boundary reasoning` forces a fixed `\nReasoning: ` prefix
+after the latent loop, before generating the remaining reasoning. Its training
+tokens match generation exactly and are masked from the loss. This tests whether
+a familiar text transition helps decoding from continuous states; it does not
+supply an intermediate answer. The default is `none`. Evaluation inherits the
+checkpoint's recorded boundary unless explicitly overridden. Boundary tokens
+are included in timing and position counts. This option is experimental.
 
 ## Public benchmark data
 

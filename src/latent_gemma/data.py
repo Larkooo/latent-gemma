@@ -137,7 +137,21 @@ def remaining_reasoning(example: Example, steps_to_drop: int) -> str:
     raise ValueError(f"No reasoning-step annotation policy for {example.task}")
 
 
-def encode_example(tokenizer, example: Example, mode: str, reasoning_steps_to_drop: int = 0):
+def hybrid_boundary_text(boundary: str) -> str:
+    if boundary == "none":
+        return ""
+    if boundary == "reasoning":
+        return "\nReasoning: "
+    raise ValueError(f"Unknown hybrid boundary: {boundary}")
+
+
+def encode_example(
+    tokenizer,
+    example: Example,
+    mode: str,
+    reasoning_steps_to_drop: int = 0,
+    hybrid_boundary: str = "none",
+):
     if mode not in {"direct", "cot", "latent", "hybrid"}:
         raise ValueError(f"Unknown mode: {mode}")
     prompt = tokenizer.encode(prompt_text(tokenizer, example), add_special_tokens=False)
@@ -148,8 +162,14 @@ def encode_example(tokenizer, example: Example, mode: str, reasoning_steps_to_dr
             if mode == "hybrid"
             else example.reasoning
         )
-        ids = tokenizer.encode(reasoning + suffix + example.answer, add_special_tokens=False)
-        prefix_len = 0
+        prefix = tokenizer.encode(
+            hybrid_boundary_text(hybrid_boundary) if mode == "hybrid" else "",
+            add_special_tokens=False,
+        )
+        ids = prefix + tokenizer.encode(
+            reasoning + suffix + example.answer, add_special_tokens=False
+        )
+        prefix_len = len(prefix)
     else:
         # Match the decoder's forced prefix exactly. Encoding the concatenated
         # string can merge its trailing space with the first answer token and
