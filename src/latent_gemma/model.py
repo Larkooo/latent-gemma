@@ -25,6 +25,7 @@ class AdapterConfig:
     num_layers: int = 0
     bridge_rank: int = 64
     seed: int = 42
+    compute_dtype: str = "auto"
 
 
 class FeedbackBridge(nn.Module):
@@ -51,6 +52,16 @@ class LatentModel(nn.Module):
             raise ValueError(f"Unsupported backbone: {backbone.model_type}")
         self.backbone = backbone
         self.config = config
+        dtype = config.compute_dtype
+        if dtype == "auto":
+            dtype = "float32" if backbone.model_type.startswith("gemma4") else "original"
+        if dtype not in {"original", "float32", "bfloat16"}:
+            raise ValueError(f"Unsupported compute dtype: {dtype}")
+        if dtype != "original":
+            # Quantized weight storage stays quantized. Float32 avoids observed
+            # nonfinite backward passes through recurrent Gemma 4 activations.
+            backbone.set_dtype(getattr(mx, dtype))
+        self.compute_dtype = dtype
         self.hidden_size = self.language_model.args.hidden_size
         # Never guess the embedding scale from hidden size: Gemma additionally
         # scales inputs internally. The bridge returns UNscaled embeddings.
@@ -154,7 +165,11 @@ class LatentModel(nn.Module):
         directory.mkdir(parents=True, exist_ok=True)
         weights = dict(tree_flatten(self.trainable_parameters()))
         mx.save_safetensors(str(directory / "adapter.safetensors"), weights)
-        data = {"adapter": asdict(self.config), **metadata}
+        data = {
+            "adapter": asdict(self.config),
+            "resolved_compute_dtype": self.compute_dtype,
+            **metadata,
+        }
         (directory / "config.json").write_text(json.dumps(data, indent=2) + "\n")
 
 

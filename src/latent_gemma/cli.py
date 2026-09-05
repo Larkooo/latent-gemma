@@ -28,6 +28,9 @@ def main():
         cmd.add_argument("--lora-layers", type=int, default=6)
         cmd.add_argument("--rank", type=int, default=16)
         cmd.add_argument("--seed", type=int, default=42)
+        cmd.add_argument(
+            "--compute-dtype", choices=["auto", "original", "float32", "bfloat16"], default="auto"
+        )
         if name == "train":
             cmd.add_argument("--data", type=Path, required=True)
             cmd.add_argument("--steps", type=int, default=500)
@@ -55,7 +58,12 @@ def main():
             )
         )
         return
-    config = AdapterConfig(num_layers=args.lora_layers, rank=args.rank, seed=args.seed)
+    config = AdapterConfig(
+        num_layers=args.lora_layers,
+        rank=args.rank,
+        seed=args.seed,
+        compute_dtype=args.compute_dtype,
+    )
     if args.adapter:
         saved = json.loads((args.adapter / "config.json").read_text())
         config = AdapterConfig(**saved["adapter"])

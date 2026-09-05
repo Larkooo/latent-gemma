@@ -2,6 +2,7 @@
 
 import hashlib
 import json
+import math
 import random
 import time
 from collections import defaultdict
@@ -111,17 +112,26 @@ def train(
             model.train()
             loss, grads = loss_and_grad(model, *batch, k)
             grads, norm = optim.clip_grad_norm(grads, max_norm=1.0)
+            mx.eval(loss, norm)
+            value, gradient_norm = loss.item(), norm.item()
+            if not math.isfinite(value) or not math.isfinite(gradient_norm):
+                failure = {
+                    "step": step,
+                    "mode": mode,
+                    "loss": str(value),
+                    "gradient_norm": str(gradient_norm),
+                    "updated": False,
+                }
+                (output / "failure.json").write_text(json.dumps(failure, indent=2) + "\n")
+                raise FloatingPointError(f"Nonfinite loss or gradient before update: {failure}")
             optimizer.update(model, grads)
             mx.eval(loss, norm, model.parameters(), optimizer.state)
-            value = loss.item()
-            if not (value < float("inf")):
-                raise FloatingPointError(f"Nonfinite loss at step {step}: {value}")
             if step % log_every == 0 or step == 1:
                 row = {
                     "step": step,
                     "mode": mode,
                     "loss": value,
-                    "grad_norm": norm.item(),
+                    "grad_norm": gradient_norm,
                     "elapsed_s": time.perf_counter() - started,
                     "peak_memory_bytes": mx.get_peak_memory(),
                 }
