@@ -236,3 +236,15 @@ a general reasoning improvement. The timing comparison now also reports paired
 bootstrap intervals for speed ratios and the fraction of questions answered
 faster. Repeated measurements remain necessary because bootstrap intervals alone
 cannot remove hardware-session drift.
+
+The completed fixed-boundary matrix adds 90/100 for hybrid inference with zero
+latent positions. The normal path's six-point advantage has a paired bootstrap
+interval reported in the [frozen report](../reports/curriculum-boundary-stage1/README.md),
+along with every prediction and the other controls. This inference ablation is
+distinct from independently training a zero-latent model.
+
+The real warmup checkpoint was successfully expanded from six to 35 LoRA layers,
+increasing trainable parameters from 2,342,913 to 11,378,689. Fixed-prompt probes
+with zero and two latent steps had exactly unchanged logits (maximum difference
+0.0) after adding the zero-output branches. This prepares training in earlier
+attention-cache writers; it does not establish an accuracy or latency improvement.

@@ -1,0 +1,7 @@
+run,correct,n,mean_generated_tokens,truncated
+cot,99,100,22.07,0
+hybrid,96,100,15.64,0
+zero,93,100,15.71,0
+shuffle,90,100,16.51,1
+repeat,86,100,19.07,4
+hybrid-k0,90,100,18.39,0

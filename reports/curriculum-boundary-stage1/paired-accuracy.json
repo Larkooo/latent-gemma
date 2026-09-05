@@ -1,0 +1,222 @@
+{
+  "cot__hybrid": {
+    "baseline": "cot",
+    "candidate": "hybrid",
+    "baseline_sha256": "500636ed99ff4260ba1507e39c108eddd4886b8a66a85ff5635e7f57c9e49421",
+    "candidate_sha256": "7fb5c343851355fffa3a3e2333f25849b0019345ebd04d89090ba27da028b20e",
+    "accuracy": {
+      "overall": {
+        "n": 100,
+        "baseline_accuracy": 0.99,
+        "candidate_accuracy": 0.96,
+        "accuracy_delta": -0.03,
+        "paired_delta_ci95": [
+          -0.08,
+          0.01
+        ],
+        "candidate_only_correct": 1,
+        "baseline_only_correct": 4
+      },
+      "arithmetic": {
+        "n": 53,
+        "baseline_accuracy": 0.9811320754716981,
+        "candidate_accuracy": 0.9245283018867925,
+        "accuracy_delta": -0.05660377358490566,
+        "paired_delta_ci95": [
+          -0.1320754716981132,
+          0.018867924528301886
+        ],
+        "candidate_only_correct": 1,
+        "baseline_only_correct": 4
+      },
+      "links": {
+        "n": 47,
+        "baseline_accuracy": 1.0,
+        "candidate_accuracy": 1.0,
+        "accuracy_delta": 0.0,
+        "paired_delta_ci95": [
+          0.0,
+          0.0
+        ],
+        "candidate_only_correct": 0,
+        "baseline_only_correct": 0
+      }
+    }
+  },
+  "zero__hybrid": {
+    "baseline": "zero",
+    "candidate": "hybrid",
+    "baseline_sha256": "6a5c95720fc28c2f1d06fccd728874b5b3d0af000ff3537625019ce723edf8c7",
+    "candidate_sha256": "7fb5c343851355fffa3a3e2333f25849b0019345ebd04d89090ba27da028b20e",
+    "accuracy": {
+      "overall": {
+        "n": 100,
+        "baseline_accuracy": 0.93,
+        "candidate_accuracy": 0.96,
+        "accuracy_delta": 0.03,
+        "paired_delta_ci95": [
+          -0.03,
+          0.09
+        ],
+        "candidate_only_correct": 6,
+        "baseline_only_correct": 3
+      },
+      "arithmetic": {
+        "n": 53,
+        "baseline_accuracy": 0.8679245283018868,
+        "candidate_accuracy": 0.9245283018867925,
+        "accuracy_delta": 0.05660377358490566,
+        "paired_delta_ci95": [
+          -0.05660377358490566,
+          0.16981132075471697
+        ],
+        "candidate_only_correct": 6,
+        "baseline_only_correct": 3
+      },
+      "links": {
+        "n": 47,
+        "baseline_accuracy": 1.0,
+        "candidate_accuracy": 1.0,
+        "accuracy_delta": 0.0,
+        "paired_delta_ci95": [
+          0.0,
+          0.0
+        ],
+        "candidate_only_correct": 0,
+        "baseline_only_correct": 0
+      }
+    }
+  },
+  "shuffle__hybrid": {
+    "baseline": "shuffle",
+    "candidate": "hybrid",
+    "baseline_sha256": "dad4cd4cc27542b4237b72c0264ea6d3c8e85b835ace0681007ef44f272ff848",
+    "candidate_sha256": "7fb5c343851355fffa3a3e2333f25849b0019345ebd04d89090ba27da028b20e",
+    "accuracy": {
+      "overall": {
+        "n": 100,
+        "baseline_accuracy": 0.9,
+        "candidate_accuracy": 0.96,
+        "accuracy_delta": 0.06,
+        "paired_delta_ci95": [
+          -0.01,
+          0.13
+        ],
+        "candidate_only_correct": 9,
+        "baseline_only_correct": 3
+      },
+      "arithmetic": {
+        "n": 53,
+        "baseline_accuracy": 0.8113207547169812,
+        "candidate_accuracy": 0.9245283018867925,
+        "accuracy_delta": 0.11320754716981132,
+        "paired_delta_ci95": [
+          0.0,
+          0.24528301886792453
+        ],
+        "candidate_only_correct": 9,
+        "baseline_only_correct": 3
+      },
+      "links": {
+        "n": 47,
+        "baseline_accuracy": 1.0,
+        "candidate_accuracy": 1.0,
+        "accuracy_delta": 0.0,
+        "paired_delta_ci95": [
+          0.0,
+          0.0
+        ],
+        "candidate_only_correct": 0,
+        "baseline_only_correct": 0
+      }
+    }
+  },
+  "repeat__hybrid": {
+    "baseline": "repeat",
+    "candidate": "hybrid",
+    "baseline_sha256": "f1f97b0d2bc330568e55c540ab12ff5f55ba84b91c7662671f19d5556be76709",
+    "candidate_sha256": "7fb5c343851355fffa3a3e2333f25849b0019345ebd04d89090ba27da028b20e",
+    "accuracy": {
+      "overall": {
+        "n": 100,
+        "baseline_accuracy": 0.86,
+        "candidate_accuracy": 0.96,
+        "accuracy_delta": 0.1,
+        "paired_delta_ci95": [
+          0.03,
+          0.17
+        ],
+        "candidate_only_correct": 12,
+        "baseline_only_correct": 2
+      },
+      "arithmetic": {
+        "n": 53,
+        "baseline_accuracy": 0.7358490566037735,
+        "candidate_accuracy": 0.9245283018867925,
+        "accuracy_delta": 0.18867924528301888,
+        "paired_delta_ci95": [
+          0.05660377358490566,
+          0.32075471698113206
+        ],
+        "candidate_only_correct": 12,
+        "baseline_only_correct": 2
+      },
+      "links": {
+        "n": 47,
+        "baseline_accuracy": 1.0,
+        "candidate_accuracy": 1.0,
+        "accuracy_delta": 0.0,
+        "paired_delta_ci95": [
+          0.0,
+          0.0
+        ],
+        "candidate_only_correct": 0,
+        "baseline_only_correct": 0
+      }
+    }
+  },
+  "hybrid-k0__hybrid": {
+    "baseline": "hybrid-k0",
+    "candidate": "hybrid",
+    "baseline_sha256": "cbb5bae63f4ce42efea14fbc98eb07093d8ec61bddc1175096b6358600801ee0",
+    "candidate_sha256": "7fb5c343851355fffa3a3e2333f25849b0019345ebd04d89090ba27da028b20e",
+    "accuracy": {
+      "overall": {
+        "n": 100,
+        "baseline_accuracy": 0.9,
+        "candidate_accuracy": 0.96,
+        "accuracy_delta": 0.06,
+        "paired_delta_ci95": [
+          -0.01,
+          0.13
+        ],
+        "candidate_only_correct": 9,
+        "baseline_only_correct": 3
+      },
+      "arithmetic": {
+        "n": 53,
+        "baseline_accuracy": 0.8113207547169812,
+        "candidate_accuracy": 0.9245283018867925,
+        "accuracy_delta": 0.11320754716981132,
+        "paired_delta_ci95": [
+          0.0,
+          0.24528301886792453
+        ],
+        "candidate_only_correct": 9,
+        "baseline_only_correct": 3
+      },
+      "links": {
+        "n": 47,
+        "baseline_accuracy": 1.0,
+        "candidate_accuracy": 1.0,
+        "accuracy_delta": 0.0,
+        "paired_delta_ci95": [
+          0.0,
+          0.0
+        ],
+        "candidate_only_correct": 0,
+        "baseline_only_correct": 0
+      }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "diagnostic_candidate_min_correct": 96,
+  "diagnostic_examples": 100,
+  "accepted_by_user": true,
+  "scope": "The user accepts the current 96/100 diagnostic pilot as a useful quality milestone. Continue latency, mechanism, broader-benchmark, and improvement work; this is not a universal accuracy tolerance."
+}

@@ -11,7 +11,8 @@ a fixed text boundary and remaining text reasoning scored 96/100, versus 99/100
 for the warmup text-reasoning reference. This is a hybrid of latent and text
 reasoning. Repeated latency measurements, matched shortened-text controls, and
 public-benchmark checks remain necessary before claiming a useful performance gain.
-See the [experiment log](docs/experiment-log.md) for current evidence and limitations.
+See the [fixed-boundary report](reports/curriculum-boundary-stage1/README.md) for
+the complete accuracy matrix, raw predictions, and limitations.
 
 Earlier recipes are preserved: [direct compression](reports/pilot-v2/README.md)
 scored 80/100 and the [initial staged recipe](reports/curriculum-stage1/README.md)

@@ -1,0 +1,77 @@
+{
+  "adapter": {
+    "rank": 16,
+    "scale": 16.0,
+    "num_layers": 6,
+    "bridge_rank": 64,
+    "seed": 42,
+    "compute_dtype": "auto"
+  },
+  "resolved_compute_dtype": "float32",
+  "model_path": "$EXPERIMENT_ROOT/work/models/gemma-4-e2b-it-4bit",
+  "run": {
+    "model_path": "$EXPERIMENT_ROOT/work/models/gemma-4-e2b-it-4bit",
+    "source_adapter": "$EXPERIMENT_ROOT/work/runs/gemma4-warmup-v2/best",
+    "train_path": "$EXPERIMENT_ROOT/work/data/diagnostics/train.jsonl",
+    "validation_path": "$EXPERIMENT_ROOT/work/data/diagnostics/validation.jsonl",
+    "train_sha256": "10c2357b3c0d630c1049cbab47984a93efb7620a8be68bad854b42ea60cf9a1f",
+    "validation_sha256": "672eec8aa54778f765b2476f7a62c2ebab1e1321f2f394f3a4463f7a3fa39c6f",
+    "steps": 400,
+    "batch_size": 4,
+    "learning_rate": 2e-05,
+    "latent_steps": 2,
+    "reasoning_steps_to_drop": 1,
+    "hybrid_boundary": "reasoning",
+    "modes": [
+      "cot",
+      "hybrid"
+    ],
+    "seed": 42,
+    "eval_every": 100,
+    "adapter": {
+      "rank": 16,
+      "scale": 16.0,
+      "num_layers": 6,
+      "bridge_rank": 64,
+      "seed": 42,
+      "compute_dtype": "auto"
+    },
+    "parameters": {
+      "total": 4628765953,
+      "trainable": 2342913
+    },
+    "provenance": {
+      "python": "3.12.13 (main, Apr  7 2026, 21:09:58) [Clang 22.1.1 ]",
+      "platform": "macOS-26.4.1-arm64-arm-64bit",
+      "machine": "arm64",
+      "packages": {
+        "mlx": "0.32.2",
+        "mlx-lm": "0.31.3",
+        "numpy": "2.5.2",
+        "transformers": "5.16.1"
+      },
+      "source_sha256": {
+        "__init__.py": "b9acdadbad7a99f06ebfdbd37f407a09fe362d8cd9696c260bd206b1b53db78e",
+        "cli.py": "19abbc0fb77412d6559dfc5b8169911ef788613b23e846aa5f7716fc5d1d4320",
+        "compare.py": "386a9093c7588508b1de7a8dcf17ae67e2d056d938d195ae6b3c2a4225428721",
+        "data.py": "2f2c5a7ec543aede7bad3df5a8301054ade8d2a12b3844b494cac46332754840",
+        "evaluate.py": "84f43a2aa1e527f9918dd2fb9b50a7e1ade253dcd3f88bed06ecd266d08f04d4",
+        "model.py": "e5b60c7401849cf32c309bd8d3d37d8effea5bec674bd0480710c59cfb238d3a",
+        "provenance.py": "d22c50c3dc170f7cd4534019960d2f866f05da6d31b0ce43df8676cd4a744e02",
+        "train.py": "86b7b8144242a669fffcfed84cd1d0710a9835be1dd822347e3bd649f73e0a52"
+      },
+      "model_config_sha256": "6397cb6eca41b911d1dcab74e17941351057bd759284052a2331918ff6f9246c",
+      "model_source": {
+        "repo": "mlx-community/gemma-4-e2b-it-4bit",
+        "revision": "238767527555cb75a05732a84dff5d6ba0dd6809"
+      },
+      "adapter_sha256": "9b7b42239d965a1a4759523f4e4663edfe4c12613a03996873cfa87f3ddee68f"
+    }
+  },
+  "step": 300,
+  "validation_losses": {
+    "cot": 0.004155756069896821,
+    "hybrid": 0.011134933691934634
+  },
+  "report_source_directory": "sources/3fca1039c022ae2c"
+}
