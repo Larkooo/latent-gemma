@@ -1,0 +1,20 @@
+{
+  "seed": 20260905,
+  "sizes": {
+    "train": 6000,
+    "validation": 400,
+    "test": 600,
+    "ood": 400
+  },
+  "sha256": {
+    "train": "10c2357b3c0d630c1049cbab47984a93efb7620a8be68bad854b42ea60cf9a1f",
+    "validation": "672eec8aa54778f765b2476f7a62c2ebab1e1321f2f394f3a4463f7a3fa39c6f",
+    "test": "ac271ba1bd9888a7e9a0c8d4fc23b4e350b88ab087afa60f6536c0dbdee114b2",
+    "ood": "b6f08287237c5d6203166e02ac530ba90e93f2bcf9ebae845fe81a2bea03888c"
+  },
+  "generator_version": 1,
+  "tasks": [
+    "arithmetic",
+    "links"
+  ]
+}

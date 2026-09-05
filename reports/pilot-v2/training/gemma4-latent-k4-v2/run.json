@@ -1,0 +1,58 @@
+{
+  "model_path": "work/models/gemma-4-e2b-it-4bit",
+  "source_adapter": "work/runs/gemma4-warmup-v2/best",
+  "train_path": "work/data/diagnostics/train.jsonl",
+  "validation_path": "work/data/diagnostics/validation.jsonl",
+  "train_sha256": "10c2357b3c0d630c1049cbab47984a93efb7620a8be68bad854b42ea60cf9a1f",
+  "validation_sha256": "672eec8aa54778f765b2476f7a62c2ebab1e1321f2f394f3a4463f7a3fa39c6f",
+  "steps": 600,
+  "batch_size": 4,
+  "learning_rate": 2e-05,
+  "latent_steps": 4,
+  "modes": [
+    "direct",
+    "cot",
+    "latent"
+  ],
+  "seed": 42,
+  "eval_every": 100,
+  "adapter": {
+    "rank": 16,
+    "scale": 16.0,
+    "num_layers": 6,
+    "bridge_rank": 64,
+    "seed": 42,
+    "compute_dtype": "auto"
+  },
+  "parameters": {
+    "total": 4628765953,
+    "trainable": 2342913
+  },
+  "provenance": {
+    "python": "3.12.13 (main, Apr  7 2026, 21:09:58) [Clang 22.1.1 ]",
+    "platform": "macOS-26.4.1-arm64-arm-64bit",
+    "machine": "arm64",
+    "packages": {
+      "mlx": "0.32.2",
+      "mlx-lm": "0.31.3",
+      "numpy": "2.5.2",
+      "transformers": "5.16.1"
+    },
+    "source_sha256": {
+      "__init__.py": "b9acdadbad7a99f06ebfdbd37f407a09fe362d8cd9696c260bd206b1b53db78e",
+      "cli.py": "c8e76aafc179d580740e6fbbbfdbd3be268d758f7ac766e2c69e1d21d72aeb6e",
+      "compare.py": "2dff8fd4463a2367f603ec4ccf1a07a7037848613fd10d70ae63ba4e3c8075e2",
+      "data.py": "17ec82472516a3c20b9ddfd4e9725853db56dfd20b5b1347b87494ea728ad9a1",
+      "evaluate.py": "db8266fe16be2cf379b320f17eb31f4609c0522fe78f80178230d857df10fbdc",
+      "model.py": "e5b60c7401849cf32c309bd8d3d37d8effea5bec674bd0480710c59cfb238d3a",
+      "provenance.py": "d22c50c3dc170f7cd4534019960d2f866f05da6d31b0ce43df8676cd4a744e02",
+      "train.py": "acbf0f4ce8610196a3ba7f0db2c0361f84e44bc7f3b739301fc485ebb7c193e5"
+    },
+    "model_config_sha256": "6397cb6eca41b911d1dcab74e17941351057bd759284052a2331918ff6f9246c",
+    "model_source": {
+      "repo": "mlx-community/gemma-4-e2b-it-4bit",
+      "revision": "238767527555cb75a05732a84dff5d6ba0dd6809"
+    },
+    "adapter_sha256": "9b7b42239d965a1a4759523f4e4663edfe4c12613a03996873cfa87f3ddee68f"
+  }
+}

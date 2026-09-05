@@ -5,8 +5,11 @@ bridge feeds transformer hidden states back as input embeddings for a configurab
 number of steps, then the model generates an answer. Latent steps do not sample
 tokens or project states into vocabulary logits.
 
-**Status: experiments in progress.** Correctness checks pass on small Gemma 3 and
-Gemma 4 architectures. Accuracy and speed improvements have not been established.
+**Status: experiments in progress; the first direct-compression recipe failed.**
+On 100 diagnostic validation examples, text reasoning scored 99/100 and four
+latent steps scored 80/100. Zeroed feedback scored 81/100, so useful feedback has
+not been demonstrated. See the [pilot report and raw results](reports/pilot-v2/README.md).
+Correctness checks pass on small Gemma 3 and Gemma 4 architectures.
 This project does not reproduce Astra's undisclosed architecture.
 
 ## Scope
@@ -34,6 +37,12 @@ uv venv --python 3.12
 uv pip install -e '.[dev]'
 .venv/bin/python -m pytest -q
 ```
+
+On macOS, Python ignores `.pth` files carrying the filesystem hidden flag. If an
+editable install unexpectedly cannot be imported, inspect the virtualenv's
+editable `.pth` file with `ls -lO` and clear that flag with `chflags nohidden` on
+that file, or launch with `PYTHONPATH=/absolute/path/to/this/repo/src`. This issue
+interrupted an experiment queue; setting its source path explicitly fixed it.
 
 ## Reproduce a diagnostic experiment
 

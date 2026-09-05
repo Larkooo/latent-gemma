@@ -1,0 +1,37 @@
+{"step": 1, "mode": "direct", "loss": 6.094463060435373e-06, "grad_norm": 0.0039331126026809216, "elapsed_s": 0.546332958037965, "peak_memory_bytes": 3887091684}
+{"step": 20, "mode": "cot", "loss": 9.663967830420006e-06, "grad_norm": 0.005118562839925289, "elapsed_s": 12.351175583084114, "peak_memory_bytes": 4490599372}
+{"step": 40, "mode": "direct", "loss": 1.1271767616271973, "grad_norm": 11.144915580749512, "elapsed_s": 24.664030750049278, "peak_memory_bytes": 4535213484}
+{"step": 60, "mode": "latent", "loss": 0.22808332741260529, "grad_norm": 24352.51171875, "elapsed_s": 44.53949683299288, "peak_memory_bytes": 4535213484}
+{"step": 80, "mode": "cot", "loss": 7.189801635831827e-06, "grad_norm": 0.0016972487792372704, "elapsed_s": 69.87820554210339, "peak_memory_bytes": 4535213484}
+{"step": 100, "mode": "direct", "loss": 8.195625582629873e-07, "grad_norm": 0.00035586513695307076, "elapsed_s": 86.94047654198948, "peak_memory_bytes": 4535213484}
+{"step": 100, "validation_loss": {"direct": 0.2697058039219854, "cot": 0.0010358352854211716, "latent": 0.2427351727340915}, "best_loss": 0.2427351727340915}
+{"step": 120, "mode": "latent", "loss": 0.2464890480041504, "grad_norm": 52379.1875, "elapsed_s": 132.71494879201055, "peak_memory_bytes": 4535213536}
+{"step": 140, "mode": "cot", "loss": 0.0008733891299925745, "grad_norm": 0.06508781760931015, "elapsed_s": 148.9209467500914, "peak_memory_bytes": 4535213536}
+{"step": 160, "mode": "direct", "loss": 0.0002243366907350719, "grad_norm": 0.07696454972028732, "elapsed_s": 178.66998175007757, "peak_memory_bytes": 4535213536}
+{"step": 180, "mode": "latent", "loss": 0.0001642376446397975, "grad_norm": 0.9803932905197144, "elapsed_s": 201.87197908305097, "peak_memory_bytes": 4535213536}
+{"step": 200, "mode": "cot", "loss": 0.00014343438670039177, "grad_norm": 0.009533906355500221, "elapsed_s": 233.10237437509932, "peak_memory_bytes": 4535213536}
+{"step": 200, "validation_loss": {"direct": 0.22270334450099938, "cot": 0.003940328962130479, "latent": 0.22823112688375957}, "best_loss": 0.22823112688375957}
+{"step": 220, "mode": "direct", "loss": 0.006964284460991621, "grad_norm": 1.3942418098449707, "elapsed_s": 280.26896304206457, "peak_memory_bytes": 4535213536}
+{"step": 240, "mode": "latent", "loss": 0.00013088925334159285, "grad_norm": 3.3399999141693115, "elapsed_s": 294.450597750023, "peak_memory_bytes": 4535213536}
+{"step": 260, "mode": "cot", "loss": 0.00020853764726780355, "grad_norm": 0.015233256854116917, "elapsed_s": 320.77250337507576, "peak_memory_bytes": 4535213536}
+{"step": 280, "mode": "direct", "loss": 0.12520623207092285, "grad_norm": 5.424507141113281, "elapsed_s": 342.3153650420718, "peak_memory_bytes": 4535213536}
+{"step": 300, "mode": "latent", "loss": 1.2085273265838623, "grad_norm": 8560.5908203125, "elapsed_s": 368.8697534170933, "peak_memory_bytes": 4535213536}
+{"step": 300, "validation_loss": {"direct": 0.2950238094338893, "cot": 0.0017144839102911646, "latent": 0.2657654547821977}, "best_loss": 0.22823112688375957}
+{"step": 320, "mode": "cot", "loss": 0.00013205317372921854, "grad_norm": 0.015059088356792927, "elapsed_s": 411.60936541703995, "peak_memory_bytes": 4535213536}
+{"step": 340, "mode": "direct", "loss": 0.4890880882740021, "grad_norm": 11.411308288574219, "elapsed_s": 435.6722057920415, "peak_memory_bytes": 4535213536}
+{"step": 360, "mode": "latent", "loss": 1.3485090676113032e-05, "grad_norm": 0.0751781091094017, "elapsed_s": 461.68324345804285, "peak_memory_bytes": 4535213536}
+{"step": 380, "mode": "cot", "loss": 3.866343467961997e-05, "grad_norm": 0.0026868029963225126, "elapsed_s": 479.489689417067, "peak_memory_bytes": 4535213536}
+{"step": 400, "mode": "direct", "loss": 0.0016279028495773673, "grad_norm": 0.4264391362667084, "elapsed_s": 497.6218647080241, "peak_memory_bytes": 4535213536}
+{"step": 400, "validation_loss": {"direct": 0.2490781319712525, "cot": 0.00306425735290361, "latent": 0.20842508744819765}, "best_loss": 0.20842508744819765}
+{"step": 420, "mode": "latent", "loss": 0.5163667798042297, "grad_norm": 1171.2205810546875, "elapsed_s": 531.7938069170341, "peak_memory_bytes": 4535213536}
+{"step": 440, "mode": "cot", "loss": 6.0767470131395385e-05, "grad_norm": 0.00891913939267397, "elapsed_s": 565.5715572499903, "peak_memory_bytes": 4535213536}
+{"step": 460, "mode": "direct", "loss": 0.0011814729077741504, "grad_norm": 0.36223822832107544, "elapsed_s": 593.3363167500356, "peak_memory_bytes": 4535213536}
+{"step": 480, "mode": "latent", "loss": 0.08170215040445328, "grad_norm": 332893.0, "elapsed_s": 617.9374179580482, "peak_memory_bytes": 4535213536}
+{"step": 500, "mode": "cot", "loss": 0.0016671378398314118, "grad_norm": 1.3170238733291626, "elapsed_s": 638.3537977500819, "peak_memory_bytes": 4535213536}
+{"step": 500, "validation_loss": {"direct": 0.19826628000395918, "cot": 0.003472003064750595, "latent": 0.19307074254254863}, "best_loss": 0.19307074254254863}
+{"step": 520, "mode": "direct", "loss": 0.7495490312576294, "grad_norm": 7.823272705078125, "elapsed_s": 678.5285391670186, "peak_memory_bytes": 4535213536}
+{"step": 540, "mode": "latent", "loss": 0.03352281451225281, "grad_norm": 2320.988525390625, "elapsed_s": 700.8872882500291, "peak_memory_bytes": 4535213536}
+{"step": 560, "mode": "cot", "loss": 0.00036899425322189927, "grad_norm": 0.05424868315458298, "elapsed_s": 721.545259167091, "peak_memory_bytes": 4535213536}
+{"step": 580, "mode": "direct", "loss": 0.798820972442627, "grad_norm": 12.702672958374023, "elapsed_s": 742.4604100420838, "peak_memory_bytes": 4535213536}
+{"step": 600, "mode": "latent", "loss": 0.10240928828716278, "grad_norm": 11436.7880859375, "elapsed_s": 763.1135105000576, "peak_memory_bytes": 4535213536}
+{"step": 600, "validation_loss": {"direct": 0.21819643533150068, "cot": 0.0016381855271987433, "latent": 0.20824747844058344}, "best_loss": 0.19307074254254863}

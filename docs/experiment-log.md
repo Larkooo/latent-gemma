@@ -100,6 +100,25 @@ been evaluated. Failed experiments remain part of the record.
 
 ## Remaining experiments
 
-Validation generation, activation ablations, training-budget controls, staged
-compression if needed, a public reasoning benchmark, and a frozen final test
-evaluation remain necessary before claiming success.
+The completed 100-example matrix rejects the direct-compression recipe. Text
+reasoning scored 99/100 in both fine-tuned checkpoints; latent K=4 scored 80/100,
+compared with 77/100 in the same checkpoint's direct mode, 81/100 with zeroed
+feedback, 78/100 with reversed features, and 80/100 with repeated initial feedback.
+See [the pilot report](../reports/pilot-v2/README.md) for timings, paired intervals,
+raw predictions, source snapshots, and limitations. Test and OOD remain untouched.
+
+The additional float32 native-thinking baseline scored 39/40 at a 512-token cap,
+with one truncation, versus 40/40 for the earlier original-bfloat16 pilot. These
+are different numerical computations and should not be merged into one result.
+
+Next is staged compression: start from the corrected warmup checkpoint, use two
+latent positions to replace the first annotated reasoning step, and train 400
+updates alternating CoT/hybrid modes. The ordinary-chat baseline runs first.
+Public-benchmark evaluation is deferred until this next candidate is evaluated;
+it remains required, along with matched training controls and frozen final tests.
+
+An environment issue interrupted the queue before the ordinary-chat model loaded:
+Python skipped the editable-package `.pth` file because it carried macOS's hidden
+flag. Clearing that flag restored imports. Queued workers now set an explicit
+source path, so later flag changes do not break their child processes. No model
+update or inference result was produced by that failed invocation.
