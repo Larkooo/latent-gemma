@@ -77,18 +77,26 @@ been evaluated. Failed experiments remain part of the record.
   hash exactly.
 - Gemma 4 cached feedback gradients agree with full-sequence recomputation to
   relative vector error below 1e-4 on the small float32 test architecture. Causal
-  target alignment also passes with shared KV layers. The suite now has 42 tests.
+  target alignment also passes with shared KV layers. The suite now has 43 tests.
 - `gemma4-warmup-v2` completed 400 updates, batch size 4, learning rate 2e-5,
   alternating direct/CoT modes. Its selected checkpoint is step 400, with mean
   validation token losses 0.22037 (direct) and 0.00166 (CoT). Elapsed training plus
   periodic validation was 356.90 seconds. These are losses, not accuracy results.
-- `gemma4-latent-k4-v2` continues from that checkpoint for 600 planned updates,
-  alternating direct/CoT/latent modes. Gradients remain finite but can have very
-  large norms before clipping. Accuracy and activation ablations are queued.
+- `gemma4-latent-k4-v2` completed 600 updates from that checkpoint, alternating
+  direct/CoT/latent modes. Selected checkpoint: step 500, latent validation token
+  loss 0.19307. Elapsed training plus periodic validation: 783.08 seconds. Gradients
+  remained finite but reached very large norms before clipping. Accuracy and
+  activation ablations are running; those results determine usefulness.
 - A separate staged-compression path is implemented: `hybrid` decoding runs
   continuous steps and then generates remaining text reasoning. Training can
   remove initial annotated reasoning steps while retaining the rest as targets.
   This enables a curriculum; it does not establish a performance improvement.
+- The float32 pretrained direct-format pilot scored 22/100, with 69 truncated
+  generations at its 16-token cap. Many link examples produced an empty answer or
+  ignored the forced format. This is not an estimate of released-model capability.
+  An ordinary chat baseline with thinking disabled (`plain`) and a 512-token cap
+  is queued alongside native thinking. Pretrained explicit-CoT results at the
+  initial 96-token cap also need truncation-aware interpretation.
 
 ## Remaining experiments
 
