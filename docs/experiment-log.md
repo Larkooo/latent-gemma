@@ -210,3 +210,20 @@ Sequential-run timing is not used to claim a speedup. Because 96/100 is below th
 predeclared timing screen, its full repeated speed comparison will be skipped;
 the equivalent-path timing check, matched training control, and GSM8K checks remain
 queued.
+
+The 96/100 result was subsequently accepted as sufficient quality to advance this
+pilot, with an explicit request to continue improving and establishing confidence.
+The timing screen is therefore updated to 96/100 for this candidate. This is a
+post-result change, not a claim that the earlier accuracy-matching target was met.
+The primary repeated comparison will use the 99/100 warmup CoT checkpoint as its
+reference. The two waiting queue processes were replaced to apply this decision;
+the active model evaluation continued uninterrupted. Future queue decisions read
+the recorded criterion rather than retaining a hard-coded earlier threshold.
+
+The mechanism is continuous activation feedback followed by remaining generated
+text. It should be described as hybrid latent/text reasoning. The code removes
+vocabulary projection and token sampling from the latent loop, and bypasses
+Gemma's nearest-token fallback. That verifies the implemented data path, not a
+claim that the activations constitute an independently established language of
+thought or that they reproduce Astra. Feedback ablations and the matched
+zero-latent training control test the method's practical contribution.

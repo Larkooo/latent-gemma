@@ -5,14 +5,18 @@ bridge feeds transformer hidden states back as input embeddings for a configurab
 number of steps, then the model generates an answer. Latent steps do not sample
 tokens or project states into vocabulary logits.
 
-**Status: experiments in progress; the first direct-compression recipe failed.**
-On 100 diagnostic validation examples, text reasoning scored 99/100 and four
-latent steps scored 80/100. Zeroed feedback scored 81/100, so useful feedback has
-not been demonstrated. See the [pilot report and raw results](reports/pilot-v2/README.md).
-The initial staged recipe also failed: hybrid reasoning scored 62/100 versus
-99/100 for its retained text mode. Its [report](reports/curriculum-stage1/README.md)
-records the accuracy gap and the timing variability that motivated interleaved
-measurements.
+**Status: the latest hybrid pilot scored 96/100; performance checks are in progress.**
+On 100 diagnostic validation examples, two continuous feedback steps followed by
+a fixed text boundary and remaining text reasoning scored 96/100, versus 99/100
+for the warmup text-reasoning reference. This is a hybrid of latent and text
+reasoning. Repeated latency measurements, matched shortened-text controls, and
+public-benchmark checks remain necessary before claiming a useful performance gain.
+See the [experiment log](docs/experiment-log.md) for current evidence and limitations.
+
+Earlier recipes are preserved: [direct compression](reports/pilot-v2/README.md)
+scored 80/100 and the [initial staged recipe](reports/curriculum-stage1/README.md)
+scored 62/100. Their reports include the failed results and timing variability
+that motivated interleaved measurements.
 Correctness checks pass on small Gemma 3 and Gemma 4 architectures.
 This project does not reproduce Astra's undisclosed architecture.
 
