@@ -111,9 +111,13 @@ The additional float32 native-thinking baseline scored 39/40 at a 512-token cap,
 with one truncation, versus 40/40 for the earlier original-bfloat16 pilot. These
 are different numerical computations and should not be merged into one result.
 
-Next is staged compression: start from the corrected warmup checkpoint, use two
-latent positions to replace the first annotated reasoning step, and train 400
-updates alternating CoT/hybrid modes. The ordinary-chat baseline runs first.
+The ordinary-chat baseline (thinking disabled, no forced assistant prefix)
+completed at 38/40, with one truncation at 512 tokens and median latency 3.559
+seconds. It used the same float32 computation as the new native-thinking baseline.
+
+Staged compression is now running: start from the corrected warmup checkpoint,
+use two latent positions to replace the first annotated reasoning step, and train
+400 updates alternating CoT/hybrid modes.
 Public-benchmark evaluation is deferred until this next candidate is evaluated;
 it remains required, along with matched training controls and frozen final tests.
 
