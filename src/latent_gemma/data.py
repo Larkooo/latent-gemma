@@ -105,13 +105,14 @@ def read_examples(path: Path) -> list[Example]:
     return [Example(**json.loads(line)) for line in path.read_text().splitlines() if line]
 
 
-def prompt_text(tokenizer, example: Example) -> str:
+def prompt_text(tokenizer, example: Example, native_thinking: bool = False) -> str:
     text = tokenizer.apply_chat_template(
         [{"role": "user", "content": example.question + "\nGive the final result after Answer:."}],
         tokenize=False,
         add_generation_prompt=True,
+        enable_thinking=native_thinking,
     )
-    return text + "Reasoning: "
+    return text if native_thinking else text + "Reasoning: "
 
 
 def encode_example(tokenizer, example: Example, mode: str):
@@ -129,12 +130,16 @@ def encode_example(tokenizer, example: Example, mode: str):
 
 
 def extract_answer(text: str, task: str, mode: str) -> str | None:
-    if mode == "cot":
-        matches = re.findall(r"Answer:\s*([^\n]*)", text, flags=re.IGNORECASE)
-        if not matches:
+    if mode == "native" and "<|channel>thought" in text:
+        if "<channel|>" not in text:
             return None
-        text = matches[-1]
-    text = text.strip()
+        text = text.rsplit("<channel|>", 1)[-1]
+    if mode in {"cot", "native"}:
+        parts = re.split(r"Answer:\s*", text, flags=re.IGNORECASE)
+        if len(parts) < 2 or not parts[-1].strip():
+            return None
+        text = parts[-1].splitlines()[0]
+    text = text.strip().strip("*").strip()
     if task in {"arithmetic", "gsm8k"}:
         match = re.match(r"\$?\s*([-+]?\d[\d,]*(?:\.\d+)?)", text)
         return match.group(1).replace(",", "").lstrip("+") if match else None

@@ -38,7 +38,7 @@ def main():
             cmd.add_argument("--log-every", type=int, default=10)
         else:
             cmd.add_argument("--data", type=Path, required=True)
-            cmd.add_argument("--mode", choices=["direct", "cot", "latent"], required=True)
+            cmd.add_argument("--mode", choices=["direct", "cot", "latent", "native"], required=True)
             cmd.add_argument("--limit", type=int)
             cmd.add_argument("--max-tokens", type=int, default=96)
             cmd.add_argument(

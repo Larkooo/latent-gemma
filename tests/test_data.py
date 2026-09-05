@@ -25,6 +25,9 @@ def test_splits_are_reproducible_and_disjoint(tmp_path):
         ("I think B", "links", "latent", None),
         ("B.", "links", "latent", "B"),
         ("Answer: 1,234", "gsm8k", "cot", "1234"),
+        ('<|channel>thought\nUse "Answer:".<channel|>Answer: N', "links", "native", "N"),
+        ("<|channel>thought\nAnswer: 12", "arithmetic", "native", None),
+        ("**Answer: ** 12", "arithmetic", "native", "12"),
     ],
 )
 def test_answer_extraction(text, task, mode, expected):
