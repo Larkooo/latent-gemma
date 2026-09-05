@@ -24,19 +24,19 @@ link chains of five or six hops instead of two to four. Link accuracy was
 unchanged. Arithmetic accuracy dropped by 14.5 percentage points, which is far
 outside the 2.5-point loss on the in-distribution test.
 
-Of the 40 hybrid arithmetic errors, 26 emitted a wrong value for the silently
+Of the 40 hybrid errors, 26 emitted a wrong value for the silently
 computed first product, 11 abandoned the trained format and fell back into the
 base model's step-by-step chat style until the 96-token cap, 2 wrote the first
 step in text instead of skipping it, and one was a link error shared with the
-reference. Two latent positions do not carry a two-digit by two-digit product
-reliably, and when the latent state is off-distribution the adapter's format
-control fails.
+reference. These are output-level error categories, not direct observations of
+what the latent state represents. The candidate is substantially less reliable
+on larger operands under the frozen decoding policy.
 
 This result was measured in the same frozen run as the independent test, with
 the same candidate, reference, decoder, and token cap. It was not published in
-the first version of this repository. It is the strongest evidence in the
-repository that the two-step hybrid is a compression of memorized step
-patterns, not a general shortcut.
+the first version of this repository. It demonstrates limited generalization
+for this trained recipe; it does not establish memorization as the mechanism
+or show that other latent recipes cannot generalize.
 
 ## Measurement and verification
 
@@ -48,9 +48,10 @@ included, including incorrect and truncated outputs.
 
 Timing scope, hardware, and software match the
 [independent test report](../independent-test/README.md). Absolute latencies in
-this run are inflated by concurrent load on the machine; see the
-[session calibration note](../../docs/protocol.md#session-calibration). The
-paired ratio within the run is unaffected by that constant.
+this run were measured under concurrent machine load; see the
+[session calibration note](../../docs/protocol.md#session-calibration). The size
+of that effect and whether the ratio changes in a quiet session require saved
+matched measurements.
 
 The report preserves raw trials, predictions, all OOD questions, the frozen
 plan, adapter settings, and artifact hashes. Source snapshots are identical to

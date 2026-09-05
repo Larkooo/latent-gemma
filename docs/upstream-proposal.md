@@ -19,8 +19,10 @@ paired-question 95% interval of [1.105, 1.376]. A separately trained shortened-t
 control without latent positions scored 66/100.
 
 These are single-seed diagnostic validation results. The prototype retains text
-reasoning, its public-benchmark transfer result is mixed, and independent test
-and OOD evaluation is in progress. Lower total inference FLOPs have not been
+reasoning, its public-benchmark transfer pilot does not establish a gain, and
+the completed OOD test shows a 14.5-point arithmetic accuracy loss relative to
+text reasoning. Independent diagnostic test accuracy was 583/600 versus 598/600.
+Lower total inference FLOPs have not been
 measured. See the [results](experiment-log.md) and
 [raw timing report](../reports/boundary-accuracy-latency/README.md).
 

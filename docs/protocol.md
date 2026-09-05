@@ -74,12 +74,14 @@ token budgets, truncations, median/p95 latency, and work counters.
 
 Absolute latencies drift with concurrent load, thermal state, and power
 settings. The published test and OOD runs were measured while other work ran on
-the same machine; the identical code and adapters measured in a quiet session
-completed requests roughly 2.5 times faster. Paired ratios within a run are
-robust to that constant, absolute numbers are not. `benchmark_pair` now records
-a fixed matmul probe and the load average before and after each run so an
-inflated session is detectable. Compare absolute latencies only between runs
-with similar probes.
+the same machine. An ad hoc quiet-session observation suggested much lower
+absolute latency, but has no saved measurement artifact and does not establish
+a 2.5x correction factor. Interleaving reduces order bias; it does not prove that
+the latency ratio is invariant to load. `benchmark_pair` records a fixed matmul
+probe and the load average before and after each run as session context.
+Matching probes do not guarantee equivalent hardware conditions. The curriculum
+branch fixes a lazy-evaluation bug so every probe repetition executes; probes
+from before that fix are not directly comparable.
 
 Numeric answers use exact finite decimal equality. Link labels use exact string
 matching. Scoring corrections retain original records and apply the same named

@@ -28,10 +28,18 @@ Mean completed-answer latency was 1.195 s versus 0.994 s, a 16.8% reduction.
 The earlier 100-question validation pilot scored 96/100 versus 99/100 with 17.6%
 lower latency. A separately trained control using the same shortened text targets
 without latent positions scored 66/100 on that validation sample. Results use one
-training seed and two procedural task families. The harder OOD evaluation is
-pending; broader reasoning gains and lower total computation have not been established.
+training seed and two procedural task families. On the completed harder OOD
+arithmetic split, accuracy fell from 190/200 (95%) to 161/200 (80.5%); link
+accuracy was unchanged at 199/200. These results do not isolate a benefit from
+feedback content or establish broader reasoning gains or lower total computation.
+
+A new [three-seed GSM8K curriculum campaign](docs/coconut-campaign.md) compares
+recurrent feedback with trained pause inputs, shortened text, and full text
+reasoning. Its training recipe and evaluation policy are separate from the
+diagnostic results above.
 
 [Independent test report](reports/independent-test/README.md) ·
+[OOD report](reports/ood-test/README.md) ·
 [Experiment results](docs/experiment-log.md) ·
 [All reports](reports/README.md)
 

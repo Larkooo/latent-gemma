@@ -1,7 +1,10 @@
 # Experiment results
 
-The frozen recipe has completed its independent diagnostic test. The harder OOD
-comparison is pending. Development results below use validation questions.
+The frozen recipe has completed its independent diagnostic test and
+[harder OOD comparison](../reports/ood-test/README.md). OOD arithmetic accuracy
+was 161/200 versus 190/200 for text reasoning; links were 199/200 for both.
+Development results below use validation questions. The new
+[GSM8K curriculum campaign](coconut-campaign.md) is a separate experiment.
 Reports retain predictions, settings, source snapshots, and hashes, including
 unsuccessful experiments.
 
@@ -135,5 +138,6 @@ and the current interleaved comparison.
 The independent run freezes the two-step candidate, reference, data, source,
 serial decoder, and 96-token cap. It measures accuracy and latency together on all
 600 test and 400 OOD questions, with two repeats per method. The complete test
-result is above; OOD results are pending. The [protocol](protocol.md) describes selection and scope;
+result is above; the [OOD report](../reports/ood-test/README.md) records the harder split.
+The [protocol](protocol.md) describes selection and scope;
 [reproduction instructions](reproduce.md) provide the commands.

@@ -9,6 +9,7 @@ measurement metadata; use the current result summaries when comparing methods.
 | Report | Result |
 |---|---|
 | [Independent diagnostic test](independent-test/README.md) | 583/600 versus 598/600; 10.6% lower median answer latency across 2400 requests. |
+| [OOD test](ood-test/README.md) | Arithmetic 161/200 versus 190/200; links 199/200 for both. |
 | [Validation accuracy and latency](boundary-accuracy-latency/README.md) | 96/100 versus 99/100; 17.6% lower median answer latency across 600 requests. |
 | [Two versus three latent steps](latent-step-count/README.md) | Both 96/100; three-step median latency 5.3% higher, with an interval including equal speed. |
 | [Matched shortened-text training](matched-short-text-control/README.md) | 96/100 with latent steps versus 66/100 without them. |
@@ -25,4 +26,5 @@ measurement metadata; use the current result summaries when comparing methods.
 | [Equivalent decoding paths](timing-equivalent-paths/README.md) | Repeated timing control was consistent with equal speed. |
 
 The [results summary](../docs/experiment-log.md) also covers initial GSM8K transfer
-and the independent evaluation in progress.
+and the completed independent evaluations. The
+[three-seed GSM8K campaign](../docs/coconut-campaign.md) is a separate experiment.
