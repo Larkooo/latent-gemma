@@ -1,0 +1,16 @@
+{
+  "baseline": {
+    "source_sha256": "dc533c62e93ebcc9f6537e8af51e664e465aa981318195d11c614edd062a1aeb",
+    "questions": 600,
+    "mean_completed_answer_latency_s": 1.1945492240366486,
+    "median_completed_answer_latency_s": 1.031467187218368
+  },
+  "candidate": {
+    "source_sha256": "b50950fdb3516789f8366ffab5a6fb34a415b282b7fab02c8581a566a4bea8e2",
+    "questions": 600,
+    "mean_completed_answer_latency_s": 0.9937710995039863,
+    "median_completed_answer_latency_s": 0.9224472290079575
+  },
+  "mean_latency_reduction": 0.16807856929845733,
+  "aggregation": "Descriptive mean and median of per-question median latencies across two repeats; all 600 questions included."
+}

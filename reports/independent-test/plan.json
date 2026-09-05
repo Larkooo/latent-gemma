@@ -1,0 +1,45 @@
+{
+  "purpose": "Independent accuracy check of the already selected two-step boundary recipe.",
+  "selection": "Fixed candidate and baseline before reading any test/OOD predictions; no selection between step counts, decoders, checkpoints, or seeds on these results.",
+  "baseline": {
+    "adapter": "gemma4-warmup-v2/best",
+    "mode": "cot",
+    "latent_steps": 0
+  },
+  "candidate": {
+    "adapter": "gemma4-curriculum-boundary-stage1/best",
+    "mode": "hybrid",
+    "latent_steps": 2
+  },
+  "splits": {
+    "test": 600,
+    "ood": 400
+  },
+  "max_tokens": 96,
+  "decode_strategy": "serial",
+  "accuracy_interpretation": "Report point estimates and paired uncertainty. The user's 96/100 pilot acceptance is not a prespecified equivalence margin for these larger samples.",
+  "latency_interpretation": "Warm completed-answer latency excludes loading, warmup, and external serving. Paired-question intervals do not measure between-session hardware drift.",
+  "source_sha256": {
+    "outputs/latent-gemma/src/latent_gemma/__init__.py": "b9acdadbad7a99f06ebfdbd37f407a09fe362d8cd9696c260bd206b1b53db78e",
+    "outputs/latent-gemma/src/latent_gemma/benchmark.py": "a5d011441db34b77e5399c2f66a4a888bee62865c4e0aebc91f84f7f73e13559",
+    "outputs/latent-gemma/src/latent_gemma/cli.py": "076241989898ad82dcea7723debe1ff87cd214ffdea2141212f0e649492885ca",
+    "outputs/latent-gemma/src/latent_gemma/compare.py": "96dcf52cdad30ce1fb922496f8c53819da1be6430de333f6c1b914d86c03186f",
+    "outputs/latent-gemma/src/latent_gemma/data.py": "9d1eab5d7d5e2f24b7f3c7edd3e598f240424d4dee4d0eb39c694175b4353c0a",
+    "outputs/latent-gemma/src/latent_gemma/evaluate.py": "ad55c5570e686e758b2bfb62e741c7a073f88a5f38f7243bd1d6c63124cc31fc",
+    "outputs/latent-gemma/src/latent_gemma/model.py": "d5190552816e7f3cb3ee3846bb6e943b341c13e5119da728ecf610738ee75b3a",
+    "outputs/latent-gemma/src/latent_gemma/provenance.py": "d22c50c3dc170f7cd4534019960d2f866f05da6d31b0ce43df8676cd4a744e02",
+    "outputs/latent-gemma/src/latent_gemma/train.py": "86b7b8144242a669fffcfed84cd1d0710a9835be1dd822347e3bd649f73e0a52",
+    "work/data/diagnostics/ood.jsonl": "b6f08287237c5d6203166e02ac530ba90e93f2bcf9ebae845fe81a2bea03888c",
+    "work/data/diagnostics/test.jsonl": "ac271ba1bd9888a7e9a0c8d4fc23b4e350b88ab087afa60f6536c0dbdee114b2",
+    "work/data/diagnostics/train.jsonl": "10c2357b3c0d630c1049cbab47984a93efb7620a8be68bad854b42ea60cf9a1f",
+    "work/data/diagnostics/validation.jsonl": "672eec8aa54778f765b2476f7a62c2ebab1e1321f2f394f3a4463f7a3fa39c6f",
+    "work/runs/gemma4-curriculum-boundary-stage1/best/adapter.safetensors": "f536394e182aafdf357025c535329ba82d0a59ab60b2a5b433949ff742dd9dc9",
+    "work/runs/gemma4-curriculum-boundary-stage1/best/config.json": "08372e25e4b53fed9f36eeb53ae8a38ae42909a0bfc92f0f748cf221f9f26f27",
+    "work/runs/gemma4-warmup-v2/best/adapter.safetensors": "9b7b42239d965a1a4759523f4e4663edfe4c12613a03996873cfa87f3ddee68f",
+    "work/runs/gemma4-warmup-v2/best/config.json": "22511d623833090a1387dbdf1b612e79575cad327149c78ecb7d24b2669a30d4"
+  },
+  "supersedes": "The planned sequential accuracy-only holdout worker was stopped before generating any predictions. User requested combined accuracy and latency measurements as the default.",
+  "repeats": 2,
+  "timing_design": "Both methods measured together on every question, with fresh caches and randomized, counterbalanced condition order. Two repeats per condition; each question counted once for accuracy.",
+  "validation_reference_sha256": "0fb2bf08ad717ebcc3cad290dac109965e8789ff573d408613ee2e54728118a8"
+}

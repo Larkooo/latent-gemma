@@ -1,10 +1,36 @@
 # Experiment results
 
-All completed results below are exploratory validation. The fixed-recipe test
-and OOD comparison is running separately. Reports retain predictions, settings,
-source snapshots, and hashes, including unsuccessful experiments.
+The frozen recipe has completed its independent diagnostic test. The harder OOD
+comparison is pending. Development results below use validation questions.
+Reports retain predictions, settings, source snapshots, and hashes, including
+unsuccessful experiments.
 
-## Accuracy and latency
+## Independent test: accuracy and latency
+
+The two-step candidate and text-CoT reference were fixed before evaluating all
+600 test questions. These questions were not used for checkpoint selection.
+
+| Method | Accuracy | Median completed-answer latency |
+|---|---:|---:|
+| Warmup text-CoT reference | 598/600 (99.67%) | 1.0315 s |
+| Two-step hybrid | 583/600 (97.17%) | 0.9224 s |
+
+Median latency was 10.6% lower, with a 2.5 percentage-point accuracy loss. The
+paired accuracy interval was [−3.83, −1.33] points; the baseline/hybrid latency
+ratio was 1.118, with an interval of [1.069, 1.152]. Two repeats per condition
+produced 2400 timed requests. All repeated outputs agreed. The hybrid hit the
+token cap on one question; the reference did not.
+Mean completed-answer latency fell from 1.1945 s to 0.9938 s, a 16.8% reduction;
+this is a descriptive cross-check using the same per-question timings.
+
+Arithmetic accuracy was 284/300 versus 300/300, with 28.8% lower median latency.
+Link accuracy was 299/300 versus 298/300, with approximately equal latency.
+This supports the tradeoff on new questions from these two task families; it
+does not establish broad reasoning quality or equivalent accuracy.
+
+[Independent test and raw trials](../reports/independent-test/README.md)
+
+## Validation pilot: accuracy and latency
 
 The current pilot uses Gemma 4 E2B with two latent positions, a fixed
 `\nReasoning: ` transition, and remaining text reasoning.
@@ -27,6 +53,20 @@ These intervals cover question sampling within one hardware session.
 [Full comparison and raw trials](../reports/boundary-accuracy-latency/README.md)
 
 ## Training variants
+
+### Inference step count
+
+On the existing two-step checkpoint, a direct two-versus-three-step comparison
+scored 96/100 in both conditions. Three steps gained three answers and lost
+three. Its median latency was 0.6506 s versus 0.6180 s, or 5.3% longer. The
+two-step/three-step latency ratio was 0.950, with an interval of [0.898, 1.020].
+This does not establish a clear overall timing difference or compare models
+trained for each count. The same 100 validation questions and three repeats
+produced 600 timed requests, with identical repeated outputs. All two-step
+outputs also matched the original pilot. See the
+[step-count report](../reports/latent-step-count/README.md).
+
+### Training recipes
 
 | Recipe | Latent steps | Accuracy | Evidence |
 |---|---:|---:|---|
@@ -94,6 +134,6 @@ and the current interleaved comparison.
 
 The independent run freezes the two-step candidate, reference, data, source,
 serial decoder, and 96-token cap. It measures accuracy and latency together on all
-600 test and 400 OOD questions, with two repeats per method. Its results are not
-yet included here. The [protocol](protocol.md) describes selection and scope;
+600 test and 400 OOD questions, with two repeats per method. The complete test
+result is above; OOD results are pending. The [protocol](protocol.md) describes selection and scope;
 [reproduction instructions](reproduce.md) provide the commands.

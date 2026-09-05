@@ -1,0 +1,600 @@
+{"answer": "O", "id": "6b6fc62c8efadd1c7acb", "question": "Links: J->O, I->B, A->J, P->A, E->P. Follow 4 links from E. Where do you end?", "reasoning": "E -> P -> A -> J -> O.", "split": "test", "task": "links"}
+{"answer": "66", "id": "7115e2f012e9c18a187d", "question": "Compute 6 * 9 + 12.", "reasoning": "6 * 9 = 54. 54 + 12 = 66.", "split": "test", "task": "arithmetic"}
+{"answer": "H", "id": "6574e0c276d676e4c029", "question": "Links: K->O, L->I, I->H. Follow 2 links from L. Where do you end?", "reasoning": "L -> I -> H.", "split": "test", "task": "links"}
+{"answer": "245", "id": "4f89f6da78d780149917", "question": "Compute 12 * 19 + 17.", "reasoning": "12 * 19 = 228. 228 + 17 = 245.", "split": "test", "task": "arithmetic"}
+{"answer": "179", "id": "1273c83437629440994f", "question": "Compute 11 * 16 + 3.", "reasoning": "11 * 16 = 176. 176 + 3 = 179.", "split": "test", "task": "arithmetic"}
+{"answer": "L", "id": "81952cf8604551cd06b1", "question": "Links: O->D, E->L, I->P, P->E. Follow 3 links from I. Where do you end?", "reasoning": "I -> P -> E -> L.", "split": "test", "task": "links"}
+{"answer": "B", "id": "ce01de1a515eccccc237", "question": "Links: M->B, J->O, H->M. Follow 2 links from H. Where do you end?", "reasoning": "H -> M -> B.", "split": "test", "task": "links"}
+{"answer": "I", "id": "a3fbf0ce7dc69ef7dc64", "question": "Links: G->L, D->I, B->D. Follow 2 links from B. Where do you end?", "reasoning": "B -> D -> I.", "split": "test", "task": "links"}
+{"answer": "I", "id": "deb2f5d235167aa51d34", "question": "Links: K->G, D->I, L->O, O->D, E->L. Follow 4 links from E. Where do you end?", "reasoning": "E -> L -> O -> D -> I.", "split": "test", "task": "links"}
+{"answer": "223", "id": "603852d829182cc0e953", "question": "Compute 17 * 12 + 19.", "reasoning": "17 * 12 = 204. 204 + 19 = 223.", "split": "test", "task": "arithmetic"}
+{"answer": "K", "id": "5b44bd024edc1f37e5a7", "question": "Links: J->L, G->H, H->K. Follow 2 links from G. Where do you end?", "reasoning": "G -> H -> K.", "split": "test", "task": "links"}
+{"answer": "156", "id": "10fe83a4dce9bd045b98", "question": "Compute (18 + 8) * 6.", "reasoning": "18 + 8 = 26. 26 * 6 = 156.", "split": "test", "task": "arithmetic"}
+{"answer": "I", "id": "9a3fb95849af5968fd5e", "question": "Links: L->A, G->K, A->I. Follow 2 links from L. Where do you end?", "reasoning": "L -> A -> I.", "split": "test", "task": "links"}
+{"answer": "A", "id": "dd7d898ec808cf808ef5", "question": "Links: H->A, I->E, F->H. Follow 2 links from F. Where do you end?", "reasoning": "F -> H -> A.", "split": "test", "task": "links"}
+{"answer": "396", "id": "03bbb612074556e51c58", "question": "Compute (20 + 2) * 18.", "reasoning": "20 + 2 = 22. 22 * 18 = 396.", "split": "test", "task": "arithmetic"}
+{"answer": "312", "id": "fb1f90366d763e4d6007", "question": "Compute (12 + 12) * 13.", "reasoning": "12 + 12 = 24. 24 * 13 = 312.", "split": "test", "task": "arithmetic"}
+{"answer": "H", "id": "2ed1abfe9f4efa60cd28", "question": "Links: N->O, D->N, B->P, O->H. Follow 3 links from D. Where do you end?", "reasoning": "D -> N -> O -> H.", "split": "test", "task": "links"}
+{"answer": "174", "id": "280e1b36bd6f560caf16", "question": "Compute (15 + 14) * 6.", "reasoning": "15 + 14 = 29. 29 * 6 = 174.", "split": "test", "task": "arithmetic"}
+{"answer": "160", "id": "89f18bd0591b9292bffb", "question": "Compute (10 + 6) * 10.", "reasoning": "10 + 6 = 16. 16 * 10 = 160.", "split": "test", "task": "arithmetic"}
+{"answer": "340", "id": "07e31618ea8658a2eb40", "question": "Compute 19 * 17 + 17.", "reasoning": "19 * 17 = 323. 323 + 17 = 340.", "split": "test", "task": "arithmetic"}
+{"answer": "384", "id": "85bc1670aaeafc7eb7b5", "question": "Compute (5 + 19) * 16.", "reasoning": "5 + 19 = 24. 24 * 16 = 384.", "split": "test", "task": "arithmetic"}
+{"answer": "30", "id": "9282ef3cbc6dfd1fde15", "question": "Compute (3 + 3) * 5.", "reasoning": "3 + 3 = 6. 6 * 5 = 30.", "split": "test", "task": "arithmetic"}
+{"answer": "253", "id": "ee5c53fc9f09e82efda6", "question": "Compute (15 + 8) * 11.", "reasoning": "15 + 8 = 23. 23 * 11 = 253.", "split": "test", "task": "arithmetic"}
+{"answer": "154", "id": "ded4a664d973bf94f30d", "question": "Compute (13 + 9) * 7.", "reasoning": "13 + 9 = 22. 22 * 7 = 154.", "split": "test", "task": "arithmetic"}
+{"answer": "L", "id": "3cf8999ab8b492af13e5", "question": "Links: I->L, K->H, H->I, B->N. Follow 3 links from K. Where do you end?", "reasoning": "K -> H -> I -> L.", "split": "test", "task": "links"}
+{"answer": "109", "id": "397ff10adfb1d4d8dec6", "question": "Compute 6 * 16 + 13.", "reasoning": "6 * 16 = 96. 96 + 13 = 109.", "split": "test", "task": "arithmetic"}
+{"answer": "195", "id": "72b5a974695a85c27df8", "question": "Compute (5 + 8) * 15.", "reasoning": "5 + 8 = 13. 13 * 15 = 195.", "split": "test", "task": "arithmetic"}
+{"answer": "29", "id": "916f5d4c012000c4067e", "question": "Compute 4 * 4 + 13.", "reasoning": "4 * 4 = 16. 16 + 13 = 29.", "split": "test", "task": "arithmetic"}
+{"answer": "378", "id": "9eff23025699680e3a3f", "question": "Compute (19 + 8) * 14.", "reasoning": "19 + 8 = 27. 27 * 14 = 378.", "split": "test", "task": "arithmetic"}
+{"answer": "352", "id": "cabdeb401f1b2b86ccba", "question": "Compute (7 + 15) * 16.", "reasoning": "7 + 15 = 22. 22 * 16 = 352.", "split": "test", "task": "arithmetic"}
+{"answer": "25", "id": "a0a0b1f8e044422f2771", "question": "Compute 1 * 5 + 20.", "reasoning": "1 * 5 = 5. 5 + 20 = 25.", "split": "test", "task": "arithmetic"}
+{"answer": "O", "id": "5c71607285806f0070e8", "question": "Links: N->O, P->N, J->P, B->C. Follow 3 links from J. Where do you end?", "reasoning": "J -> P -> N -> O.", "split": "test", "task": "links"}
+{"answer": "47", "id": "f4a7575c8c9f452fc382", "question": "Compute 15 * 3 + 2.", "reasoning": "15 * 3 = 45. 45 + 2 = 47.", "split": "test", "task": "arithmetic"}
+{"answer": "300", "id": "a2d3d63af37dbd1e4215", "question": "Compute (15 + 10) * 12.", "reasoning": "15 + 10 = 25. 25 * 12 = 300.", "split": "test", "task": "arithmetic"}
+{"answer": "627", "id": "cd8f86c6c4ffec06d194", "question": "Compute (17 + 16) * 19.", "reasoning": "17 + 16 = 33. 33 * 19 = 627.", "split": "test", "task": "arithmetic"}
+{"answer": "198", "id": "3f1b07eedfede988c822", "question": "Compute (2 + 20) * 9.", "reasoning": "2 + 20 = 22. 22 * 9 = 198.", "split": "test", "task": "arithmetic"}
+{"answer": "K", "id": "2036dd94f84d440cb36b", "question": "Links: H->K, B->F, J->H. Follow 2 links from J. Where do you end?", "reasoning": "J -> H -> K.", "split": "test", "task": "links"}
+{"answer": "196", "id": "9084325e4c415849880c", "question": "Compute (2 + 12) * 14.", "reasoning": "2 + 12 = 14. 14 * 14 = 196.", "split": "test", "task": "arithmetic"}
+{"answer": "I", "id": "ff39ee1e73e5024dab75", "question": "Links: F->N, J->A, C->I, N->H, H->C. Follow 4 links from F. Where do you end?", "reasoning": "F -> N -> H -> C -> I.", "split": "test", "task": "links"}
+{"answer": "F", "id": "cbd46bc64201b582fd0b", "question": "Links: E->F, A->E, N->O, I->A. Follow 3 links from I. Where do you end?", "reasoning": "I -> A -> E -> F.", "split": "test", "task": "links"}
+{"answer": "J", "id": "e1819ca069d837e79cd8", "question": "Links: D->J, L->D, F->G. Follow 2 links from L. Where do you end?", "reasoning": "L -> D -> J.", "split": "test", "task": "links"}
+{"answer": "551", "id": "5e750d74531773da9b5c", "question": "Compute (10 + 19) * 19.", "reasoning": "10 + 19 = 29. 29 * 19 = 551.", "split": "test", "task": "arithmetic"}
+{"answer": "195", "id": "f4c600c68b81184776a7", "question": "Compute (14 + 1) * 13.", "reasoning": "14 + 1 = 15. 15 * 13 = 195.", "split": "test", "task": "arithmetic"}
+{"answer": "144", "id": "15fa354cc40f97ec72ab", "question": "Compute (5 + 7) * 12.", "reasoning": "5 + 7 = 12. 12 * 12 = 144.", "split": "test", "task": "arithmetic"}
+{"answer": "A", "id": "54241eb4bb642f3023a2", "question": "Links: M->E, K->C, G->A, E->G. Follow 3 links from M. Where do you end?", "reasoning": "M -> E -> G -> A.", "split": "test", "task": "links"}
+{"answer": "A", "id": "9da3a73a38696e232f92", "question": "Links: P->L, L->A, J->M. Follow 2 links from P. Where do you end?", "reasoning": "P -> L -> A.", "split": "test", "task": "links"}
+{"answer": "F", "id": "8262dd748eb3055e25cc", "question": "Links: M->F, K->M, G->E. Follow 2 links from K. Where do you end?", "reasoning": "K -> M -> F.", "split": "test", "task": "links"}
+{"answer": "H", "id": "7924cb5ad9ad416f5916", "question": "Links: C->M, P->C, M->K, G->L, K->H. Follow 4 links from P. Where do you end?", "reasoning": "P -> C -> M -> K -> H.", "split": "test", "task": "links"}
+{"answer": "C", "id": "80a289d0eea1f828aaea", "question": "Links: L->J, D->B, B->N, N->C. Follow 3 links from D. Where do you end?", "reasoning": "D -> B -> N -> C.", "split": "test", "task": "links"}
+{"answer": "K", "id": "eacbd1189b66b4551c04", "question": "Links: H->P, F->O, O->K, N->F. Follow 3 links from N. Where do you end?", "reasoning": "N -> F -> O -> K.", "split": "test", "task": "links"}
+{"answer": "340", "id": "25dbc08e49a5fee9762a", "question": "Compute (15 + 5) * 17.", "reasoning": "15 + 5 = 20. 20 * 17 = 340.", "split": "test", "task": "arithmetic"}
+{"answer": "O", "id": "9b20351e918b1391d175", "question": "Links: B->O, P->B, E->G. Follow 2 links from P. Where do you end?", "reasoning": "P -> B -> O.", "split": "test", "task": "links"}
+{"answer": "80", "id": "8d0db802a729e2073d2a", "question": "Compute (19 + 1) * 4.", "reasoning": "19 + 1 = 20. 20 * 4 = 80.", "split": "test", "task": "arithmetic"}
+{"answer": "M", "id": "df7dbdf869050f90a920", "question": "Links: H->M, C->F, N->G, G->H. Follow 3 links from N. Where do you end?", "reasoning": "N -> G -> H -> M.", "split": "test", "task": "links"}
+{"answer": "A", "id": "2a2813cc5939ec876a96", "question": "Links: J->C, C->A, P->G. Follow 2 links from J. Where do you end?", "reasoning": "J -> C -> A.", "split": "test", "task": "links"}
+{"answer": "L", "id": "c85e065aa77d120a6f06", "question": "Links: O->L, M->O, B->D. Follow 2 links from M. Where do you end?", "reasoning": "M -> O -> L.", "split": "test", "task": "links"}
+{"answer": "303", "id": "bc03905a91d348a07b1f", "question": "Compute 20 * 15 + 3.", "reasoning": "20 * 15 = 300. 300 + 3 = 303.", "split": "test", "task": "arithmetic"}
+{"answer": "7", "id": "55ec94060583026a5b01", "question": "Compute (4 + 3) * 1.", "reasoning": "4 + 3 = 7. 7 * 1 = 7.", "split": "test", "task": "arithmetic"}
+{"answer": "180", "id": "d83b16bcba140ab8ecd0", "question": "Compute (6 + 14) * 9.", "reasoning": "6 + 14 = 20. 20 * 9 = 180.", "split": "test", "task": "arithmetic"}
+{"answer": "N", "id": "c5135a04b0143cbd31c7", "question": "Links: L->O, O->N, I->G. Follow 2 links from L. Where do you end?", "reasoning": "L -> O -> N.", "split": "test", "task": "links"}
+{"answer": "41", "id": "733d18dc8528eaf467d2", "question": "Compute 7 * 3 + 20.", "reasoning": "7 * 3 = 21. 21 + 20 = 41.", "split": "test", "task": "arithmetic"}
+{"answer": "G", "id": "4e1ac126fddd4b9320f5", "question": "Links: A->G, I->A, K->F. Follow 2 links from I. Where do you end?", "reasoning": "I -> A -> G.", "split": "test", "task": "links"}
+{"answer": "D", "id": "7cdc47fa4926658babb7", "question": "Links: M->H, O->E, E->D. Follow 2 links from O. Where do you end?", "reasoning": "O -> E -> D.", "split": "test", "task": "links"}
+{"answer": "H", "id": "cb12cfc06c105cecf743", "question": "Links: I->D, D->E, E->H, O->I, G->A. Follow 4 links from O. Where do you end?", "reasoning": "O -> I -> D -> E -> H.", "split": "test", "task": "links"}
+{"answer": "189", "id": "fbb2dd1e6ebea27af3c0", "question": "Compute (15 + 12) * 7.", "reasoning": "15 + 12 = 27. 27 * 7 = 189.", "split": "test", "task": "arithmetic"}
+{"answer": "I", "id": "a0966fcce536d2ee3f37", "question": "Links: P->I, E->C, M->P. Follow 2 links from M. Where do you end?", "reasoning": "M -> P -> I.", "split": "test", "task": "links"}
+{"answer": "138", "id": "70d2dec42036b8763200", "question": "Compute (13 + 10) * 6.", "reasoning": "13 + 10 = 23. 23 * 6 = 138.", "split": "test", "task": "arithmetic"}
+{"answer": "15", "id": "68995c7ed826a8b3ebca", "question": "Compute 1 * 12 + 3.", "reasoning": "1 * 12 = 12. 12 + 3 = 15.", "split": "test", "task": "arithmetic"}
+{"answer": "I", "id": "ecfa5040485418632cc6", "question": "Links: F->N, B->E, E->I. Follow 2 links from B. Where do you end?", "reasoning": "B -> E -> I.", "split": "test", "task": "links"}
+{"answer": "C", "id": "3925840ed450e68a48e3", "question": "Links: M->C, L->B, P->M. Follow 2 links from P. Where do you end?", "reasoning": "P -> M -> C.", "split": "test", "task": "links"}
+{"answer": "C", "id": "452c5606957358f17cd4", "question": "Links: I->K, M->C, O->H, H->M. Follow 3 links from O. Where do you end?", "reasoning": "O -> H -> M -> C.", "split": "test", "task": "links"}
+{"answer": "57", "id": "e3641ffc4527ab18c9eb", "question": "Compute 13 * 3 + 18.", "reasoning": "13 * 3 = 39. 39 + 18 = 57.", "split": "test", "task": "arithmetic"}
+{"answer": "N", "id": "5ce628c6be852236215b", "question": "Links: E->N, P->A, I->E. Follow 2 links from I. Where do you end?", "reasoning": "I -> E -> N.", "split": "test", "task": "links"}
+{"answer": "M", "id": "ef25e7eec2fc32cafcf0", "question": "Links: G->E, L->M, P->I, E->L, F->G. Follow 4 links from F. Where do you end?", "reasoning": "F -> G -> E -> L -> M.", "split": "test", "task": "links"}
+{"answer": "B", "id": "df90ad0afad2e2ea57d9", "question": "Links: F->E, G->B, M->G, I->M. Follow 3 links from I. Where do you end?", "reasoning": "I -> M -> G -> B.", "split": "test", "task": "links"}
+{"answer": "119", "id": "bd383386ce1e3f0b8fca", "question": "Compute (9 + 8) * 7.", "reasoning": "9 + 8 = 17. 17 * 7 = 119.", "split": "test", "task": "arithmetic"}
+{"answer": "323", "id": "aa9c3af6cca0be20c395", "question": "Compute (3 + 16) * 17.", "reasoning": "3 + 16 = 19. 19 * 17 = 323.", "split": "test", "task": "arithmetic"}
+{"answer": "56", "id": "465acc60ef72fa6603ca", "question": "Compute (8 + 20) * 2.", "reasoning": "8 + 20 = 28. 28 * 2 = 56.", "split": "test", "task": "arithmetic"}
+{"answer": "40", "id": "9fb71796e66bef77b3cb", "question": "Compute 20 * 1 + 20.", "reasoning": "20 * 1 = 20. 20 + 20 = 40.", "split": "test", "task": "arithmetic"}
+{"answer": "378", "id": "eb5aa6681a707141a316", "question": "Compute (3 + 18) * 18.", "reasoning": "3 + 18 = 21. 21 * 18 = 378.", "split": "test", "task": "arithmetic"}
+{"answer": "A", "id": "8314c804b80a4c9fb280", "question": "Links: B->O, G->B, H->D, O->A. Follow 3 links from G. Where do you end?", "reasoning": "G -> B -> O -> A.", "split": "test", "task": "links"}
+{"answer": "217", "id": "145c2e52e3d45c0c04fe", "question": "Compute 14 * 15 + 7.", "reasoning": "14 * 15 = 210. 210 + 7 = 217.", "split": "test", "task": "arithmetic"}
+{"answer": "O", "id": "c0530406a8d44d95633d", "question": "Links: A->K, F->O, K->P, H->N, P->F. Follow 4 links from A. Where do you end?", "reasoning": "A -> K -> P -> F -> O.", "split": "test", "task": "links"}
+{"answer": "M", "id": "cf366bc0038d93176758", "question": "Links: A->M, N->A, C->J. Follow 2 links from N. Where do you end?", "reasoning": "N -> A -> M.", "split": "test", "task": "links"}
+{"answer": "78", "id": "1ef65dec102c974b55fc", "question": "Compute (19 + 7) * 3.", "reasoning": "19 + 7 = 26. 26 * 3 = 78.", "split": "test", "task": "arithmetic"}
+{"answer": "H", "id": "9e30bf9e807a573f5dbc", "question": "Links: J->P, I->A, A->H, P->I, O->M. Follow 4 links from J. Where do you end?", "reasoning": "J -> P -> I -> A -> H.", "split": "test", "task": "links"}
+{"answer": "C", "id": "f7d6e7f8219abf6762d6", "question": "Links: A->C, F->A, H->P. Follow 2 links from F. Where do you end?", "reasoning": "F -> A -> C.", "split": "test", "task": "links"}
+{"answer": "462", "id": "35543c76424549a2cb35", "question": "Compute (18 + 15) * 14.", "reasoning": "18 + 15 = 33. 33 * 14 = 462.", "split": "test", "task": "arithmetic"}
+{"answer": "68", "id": "c1b3bc8c58d746edf215", "question": "Compute 16 * 4 + 4.", "reasoning": "16 * 4 = 64. 64 + 4 = 68.", "split": "test", "task": "arithmetic"}
+{"answer": "H", "id": "164fc750a60f67ce8879", "question": "Links: C->N, P->C, M->P, K->D, N->H. Follow 4 links from M. Where do you end?", "reasoning": "M -> P -> C -> N -> H.", "split": "test", "task": "links"}
+{"answer": "24", "id": "98cb3016829c0817775f", "question": "Compute (11 + 1) * 2.", "reasoning": "11 + 1 = 12. 12 * 2 = 24.", "split": "test", "task": "arithmetic"}
+{"answer": "C", "id": "0bf1f6f24419ab8e4cf5", "question": "Links: I->C, G->B, O->I. Follow 2 links from O. Where do you end?", "reasoning": "O -> I -> C.", "split": "test", "task": "links"}
+{"answer": "390", "id": "73f8d1587bae7188f6be", "question": "Compute (13 + 17) * 13.", "reasoning": "13 + 17 = 30. 30 * 13 = 390.", "split": "test", "task": "arithmetic"}
+{"answer": "D", "id": "3541b1fa584746337afa", "question": "Links: A->L, C->A, L->D, B->F, J->C. Follow 4 links from J. Where do you end?", "reasoning": "J -> C -> A -> L -> D.", "split": "test", "task": "links"}
+{"answer": "257", "id": "13e195fc861b841bab84", "question": "Compute 18 * 14 + 5.", "reasoning": "18 * 14 = 252. 252 + 5 = 257.", "split": "test", "task": "arithmetic"}
+{"answer": "359", "id": "5adbe340747171eba171", "question": "Compute 20 * 17 + 19.", "reasoning": "20 * 17 = 340. 340 + 19 = 359.", "split": "test", "task": "arithmetic"}
+{"answer": "A", "id": "9ee28e54d846ddf189db", "question": "Links: N->H, K->A, D->E, E->K. Follow 3 links from D. Where do you end?", "reasoning": "D -> E -> K -> A.", "split": "test", "task": "links"}
+{"answer": "45", "id": "d762f93ae2b089b1a426", "question": "Compute 7 * 4 + 17.", "reasoning": "7 * 4 = 28. 28 + 17 = 45.", "split": "test", "task": "arithmetic"}
+{"answer": "F", "id": "b5fc55cafa967bcde264", "question": "Links: L->F, E->L, I->E, O->M. Follow 3 links from I. Where do you end?", "reasoning": "I -> E -> L -> F.", "split": "test", "task": "links"}
+{"answer": "140", "id": "0a1f54bef37101119efe", "question": "Compute (7 + 13) * 7.", "reasoning": "7 + 13 = 20. 20 * 7 = 140.", "split": "test", "task": "arithmetic"}
+{"answer": "A", "id": "ce5382d8dd251ef84400", "question": "Links: D->I, B->K, I->A. Follow 2 links from D. Where do you end?", "reasoning": "D -> I -> A.", "split": "test", "task": "links"}
+{"answer": "347", "id": "1f6456eec696dbe75fe2", "question": "Compute 20 * 17 + 7.", "reasoning": "20 * 17 = 340. 340 + 7 = 347.", "split": "test", "task": "arithmetic"}
+{"answer": "P", "id": "27709906823623da1bb3", "question": "Links: A->L, D->B, B->P, F->D. Follow 3 links from F. Where do you end?", "reasoning": "F -> D -> B -> P.", "split": "test", "task": "links"}
+{"answer": "180", "id": "b923416e98a4ff403693", "question": "Compute 14 * 12 + 12.", "reasoning": "14 * 12 = 168. 168 + 12 = 180.", "split": "test", "task": "arithmetic"}
+{"answer": "L", "id": "adabfbd2c4c35411837c", "question": "Links: D->H, N->L, G->N. Follow 2 links from G. Where do you end?", "reasoning": "G -> N -> L.", "split": "test", "task": "links"}
+{"answer": "I", "id": "1b2f088a9f6dc660f165", "question": "Links: P->I, H->L, D->A, A->P. Follow 3 links from D. Where do you end?", "reasoning": "D -> A -> P -> I.", "split": "test", "task": "links"}
+{"answer": "M", "id": "bedbfc40e8559ecccebb", "question": "Links: E->L, K->M, F->G, G->K. Follow 3 links from F. Where do you end?", "reasoning": "F -> G -> K -> M.", "split": "test", "task": "links"}
+{"answer": "740", "id": "a1526d08a85260da925c", "question": "Compute (19 + 18) * 20.", "reasoning": "19 + 18 = 37. 37 * 20 = 740.", "split": "test", "task": "arithmetic"}
+{"answer": "30", "id": "a08463f4779c3f1a9fa7", "question": "Compute (1 + 14) * 2.", "reasoning": "1 + 14 = 15. 15 * 2 = 30.", "split": "test", "task": "arithmetic"}
+{"answer": "198", "id": "5bd277beed96076c6364", "question": "Compute (2 + 16) * 11.", "reasoning": "2 + 16 = 18. 18 * 11 = 198.", "split": "test", "task": "arithmetic"}
+{"answer": "260", "id": "4a360c6e13852ba1f4cc", "question": "Compute (6 + 7) * 20.", "reasoning": "6 + 7 = 13. 13 * 20 = 260.", "split": "test", "task": "arithmetic"}
+{"answer": "72", "id": "fdd5d6b42f5f750973a7", "question": "Compute (19 + 17) * 2.", "reasoning": "19 + 17 = 36. 36 * 2 = 72.", "split": "test", "task": "arithmetic"}
+{"answer": "J", "id": "9dcd32a84fac75f2ef10", "question": "Links: H->O, O->J, C->P, G->H. Follow 3 links from G. Where do you end?", "reasoning": "G -> H -> O -> J.", "split": "test", "task": "links"}
+{"answer": "210", "id": "1dea77948ed60f71601c", "question": "Compute (4 + 11) * 14.", "reasoning": "4 + 11 = 15. 15 * 14 = 210.", "split": "test", "task": "arithmetic"}
+{"answer": "330", "id": "3ade3e76c3bde1b625a7", "question": "Compute (17 + 5) * 15.", "reasoning": "17 + 5 = 22. 22 * 15 = 330.", "split": "test", "task": "arithmetic"}
+{"answer": "A", "id": "2388316eed83d267e8b2", "question": "Links: L->M, F->A, O->F. Follow 2 links from O. Where do you end?", "reasoning": "O -> F -> A.", "split": "test", "task": "links"}
+{"answer": "J", "id": "3c0d370c77990932334e", "question": "Links: B->I, L->O, I->J. Follow 2 links from B. Where do you end?", "reasoning": "B -> I -> J.", "split": "test", "task": "links"}
+{"answer": "160", "id": "2e58890ebc20af40d594", "question": "Compute (7 + 9) * 10.", "reasoning": "7 + 9 = 16. 16 * 10 = 160.", "split": "test", "task": "arithmetic"}
+{"answer": "35", "id": "7e2b9ac071be21536481", "question": "Compute (4 + 3) * 5.", "reasoning": "4 + 3 = 7. 7 * 5 = 35.", "split": "test", "task": "arithmetic"}
+{"answer": "167", "id": "fe8f3bb8bdd089191d86", "question": "Compute 15 * 10 + 17.", "reasoning": "15 * 10 = 150. 150 + 17 = 167.", "split": "test", "task": "arithmetic"}
+{"answer": "152", "id": "ff640fd261ec3265d847", "question": "Compute (4 + 4) * 19.", "reasoning": "4 + 4 = 8. 8 * 19 = 152.", "split": "test", "task": "arithmetic"}
+{"answer": "116", "id": "b94709e6ce2c5a2e32d3", "question": "Compute 8 * 13 + 12.", "reasoning": "8 * 13 = 104. 104 + 12 = 116.", "split": "test", "task": "arithmetic"}
+{"answer": "40", "id": "bb3cf83ce30b031d999c", "question": "Compute (1 + 19) * 2.", "reasoning": "1 + 19 = 20. 20 * 2 = 40.", "split": "test", "task": "arithmetic"}
+{"answer": "I", "id": "915bf20c68e538b8bb9f", "question": "Links: M->I, E->M, F->H. Follow 2 links from E. Where do you end?", "reasoning": "E -> M -> I.", "split": "test", "task": "links"}
+{"answer": "C", "id": "a297d74875bdb808fcc5", "question": "Links: A->E, O->N, M->K, N->A, E->C. Follow 4 links from O. Where do you end?", "reasoning": "O -> N -> A -> E -> C.", "split": "test", "task": "links"}
+{"answer": "A", "id": "09fb209e5232133bbd08", "question": "Links: G->A, K->L, H->C, C->I, I->G. Follow 4 links from H. Where do you end?", "reasoning": "H -> C -> I -> G -> A.", "split": "test", "task": "links"}
+{"answer": "171", "id": "4b4ef5caf50875a7580b", "question": "Compute 17 * 9 + 18.", "reasoning": "17 * 9 = 153. 153 + 18 = 171.", "split": "test", "task": "arithmetic"}
+{"answer": "P", "id": "14f567fc5aacd619dbf4", "question": "Links: H->J, G->I, J->P, L->H, N->L. Follow 4 links from N. Where do you end?", "reasoning": "N -> L -> H -> J -> P.", "split": "test", "task": "links"}
+{"answer": "D", "id": "6835f4fec0f447f23661", "question": "Links: K->L, B->M, L->D. Follow 2 links from K. Where do you end?", "reasoning": "K -> L -> D.", "split": "test", "task": "links"}
+{"answer": "228", "id": "c67ded64bd3b20bc036c", "question": "Compute (20 + 18) * 6.", "reasoning": "20 + 18 = 38. 38 * 6 = 228.", "split": "test", "task": "arithmetic"}
+{"answer": "231", "id": "61b5c9a679ecab847522", "question": "Compute (10 + 11) * 11.", "reasoning": "10 + 11 = 21. 21 * 11 = 231.", "split": "test", "task": "arithmetic"}
+{"answer": "17", "id": "fb727990504fc450f6ab", "question": "Compute 4 * 4 + 1.", "reasoning": "4 * 4 = 16. 16 + 1 = 17.", "split": "test", "task": "arithmetic"}
+{"answer": "I", "id": "30eedb3c9b20edf0de4b", "question": "Links: P->M, F->P, M->I, L->O. Follow 3 links from F. Where do you end?", "reasoning": "F -> P -> M -> I.", "split": "test", "task": "links"}
+{"answer": "E", "id": "d8baec201140793436fb", "question": "Links: M->A, K->E, P->K, H->P. Follow 3 links from H. Where do you end?", "reasoning": "H -> P -> K -> E.", "split": "test", "task": "links"}
+{"answer": "N", "id": "5ac31b58f40185725e03", "question": "Links: L->N, B->L, D->C. Follow 2 links from B. Where do you end?", "reasoning": "B -> L -> N.", "split": "test", "task": "links"}
+{"answer": "64", "id": "8183d19cb31e63d8e881", "question": "Compute 5 * 9 + 19.", "reasoning": "5 * 9 = 45. 45 + 19 = 64.", "split": "test", "task": "arithmetic"}
+{"answer": "40", "id": "6ee5a484f559b8baf8b4", "question": "Compute (7 + 3) * 4.", "reasoning": "7 + 3 = 10. 10 * 4 = 40.", "split": "test", "task": "arithmetic"}
+{"answer": "138", "id": "f36022b6e22a07fecc4e", "question": "Compute (16 + 7) * 6.", "reasoning": "16 + 7 = 23. 23 * 6 = 138.", "split": "test", "task": "arithmetic"}
+{"answer": "56", "id": "873930507a30dc92ab5b", "question": "Compute 2 * 20 + 16.", "reasoning": "2 * 20 = 40. 40 + 16 = 56.", "split": "test", "task": "arithmetic"}
+{"answer": "J", "id": "bf2d29f8e796e7458af4", "question": "Links: H->I, E->J, B->E, O->B. Follow 3 links from O. Where do you end?", "reasoning": "O -> B -> E -> J.", "split": "test", "task": "links"}
+{"answer": "O", "id": "4c70a1f68f98e189e8aa", "question": "Links: J->P, P->O, L->K. Follow 2 links from J. Where do you end?", "reasoning": "J -> P -> O.", "split": "test", "task": "links"}
+{"answer": "P", "id": "2540f734d0c8053c802c", "question": "Links: G->N, L->K, A->L, K->P. Follow 3 links from A. Where do you end?", "reasoning": "A -> L -> K -> P.", "split": "test", "task": "links"}
+{"answer": "E", "id": "dfe427149cfe34132309", "question": "Links: J->G, H->E, G->H, D->P. Follow 3 links from J. Where do you end?", "reasoning": "J -> G -> H -> E.", "split": "test", "task": "links"}
+{"answer": "270", "id": "7f1d9b0e50edc8f6fc76", "question": "Compute (6 + 12) * 15.", "reasoning": "6 + 12 = 18. 18 * 15 = 270.", "split": "test", "task": "arithmetic"}
+{"answer": "317", "id": "cd6c3108f7f8ebd14f1e", "question": "Compute 18 * 17 + 11.", "reasoning": "18 * 17 = 306. 306 + 11 = 317.", "split": "test", "task": "arithmetic"}
+{"answer": "H", "id": "5c7756626862e3834de5", "question": "Links: A->H, F->G, N->A. Follow 2 links from N. Where do you end?", "reasoning": "N -> A -> H.", "split": "test", "task": "links"}
+{"answer": "J", "id": "a4912838c3da67827c49", "question": "Links: N->G, G->K, B->J, E->P, K->B. Follow 4 links from N. Where do you end?", "reasoning": "N -> G -> K -> B -> J.", "split": "test", "task": "links"}
+{"answer": "O", "id": "9552e0faf0bedcaaaad4", "question": "Links: A->H, J->O, D->J. Follow 2 links from D. Where do you end?", "reasoning": "D -> J -> O.", "split": "test", "task": "links"}
+{"answer": "65", "id": "31b2869a33f702aa5a82", "question": "Compute 3 * 17 + 14.", "reasoning": "3 * 17 = 51. 51 + 14 = 65.", "split": "test", "task": "arithmetic"}
+{"answer": "C", "id": "6ec5e9b4b8d2c58d28c2", "question": "Links: G->H, O->C, J->M, P->J, M->O. Follow 4 links from P. Where do you end?", "reasoning": "P -> J -> M -> O -> C.", "split": "test", "task": "links"}
+{"answer": "B", "id": "49aa544e08322753e09d", "question": "Links: C->B, N->G, J->C. Follow 2 links from J. Where do you end?", "reasoning": "J -> C -> B.", "split": "test", "task": "links"}
+{"answer": "202", "id": "f01b9b3a2605fd70ac50", "question": "Compute 10 * 19 + 12.", "reasoning": "10 * 19 = 190. 190 + 12 = 202.", "split": "test", "task": "arithmetic"}
+{"answer": "232", "id": "713f76385cad0de57aa7", "question": "Compute (20 + 9) * 8.", "reasoning": "20 + 9 = 29. 29 * 8 = 232.", "split": "test", "task": "arithmetic"}
+{"answer": "B", "id": "e62265464a2082ca1fc0", "question": "Links: A->I, K->G, C->H, I->B, H->A. Follow 4 links from C. Where do you end?", "reasoning": "C -> H -> A -> I -> B.", "split": "test", "task": "links"}
+{"answer": "102", "id": "e95ddbf024635359401c", "question": "Compute 5 * 19 + 7.", "reasoning": "5 * 19 = 95. 95 + 7 = 102.", "split": "test", "task": "arithmetic"}
+{"answer": "99", "id": "bbca737eff3173e4862d", "question": "Compute (6 + 5) * 9.", "reasoning": "6 + 5 = 11. 11 * 9 = 99.", "split": "test", "task": "arithmetic"}
+{"answer": "D", "id": "e5008f447f5198e6fd48", "question": "Links: M->C, B->H, C->D. Follow 2 links from M. Where do you end?", "reasoning": "M -> C -> D.", "split": "test", "task": "links"}
+{"answer": "144", "id": "28b6d6b83c675c4b6a04", "question": "Compute (11 + 7) * 8.", "reasoning": "11 + 7 = 18. 18 * 8 = 144.", "split": "test", "task": "arithmetic"}
+{"answer": "512", "id": "bc14a1b0b39262753549", "question": "Compute (17 + 15) * 16.", "reasoning": "17 + 15 = 32. 32 * 16 = 512.", "split": "test", "task": "arithmetic"}
+{"answer": "203", "id": "59c8c5860f416cc9c489", "question": "Compute (9 + 20) * 7.", "reasoning": "9 + 20 = 29. 29 * 7 = 203.", "split": "test", "task": "arithmetic"}
+{"answer": "A", "id": "281252d232e2c48bce7e", "question": "Links: G->A, N->B, D->O, B->G. Follow 3 links from N. Where do you end?", "reasoning": "N -> B -> G -> A.", "split": "test", "task": "links"}
+{"answer": "K", "id": "2af2caa4d29598d367cc", "question": "Links: N->E, M->G, G->K. Follow 2 links from M. Where do you end?", "reasoning": "M -> G -> K.", "split": "test", "task": "links"}
+{"answer": "34", "id": "7733ee3ec2964344103a", "question": "Compute 2 * 14 + 6.", "reasoning": "2 * 14 = 28. 28 + 6 = 34.", "split": "test", "task": "arithmetic"}
+{"answer": "100", "id": "d79ded8807b5f6d0ce81", "question": "Compute 7 * 13 + 9.", "reasoning": "7 * 13 = 91. 91 + 9 = 100.", "split": "test", "task": "arithmetic"}
+{"answer": "361", "id": "762597b8d0a87676f905", "question": "Compute 19 * 18 + 19.", "reasoning": "19 * 18 = 342. 342 + 19 = 361.", "split": "test", "task": "arithmetic"}
+{"answer": "D", "id": "a829ee6c2d09d705a93d", "question": "Links: L->J, N->F, O->D, J->C, C->O. Follow 4 links from L. Where do you end?", "reasoning": "L -> J -> C -> O -> D.", "split": "test", "task": "links"}
+{"answer": "C", "id": "1bab82b6c8c43ff591d8", "question": "Links: E->C, D->L, N->E. Follow 2 links from N. Where do you end?", "reasoning": "N -> E -> C.", "split": "test", "task": "links"}
+{"answer": "N", "id": "64a2f6ac48e14922f95d", "question": "Links: O->J, B->I, J->N, I->O, G->M. Follow 4 links from B. Where do you end?", "reasoning": "B -> I -> O -> J -> N.", "split": "test", "task": "links"}
+{"answer": "I", "id": "0bd904bcb2e209af9925", "question": "Links: N->D, A->H, J->G, G->N, D->I. Follow 4 links from J. Where do you end?", "reasoning": "J -> G -> N -> D -> I.", "split": "test", "task": "links"}
+{"answer": "168", "id": "661fe3c8d7421db00140", "question": "Compute 20 * 8 + 8.", "reasoning": "20 * 8 = 160. 160 + 8 = 168.", "split": "test", "task": "arithmetic"}
+{"answer": "135", "id": "9c57f2e6714b68fca2ab", "question": "Compute (9 + 18) * 5.", "reasoning": "9 + 18 = 27. 27 * 5 = 135.", "split": "test", "task": "arithmetic"}
+{"answer": "80", "id": "d60c49603294b7c98e4d", "question": "Compute (1 + 15) * 5.", "reasoning": "1 + 15 = 16. 16 * 5 = 80.", "split": "test", "task": "arithmetic"}
+{"answer": "C", "id": "cee4b8025093d37306e1", "question": "Links: H->F, A->G, P->K, K->C, G->P. Follow 4 links from A. Where do you end?", "reasoning": "A -> G -> P -> K -> C.", "split": "test", "task": "links"}
+{"answer": "181", "id": "00c58b188e237e4696a7", "question": "Compute 11 * 16 + 5.", "reasoning": "11 * 16 = 176. 176 + 5 = 181.", "split": "test", "task": "arithmetic"}
+{"answer": "19", "id": "55357cbc5ca5054f7f3a", "question": "Compute (4 + 15) * 1.", "reasoning": "4 + 15 = 19. 19 * 1 = 19.", "split": "test", "task": "arithmetic"}
+{"answer": "C", "id": "888204dc7d727d217df3", "question": "Links: E->K, B->L, L->C. Follow 2 links from B. Where do you end?", "reasoning": "B -> L -> C.", "split": "test", "task": "links"}
+{"answer": "N", "id": "e3296484a6f5e0ee77ff", "question": "Links: B->P, C->K, O->N, P->O, A->B. Follow 4 links from A. Where do you end?", "reasoning": "A -> B -> P -> O -> N.", "split": "test", "task": "links"}
+{"answer": "P", "id": "082af2d0a1b08e941434", "question": "Links: L->O, K->L, F->B, O->P, A->K. Follow 4 links from A. Where do you end?", "reasoning": "A -> K -> L -> O -> P.", "split": "test", "task": "links"}
+{"answer": "B", "id": "9e54e3560c13976d29b7", "question": "Links: C->B, O->M, D->C, H->D. Follow 3 links from H. Where do you end?", "reasoning": "H -> D -> C -> B.", "split": "test", "task": "links"}
+{"answer": "P", "id": "187e8becfd266de0c7fc", "question": "Links: F->P, C->M, M->F, G->I. Follow 3 links from C. Where do you end?", "reasoning": "C -> M -> F -> P.", "split": "test", "task": "links"}
+{"answer": "N", "id": "afe21d3cc6e2611f2e91", "question": "Links: J->N, C->G, B->L, G->J. Follow 3 links from C. Where do you end?", "reasoning": "C -> G -> J -> N.", "split": "test", "task": "links"}
+{"answer": "L", "id": "7ac2d13c4e79b1e2b17b", "question": "Links: O->I, J->F, E->L, F->E. Follow 3 links from J. Where do you end?", "reasoning": "J -> F -> E -> L.", "split": "test", "task": "links"}
+{"answer": "K", "id": "5e1b043ca4bea37b2158", "question": "Links: E->G, I->E, D->F, G->K. Follow 3 links from I. Where do you end?", "reasoning": "I -> E -> G -> K.", "split": "test", "task": "links"}
+{"answer": "B", "id": "f0e4a4eefb3ad51cb9d0", "question": "Links: O->B, H->A, F->O, D->F. Follow 3 links from D. Where do you end?", "reasoning": "D -> F -> O -> B.", "split": "test", "task": "links"}
+{"answer": "155", "id": "374b81bab81e8729bac5", "question": "Compute 16 * 9 + 11.", "reasoning": "16 * 9 = 144. 144 + 11 = 155.", "split": "test", "task": "arithmetic"}
+{"answer": "B", "id": "c05a69f86ff230ba58a2", "question": "Links: H->M, K->O, M->B. Follow 2 links from H. Where do you end?", "reasoning": "H -> M -> B.", "split": "test", "task": "links"}
+{"answer": "G", "id": "49dfd42ab0153672cb18", "question": "Links: C->B, L->M, M->G. Follow 2 links from L. Where do you end?", "reasoning": "L -> M -> G.", "split": "test", "task": "links"}
+{"answer": "I", "id": "098430927c0af07d7d32", "question": "Links: J->C, F->O, P->J, C->I. Follow 3 links from P. Where do you end?", "reasoning": "P -> J -> C -> I.", "split": "test", "task": "links"}
+{"answer": "78", "id": "fc9319a646af0a796f22", "question": "Compute 9 * 8 + 6.", "reasoning": "9 * 8 = 72. 72 + 6 = 78.", "split": "test", "task": "arithmetic"}
+{"answer": "D", "id": "7d07ebee07480d02ce7e", "question": "Links: K->D, I->K, L->A. Follow 2 links from I. Where do you end?", "reasoning": "I -> K -> D.", "split": "test", "task": "links"}
+{"answer": "195", "id": "c6e65fe864e141e25845", "question": "Compute (7 + 8) * 13.", "reasoning": "7 + 8 = 15. 15 * 13 = 195.", "split": "test", "task": "arithmetic"}
+{"answer": "234", "id": "0b10ce84ecae99b3f093", "question": "Compute (2 + 11) * 18.", "reasoning": "2 + 11 = 13. 13 * 18 = 234.", "split": "test", "task": "arithmetic"}
+{"answer": "66", "id": "114bbe583879589947d4", "question": "Compute 9 * 7 + 3.", "reasoning": "9 * 7 = 63. 63 + 3 = 66.", "split": "test", "task": "arithmetic"}
+{"answer": "A", "id": "cd5bae0061a23494cf30", "question": "Links: F->O, E->L, H->A, L->H. Follow 3 links from E. Where do you end?", "reasoning": "E -> L -> H -> A.", "split": "test", "task": "links"}
+{"answer": "K", "id": "f248b39848ac8def144b", "question": "Links: N->M, D->K, G->E, M->D. Follow 3 links from N. Where do you end?", "reasoning": "N -> M -> D -> K.", "split": "test", "task": "links"}
+{"answer": "147", "id": "91088388e1a5090e9e5f", "question": "Compute 15 * 9 + 12.", "reasoning": "15 * 9 = 135. 135 + 12 = 147.", "split": "test", "task": "arithmetic"}
+{"answer": "84", "id": "a5a0477c6c4e987d86ba", "question": "Compute (10 + 18) * 3.", "reasoning": "10 + 18 = 28. 28 * 3 = 84.", "split": "test", "task": "arithmetic"}
+{"answer": "84", "id": "6b7b25dab7be5b9e8d60", "question": "Compute (1 + 20) * 4.", "reasoning": "1 + 20 = 21. 21 * 4 = 84.", "split": "test", "task": "arithmetic"}
+{"answer": "26", "id": "4e868f0a880920a3310b", "question": "Compute 1 * 17 + 9.", "reasoning": "1 * 17 = 17. 17 + 9 = 26.", "split": "test", "task": "arithmetic"}
+{"answer": "155", "id": "8407383c634ae627a974", "question": "Compute (18 + 13) * 5.", "reasoning": "18 + 13 = 31. 31 * 5 = 155.", "split": "test", "task": "arithmetic"}
+{"answer": "450", "id": "1ed6b4ec3da3b6a6ab58", "question": "Compute (15 + 15) * 15.", "reasoning": "15 + 15 = 30. 30 * 15 = 450.", "split": "test", "task": "arithmetic"}
+{"answer": "I", "id": "e7d35a44231f7c0fb5ee", "question": "Links: P->F, C->M, G->I, M->G. Follow 3 links from C. Where do you end?", "reasoning": "C -> M -> G -> I.", "split": "test", "task": "links"}
+{"answer": "N", "id": "66863312192e269c04b9", "question": "Links: G->A, M->P, A->N. Follow 2 links from G. Where do you end?", "reasoning": "G -> A -> N.", "split": "test", "task": "links"}
+{"answer": "286", "id": "a4a26080d29fa3084714", "question": "Compute (18 + 8) * 11.", "reasoning": "18 + 8 = 26. 26 * 11 = 286.", "split": "test", "task": "arithmetic"}
+{"answer": "I", "id": "6825e07853b6c3597a9f", "question": "Links: G->J, J->K, D->N, K->I. Follow 3 links from G. Where do you end?", "reasoning": "G -> J -> K -> I.", "split": "test", "task": "links"}
+{"answer": "G", "id": "fd57721aca7d5eca405c", "question": "Links: H->G, J->H, F->A, N->J. Follow 3 links from N. Where do you end?", "reasoning": "N -> J -> H -> G.", "split": "test", "task": "links"}
+{"answer": "40", "id": "bc682ccc06cfe7961fe6", "question": "Compute (1 + 9) * 4.", "reasoning": "1 + 9 = 10. 10 * 4 = 40.", "split": "test", "task": "arithmetic"}
+{"answer": "78", "id": "adb7aee6e11f463dccc7", "question": "Compute (3 + 10) * 6.", "reasoning": "3 + 10 = 13. 13 * 6 = 78.", "split": "test", "task": "arithmetic"}
+{"answer": "270", "id": "33aa29d0ed19376f3a53", "question": "Compute (16 + 2) * 15.", "reasoning": "16 + 2 = 18. 18 * 15 = 270.", "split": "test", "task": "arithmetic"}
+{"answer": "A", "id": "7814a4568764021209a2", "question": "Links: L->C, C->A, M->N, K->L. Follow 3 links from K. Where do you end?", "reasoning": "K -> L -> C -> A.", "split": "test", "task": "links"}
+{"answer": "J", "id": "0e5e305eea429ce2c2c4", "question": "Links: B->G, F->N, N->J, M->D, G->F. Follow 4 links from B. Where do you end?", "reasoning": "B -> G -> F -> N -> J.", "split": "test", "task": "links"}
+{"answer": "G", "id": "e965278ec8b12425da7e", "question": "Links: L->F, P->I, N->G, I->N. Follow 3 links from P. Where do you end?", "reasoning": "P -> I -> N -> G.", "split": "test", "task": "links"}
+{"answer": "396", "id": "b2288144e721e69ebecd", "question": "Compute 20 * 19 + 16.", "reasoning": "20 * 19 = 380. 380 + 16 = 396.", "split": "test", "task": "arithmetic"}
+{"answer": "306", "id": "8b80d7621aff1593d99f", "question": "Compute (1 + 16) * 18.", "reasoning": "1 + 16 = 17. 17 * 18 = 306.", "split": "test", "task": "arithmetic"}
+{"answer": "O", "id": "9b51cc5058be61d739ad", "question": "Links: G->D, D->O, M->K, C->G. Follow 3 links from C. Where do you end?", "reasoning": "C -> G -> D -> O.", "split": "test", "task": "links"}
+{"answer": "H", "id": "97bd402e0347f72ef1d5", "question": "Links: L->F, F->H, P->G. Follow 2 links from L. Where do you end?", "reasoning": "L -> F -> H.", "split": "test", "task": "links"}
+{"answer": "129", "id": "cf364d2079147322dbde", "question": "Compute 8 * 15 + 9.", "reasoning": "8 * 15 = 120. 120 + 9 = 129.", "split": "test", "task": "arithmetic"}
+{"answer": "L", "id": "74f99f10d4a9cf061982", "question": "Links: P->O, B->A, O->L. Follow 2 links from P. Where do you end?", "reasoning": "P -> O -> L.", "split": "test", "task": "links"}
+{"answer": "L", "id": "1468b794d29967ecf966", "question": "Links: D->E, C->L, O->H, H->C. Follow 3 links from O. Where do you end?", "reasoning": "O -> H -> C -> L.", "split": "test", "task": "links"}
+{"answer": "K", "id": "cc76a33257e73c5efc02", "question": "Links: P->M, O->K, F->O. Follow 2 links from F. Where do you end?", "reasoning": "F -> O -> K.", "split": "test", "task": "links"}
+{"answer": "377", "id": "d06b97ccae6d29f8bd52", "question": "Compute (14 + 15) * 13.", "reasoning": "14 + 15 = 29. 29 * 13 = 377.", "split": "test", "task": "arithmetic"}
+{"answer": "525", "id": "1ceb89dc70f655968f10", "question": "Compute (15 + 20) * 15.", "reasoning": "15 + 20 = 35. 35 * 15 = 525.", "split": "test", "task": "arithmetic"}
+{"answer": "H", "id": "31cbf9ccccc85e69edfb", "question": "Links: D->H, C->D, P->A, I->C, O->I. Follow 4 links from O. Where do you end?", "reasoning": "O -> I -> C -> D -> H.", "split": "test", "task": "links"}
+{"answer": "C", "id": "30080c2a04cd297c92e0", "question": "Links: B->H, N->L, H->P, P->C. Follow 3 links from B. Where do you end?", "reasoning": "B -> H -> P -> C.", "split": "test", "task": "links"}
+{"answer": "189", "id": "938f547e732586b6bd8c", "question": "Compute (11 + 16) * 7.", "reasoning": "11 + 16 = 27. 27 * 7 = 189.", "split": "test", "task": "arithmetic"}
+{"answer": "K", "id": "d3ce0f765d886e66bda7", "question": "Links: D->E, F->M, O->F, M->L, L->K. Follow 4 links from O. Where do you end?", "reasoning": "O -> F -> M -> L -> K.", "split": "test", "task": "links"}
+{"answer": "N", "id": "362a6bd4048c7be56876", "question": "Links: A->P, B->G, O->A, P->N. Follow 3 links from O. Where do you end?", "reasoning": "O -> A -> P -> N.", "split": "test", "task": "links"}
+{"answer": "322", "id": "ea9008f4c09b77c20134", "question": "Compute (11 + 12) * 14.", "reasoning": "11 + 12 = 23. 23 * 14 = 322.", "split": "test", "task": "arithmetic"}
+{"answer": "16", "id": "2aa0b17e10cad85b8017", "question": "Compute (14 + 2) * 1.", "reasoning": "14 + 2 = 16. 16 * 1 = 16.", "split": "test", "task": "arithmetic"}
+{"answer": "I", "id": "e8bf3914bca96b2079c4", "question": "Links: J->F, H->P, P->I, D->H. Follow 3 links from D. Where do you end?", "reasoning": "D -> H -> P -> I.", "split": "test", "task": "links"}
+{"answer": "A", "id": "31d68e8c2abaf3ac370b", "question": "Links: L->K, K->A, E->N, I->H, N->L. Follow 4 links from E. Where do you end?", "reasoning": "E -> N -> L -> K -> A.", "split": "test", "task": "links"}
+{"answer": "149", "id": "4cdd9824a5af086f93e5", "question": "Compute 9 * 15 + 14.", "reasoning": "9 * 15 = 135. 135 + 14 = 149.", "split": "test", "task": "arithmetic"}
+{"answer": "H", "id": "70d70364d7e5e39cb48b", "question": "Links: L->P, P->K, J->B, E->L, K->H. Follow 4 links from E. Where do you end?", "reasoning": "E -> L -> P -> K -> H.", "split": "test", "task": "links"}
+{"answer": "40", "id": "1df42e2e9054fbdad780", "question": "Compute (15 + 5) * 2.", "reasoning": "15 + 5 = 20. 20 * 2 = 40.", "split": "test", "task": "arithmetic"}
+{"answer": "K", "id": "e658afde58b49b047ea7", "question": "Links: A->P, H->N, P->K, G->A. Follow 3 links from G. Where do you end?", "reasoning": "G -> A -> P -> K.", "split": "test", "task": "links"}
+{"answer": "137", "id": "5008a9267fed69d50aef", "question": "Compute 12 * 10 + 17.", "reasoning": "12 * 10 = 120. 120 + 17 = 137.", "split": "test", "task": "arithmetic"}
+{"answer": "G", "id": "b291d46e484ed9220d8e", "question": "Links: B->K, K->G, I->A. Follow 2 links from B. Where do you end?", "reasoning": "B -> K -> G.", "split": "test", "task": "links"}
+{"answer": "144", "id": "f14fc5da9aa3ac404079", "question": "Compute (11 + 13) * 6.", "reasoning": "11 + 13 = 24. 24 * 6 = 144.", "split": "test", "task": "arithmetic"}
+{"answer": "70", "id": "e804352ef94563e91b8e", "question": "Compute 5 * 13 + 5.", "reasoning": "5 * 13 = 65. 65 + 5 = 70.", "split": "test", "task": "arithmetic"}
+{"answer": "288", "id": "f73c4e5043d3dff49833", "question": "Compute (17 + 15) * 9.", "reasoning": "17 + 15 = 32. 32 * 9 = 288.", "split": "test", "task": "arithmetic"}
+{"answer": "D", "id": "054c75a2013ab80432fc", "question": "Links: J->K, K->D, N->M. Follow 2 links from J. Where do you end?", "reasoning": "J -> K -> D.", "split": "test", "task": "links"}
+{"answer": "L", "id": "81862b7cc26186dcc732", "question": "Links: J->L, D->F, C->J. Follow 2 links from C. Where do you end?", "reasoning": "C -> J -> L.", "split": "test", "task": "links"}
+{"answer": "G", "id": "42ac0d18529f41a63109", "question": "Links: F->P, P->H, C->F, K->A, H->G. Follow 4 links from C. Where do you end?", "reasoning": "C -> F -> P -> H -> G.", "split": "test", "task": "links"}
+{"answer": "76", "id": "25ad00d2e82e70cebdbb", "question": "Compute (19 + 19) * 2.", "reasoning": "19 + 19 = 38. 38 * 2 = 76.", "split": "test", "task": "arithmetic"}
+{"answer": "121", "id": "bb2ca25234943dc61897", "question": "Compute (3 + 8) * 11.", "reasoning": "3 + 8 = 11. 11 * 11 = 121.", "split": "test", "task": "arithmetic"}
+{"answer": "400", "id": "9c45899e1add4be722ec", "question": "Compute (16 + 9) * 16.", "reasoning": "16 + 9 = 25. 25 * 16 = 400.", "split": "test", "task": "arithmetic"}
+{"answer": "480", "id": "d16a0bfec5f014fd165e", "question": "Compute (18 + 14) * 15.", "reasoning": "18 + 14 = 32. 32 * 15 = 480.", "split": "test", "task": "arithmetic"}
+{"answer": "150", "id": "9869fdbef7b4577804e7", "question": "Compute (19 + 11) * 5.", "reasoning": "19 + 11 = 30. 30 * 5 = 150.", "split": "test", "task": "arithmetic"}
+{"answer": "K", "id": "b20e36d60c712b70182c", "question": "Links: I->A, H->G, A->K. Follow 2 links from I. Where do you end?", "reasoning": "I -> A -> K.", "split": "test", "task": "links"}
+{"answer": "G", "id": "b8ff4ba64f45ae0d4c4d", "question": "Links: L->G, N->K, D->B, K->L. Follow 3 links from N. Where do you end?", "reasoning": "N -> K -> L -> G.", "split": "test", "task": "links"}
+{"answer": "L", "id": "e259dfe87a191d97a3e3", "question": "Links: K->L, N->K, J->D. Follow 2 links from N. Where do you end?", "reasoning": "N -> K -> L.", "split": "test", "task": "links"}
+{"answer": "45", "id": "d443fdee93a9e4f8a369", "question": "Compute 8 * 4 + 13.", "reasoning": "8 * 4 = 32. 32 + 13 = 45.", "split": "test", "task": "arithmetic"}
+{"answer": "49", "id": "a6889356425191ed881e", "question": "Compute 13 * 3 + 10.", "reasoning": "13 * 3 = 39. 39 + 10 = 49.", "split": "test", "task": "arithmetic"}
+{"answer": "414", "id": "2d9d96dac3b4d880ff82", "question": "Compute (9 + 14) * 18.", "reasoning": "9 + 14 = 23. 23 * 18 = 414.", "split": "test", "task": "arithmetic"}
+{"answer": "L", "id": "ea24c832a6f559e8b66a", "question": "Links: N->K, O->D, D->L. Follow 2 links from O. Where do you end?", "reasoning": "O -> D -> L.", "split": "test", "task": "links"}
+{"answer": "M", "id": "4fb95f4cccf581badbfe", "question": "Links: C->M, O->G, G->C, L->E. Follow 3 links from O. Where do you end?", "reasoning": "O -> G -> C -> M.", "split": "test", "task": "links"}
+{"answer": "297", "id": "6402b0caddbcf1ffeaa6", "question": "Compute (17 + 10) * 11.", "reasoning": "17 + 10 = 27. 27 * 11 = 297.", "split": "test", "task": "arithmetic"}
+{"answer": "34", "id": "0e4dd3d06aa35c7a8cbc", "question": "Compute 1 * 18 + 16.", "reasoning": "1 * 18 = 18. 18 + 16 = 34.", "split": "test", "task": "arithmetic"}
+{"answer": "H", "id": "79a381ac34cb9c400b7f", "question": "Links: E->P, D->E, I->B, P->H. Follow 3 links from D. Where do you end?", "reasoning": "D -> E -> P -> H.", "split": "test", "task": "links"}
+{"answer": "K", "id": "af6ee4345fbfc7afd62a", "question": "Links: E->H, G->L, L->K, A->G. Follow 3 links from A. Where do you end?", "reasoning": "A -> G -> L -> K.", "split": "test", "task": "links"}
+{"answer": "182", "id": "ced5629ea61a2a18c680", "question": "Compute (11 + 3) * 13.", "reasoning": "11 + 3 = 14. 14 * 13 = 182.", "split": "test", "task": "arithmetic"}
+{"answer": "P", "id": "96b80362e6ffb308adc0", "question": "Links: J->C, E->N, C->P. Follow 2 links from J. Where do you end?", "reasoning": "J -> C -> P.", "split": "test", "task": "links"}
+{"answer": "288", "id": "c3f07eb8aaf8ce428e99", "question": "Compute (19 + 13) * 9.", "reasoning": "19 + 13 = 32. 32 * 9 = 288.", "split": "test", "task": "arithmetic"}
+{"answer": "I", "id": "77435810f05f9ced9f2c", "question": "Links: P->C, A->P, G->A, C->I, J->L. Follow 4 links from G. Where do you end?", "reasoning": "G -> A -> P -> C -> I.", "split": "test", "task": "links"}
+{"answer": "61", "id": "75d50456a24528ab6242", "question": "Compute 10 * 5 + 11.", "reasoning": "10 * 5 = 50. 50 + 11 = 61.", "split": "test", "task": "arithmetic"}
+{"answer": "168", "id": "0e62aabc78caf91f4477", "question": "Compute (7 + 7) * 12.", "reasoning": "7 + 7 = 14. 14 * 12 = 168.", "split": "test", "task": "arithmetic"}
+{"answer": "171", "id": "173465b82a1040476086", "question": "Compute 19 * 8 + 19.", "reasoning": "19 * 8 = 152. 152 + 19 = 171.", "split": "test", "task": "arithmetic"}
+{"answer": "L", "id": "0b79b7968d5bc19b3db2", "question": "Links: F->N, J->G, B->H, G->L, H->J. Follow 4 links from B. Where do you end?", "reasoning": "B -> H -> J -> G -> L.", "split": "test", "task": "links"}
+{"answer": "51", "id": "197214ec5cf97f7c3c35", "question": "Compute 2 * 20 + 11.", "reasoning": "2 * 20 = 40. 40 + 11 = 51.", "split": "test", "task": "arithmetic"}
+{"answer": "M", "id": "70bfd81043f28a02d95a", "question": "Links: C->E, J->M, N->J. Follow 2 links from N. Where do you end?", "reasoning": "N -> J -> M.", "split": "test", "task": "links"}
+{"answer": "F", "id": "1bb2631a50fbe3040baf", "question": "Links: H->N, D->F, N->D, A->L. Follow 3 links from H. Where do you end?", "reasoning": "H -> N -> D -> F.", "split": "test", "task": "links"}
+{"answer": "504", "id": "b677e9c4d9b0327dab50", "question": "Compute (20 + 16) * 14.", "reasoning": "20 + 16 = 36. 36 * 14 = 504.", "split": "test", "task": "arithmetic"}
+{"answer": "E", "id": "37ea69ba82f3f53ede8c", "question": "Links: F->H, J->M, H->E. Follow 2 links from F. Where do you end?", "reasoning": "F -> H -> E.", "split": "test", "task": "links"}
+{"answer": "476", "id": "02583818f821602b5008", "question": "Compute (18 + 16) * 14.", "reasoning": "18 + 16 = 34. 34 * 14 = 476.", "split": "test", "task": "arithmetic"}
+{"answer": "M", "id": "15a40e6aa0c90c68f259", "question": "Links: N->B, J->G, D->J, G->M. Follow 3 links from D. Where do you end?", "reasoning": "D -> J -> G -> M.", "split": "test", "task": "links"}
+{"answer": "O", "id": "17f7022612404816c4d8", "question": "Links: J->G, K->O, F->K. Follow 2 links from F. Where do you end?", "reasoning": "F -> K -> O.", "split": "test", "task": "links"}
+{"answer": "N", "id": "262ae2863d26281b4ade", "question": "Links: P->H, H->A, A->N, K->M. Follow 3 links from P. Where do you end?", "reasoning": "P -> H -> A -> N.", "split": "test", "task": "links"}
+{"answer": "F", "id": "0defc858f8cb2ab676c3", "question": "Links: A->F, K->O, H->K, E->M, O->A. Follow 4 links from H. Where do you end?", "reasoning": "H -> K -> O -> A -> F.", "split": "test", "task": "links"}
+{"answer": "I", "id": "4e55c51e9c553323803e", "question": "Links: K->I, H->P, M->H, J->C, P->K. Follow 4 links from M. Where do you end?", "reasoning": "M -> H -> P -> K -> I.", "split": "test", "task": "links"}
+{"answer": "230", "id": "d8a317f880faf4783999", "question": "Compute (10 + 13) * 10.", "reasoning": "10 + 13 = 23. 23 * 10 = 230.", "split": "test", "task": "arithmetic"}
+{"answer": "G", "id": "01858436f86a561e7e1e", "question": "Links: C->G, K->L, J->E, B->J, E->C. Follow 4 links from B. Where do you end?", "reasoning": "B -> J -> E -> C -> G.", "split": "test", "task": "links"}
+{"answer": "52", "id": "ec87267403275100538f", "question": "Compute 4 * 8 + 20.", "reasoning": "4 * 8 = 32. 32 + 20 = 52.", "split": "test", "task": "arithmetic"}
+{"answer": "P", "id": "8127f3eaee5c7014be22", "question": "Links: N->C, O->N, C->P, M->H. Follow 3 links from O. Where do you end?", "reasoning": "O -> N -> C -> P.", "split": "test", "task": "links"}
+{"answer": "132", "id": "65145946b08fe3f95c76", "question": "Compute (6 + 6) * 11.", "reasoning": "6 + 6 = 12. 12 * 11 = 132.", "split": "test", "task": "arithmetic"}
+{"answer": "B", "id": "739cf50ec889f9d1842d", "question": "Links: I->G, N->B, P->N. Follow 2 links from P. Where do you end?", "reasoning": "P -> N -> B.", "split": "test", "task": "links"}
+{"answer": "C", "id": "fc24802ceaad9ed4702d", "question": "Links: B->L, G->M, L->E, I->C, E->I. Follow 4 links from B. Where do you end?", "reasoning": "B -> L -> E -> I -> C.", "split": "test", "task": "links"}
+{"answer": "133", "id": "77c35c04691d379cd013", "question": "Compute (6 + 1) * 19.", "reasoning": "6 + 1 = 7. 7 * 19 = 133.", "split": "test", "task": "arithmetic"}
+{"answer": "36", "id": "ab40055099f22cac9e72", "question": "Compute (20 + 16) * 1.", "reasoning": "20 + 16 = 36. 36 * 1 = 36.", "split": "test", "task": "arithmetic"}
+{"answer": "K", "id": "9d99e7369d28eaadf04f", "question": "Links: P->N, J->B, N->K. Follow 2 links from P. Where do you end?", "reasoning": "P -> N -> K.", "split": "test", "task": "links"}
+{"answer": "D", "id": "5ac44d707b521747c083", "question": "Links: G->D, O->L, L->G, F->A. Follow 3 links from O. Where do you end?", "reasoning": "O -> L -> G -> D.", "split": "test", "task": "links"}
+{"answer": "A", "id": "5209e2305194009b0e9e", "question": "Links: I->B, O->A, L->O, N->L. Follow 3 links from N. Where do you end?", "reasoning": "N -> L -> O -> A.", "split": "test", "task": "links"}
+{"answer": "P", "id": "c37882dc2d3db5703b9c", "question": "Links: O->A, I->P, C->I. Follow 2 links from C. Where do you end?", "reasoning": "C -> I -> P.", "split": "test", "task": "links"}
+{"answer": "153", "id": "003d8fc46d38dffe05d7", "question": "Compute (10 + 7) * 9.", "reasoning": "10 + 7 = 17. 17 * 9 = 153.", "split": "test", "task": "arithmetic"}
+{"answer": "80", "id": "b4da62d6b417ae3864bc", "question": "Compute (17 + 3) * 4.", "reasoning": "17 + 3 = 20. 20 * 4 = 80.", "split": "test", "task": "arithmetic"}
+{"answer": "O", "id": "e879166efd3dac4e1052", "question": "Links: D->M, H->O, P->I, I->H. Follow 3 links from P. Where do you end?", "reasoning": "P -> I -> H -> O.", "split": "test", "task": "links"}
+{"answer": "136", "id": "05fbff367febec8a3518", "question": "Compute (1 + 7) * 17.", "reasoning": "1 + 7 = 8. 8 * 17 = 136.", "split": "test", "task": "arithmetic"}
+{"answer": "130", "id": "a9efea802cb0a5c8d1bb", "question": "Compute (6 + 20) * 5.", "reasoning": "6 + 20 = 26. 26 * 5 = 130.", "split": "test", "task": "arithmetic"}
+{"answer": "294", "id": "4609f3ee6150b340289f", "question": "Compute (13 + 8) * 14.", "reasoning": "13 + 8 = 21. 21 * 14 = 294.", "split": "test", "task": "arithmetic"}
+{"answer": "135", "id": "025614b629611952f7d5", "question": "Compute (8 + 1) * 15.", "reasoning": "8 + 1 = 9. 9 * 15 = 135.", "split": "test", "task": "arithmetic"}
+{"answer": "230", "id": "aca63e78e88b84b5bc74", "question": "Compute (16 + 7) * 10.", "reasoning": "16 + 7 = 23. 23 * 10 = 230.", "split": "test", "task": "arithmetic"}
+{"answer": "352", "id": "b8ef341e7057e136b216", "question": "Compute (3 + 19) * 16.", "reasoning": "3 + 19 = 22. 22 * 16 = 352.", "split": "test", "task": "arithmetic"}
+{"answer": "448", "id": "98244b20bf10af932ac8", "question": "Compute (17 + 15) * 14.", "reasoning": "17 + 15 = 32. 32 * 14 = 448.", "split": "test", "task": "arithmetic"}
+{"answer": "C", "id": "6ed85c487631a07181b8", "question": "Links: O->K, D->O, K->L, A->I, L->C. Follow 4 links from D. Where do you end?", "reasoning": "D -> O -> K -> L -> C.", "split": "test", "task": "links"}
+{"answer": "78", "id": "bd281168e5afd7d8962c", "question": "Compute 4 * 19 + 2.", "reasoning": "4 * 19 = 76. 76 + 2 = 78.", "split": "test", "task": "arithmetic"}
+{"answer": "285", "id": "eb9b0c4e23d8352bcebb", "question": "Compute (3 + 12) * 19.", "reasoning": "3 + 12 = 15. 15 * 19 = 285.", "split": "test", "task": "arithmetic"}
+{"answer": "K", "id": "c8c928fed9c01168d61e", "question": "Links: A->O, I->H, E->K, H->L, L->E. Follow 4 links from I. Where do you end?", "reasoning": "I -> H -> L -> E -> K.", "split": "test", "task": "links"}
+{"answer": "92", "id": "83627ebee209745c10a8", "question": "Compute 20 * 4 + 12.", "reasoning": "20 * 4 = 80. 80 + 12 = 92.", "split": "test", "task": "arithmetic"}
+{"answer": "38", "id": "71be7b22972f7f1e99bf", "question": "Compute (18 + 1) * 2.", "reasoning": "18 + 1 = 19. 19 * 2 = 38.", "split": "test", "task": "arithmetic"}
+{"answer": "O", "id": "32354e72dcafcc266f67", "question": "Links: E->C, C->O, L->G, I->P, P->E. Follow 4 links from I. Where do you end?", "reasoning": "I -> P -> E -> C -> O.", "split": "test", "task": "links"}
+{"answer": "20", "id": "28149be6e29e62d81c5e", "question": "Compute 2 * 3 + 14.", "reasoning": "2 * 3 = 6. 6 + 14 = 20.", "split": "test", "task": "arithmetic"}
+{"answer": "J", "id": "f13a8850128f741341a9", "question": "Links: G->J, N->P, E->G, P->E, M->C. Follow 4 links from N. Where do you end?", "reasoning": "N -> P -> E -> G -> J.", "split": "test", "task": "links"}
+{"answer": "O", "id": "84e3efe80ae837abaf2d", "question": "Links: D->O, H->D, E->N, M->K, K->H. Follow 4 links from M. Where do you end?", "reasoning": "M -> K -> H -> D -> O.", "split": "test", "task": "links"}
+{"answer": "134", "id": "db04418ebc1199b0c2d5", "question": "Compute 15 * 8 + 14.", "reasoning": "15 * 8 = 120. 120 + 14 = 134.", "split": "test", "task": "arithmetic"}
+{"answer": "225", "id": "ab105ccec18e5037d62e", "question": "Compute (14 + 1) * 15.", "reasoning": "14 + 1 = 15. 15 * 15 = 225.", "split": "test", "task": "arithmetic"}
+{"answer": "F", "id": "65ef3804e658dd46be2f", "question": "Links: A->P, I->F, P->N, L->H, N->I. Follow 4 links from A. Where do you end?", "reasoning": "A -> P -> N -> I -> F.", "split": "test", "task": "links"}
+{"answer": "325", "id": "ddf191da3bb97f0c9fdc", "question": "Compute (20 + 5) * 13.", "reasoning": "20 + 5 = 25. 25 * 13 = 325.", "split": "test", "task": "arithmetic"}
+{"answer": "O", "id": "8a8908b615cb0f49b214", "question": "Links: G->O, B->F, F->G, I->B, N->P. Follow 4 links from I. Where do you end?", "reasoning": "I -> B -> F -> G -> O.", "split": "test", "task": "links"}
+{"answer": "126", "id": "0722ba62e6eb1810ce79", "question": "Compute 13 * 9 + 9.", "reasoning": "13 * 9 = 117. 117 + 9 = 126.", "split": "test", "task": "arithmetic"}
+{"answer": "B", "id": "64e608a2a1672afcfa31", "question": "Links: J->D, O->L, D->B, P->J, I->P. Follow 4 links from I. Where do you end?", "reasoning": "I -> P -> J -> D -> B.", "split": "test", "task": "links"}
+{"answer": "G", "id": "e6fc87122da20b2e8bc9", "question": "Links: I->P, K->F, P->G. Follow 2 links from I. Where do you end?", "reasoning": "I -> P -> G.", "split": "test", "task": "links"}
+{"answer": "72", "id": "7f100f48498173f93dae", "question": "Compute 9 * 6 + 18.", "reasoning": "9 * 6 = 54. 54 + 18 = 72.", "split": "test", "task": "arithmetic"}
+{"answer": "D", "id": "a4a42f647d117bbe3dd3", "question": "Links: J->M, C->B, P->D, M->P. Follow 3 links from J. Where do you end?", "reasoning": "J -> M -> P -> D.", "split": "test", "task": "links"}
+{"answer": "336", "id": "675309e691ab0223e10a", "question": "Compute (12 + 12) * 14.", "reasoning": "12 + 12 = 24. 24 * 14 = 336.", "split": "test", "task": "arithmetic"}
+{"answer": "N", "id": "32b51b84b28ff8d84faa", "question": "Links: C->F, F->N, J->B. Follow 2 links from C. Where do you end?", "reasoning": "C -> F -> N.", "split": "test", "task": "links"}
+{"answer": "J", "id": "793d031eb2d798c7804c", "question": "Links: I->M, C->F, M->J. Follow 2 links from I. Where do you end?", "reasoning": "I -> M -> J.", "split": "test", "task": "links"}
+{"answer": "I", "id": "907fc5acfc4fa820a56f", "question": "Links: P->E, F->P, C->D, E->I. Follow 3 links from F. Where do you end?", "reasoning": "F -> P -> E -> I.", "split": "test", "task": "links"}
+{"answer": "20", "id": "d8853288bab19baced4e", "question": "Compute (8 + 12) * 1.", "reasoning": "8 + 12 = 20. 20 * 1 = 20.", "split": "test", "task": "arithmetic"}
+{"answer": "D", "id": "40a4d310b6476866912e", "question": "Links: H->I, A->D, M->G, I->K, K->A. Follow 4 links from H. Where do you end?", "reasoning": "H -> I -> K -> A -> D.", "split": "test", "task": "links"}
+{"answer": "249", "id": "5107bd6c23ca8116fc9d", "question": "Compute 14 * 17 + 11.", "reasoning": "14 * 17 = 238. 238 + 11 = 249.", "split": "test", "task": "arithmetic"}
+{"answer": "B", "id": "f7435a9cab13df377306", "question": "Links: P->N, N->E, A->D, E->B. Follow 3 links from P. Where do you end?", "reasoning": "P -> N -> E -> B.", "split": "test", "task": "links"}
+{"answer": "214", "id": "402ef83e89844c5c5ec5", "question": "Compute 14 * 14 + 18.", "reasoning": "14 * 14 = 196. 196 + 18 = 214.", "split": "test", "task": "arithmetic"}
+{"answer": "189", "id": "cb95ab0229dd07baf0f1", "question": "Compute (16 + 5) * 9.", "reasoning": "16 + 5 = 21. 21 * 9 = 189.", "split": "test", "task": "arithmetic"}
+{"answer": "B", "id": "ac31612a5b189f057318", "question": "Links: P->B, G->A, D->P. Follow 2 links from D. Where do you end?", "reasoning": "D -> P -> B.", "split": "test", "task": "links"}
+{"answer": "68", "id": "565a80ce9a14eebd9d58", "question": "Compute (2 + 15) * 4.", "reasoning": "2 + 15 = 17. 17 * 4 = 68.", "split": "test", "task": "arithmetic"}
+{"answer": "J", "id": "3bad984250c92b603430", "question": "Links: L->M, A->O, M->J. Follow 2 links from L. Where do you end?", "reasoning": "L -> M -> J.", "split": "test", "task": "links"}
+{"answer": "182", "id": "b8466ff09d565c008555", "question": "Compute (11 + 2) * 14.", "reasoning": "11 + 2 = 13. 13 * 14 = 182.", "split": "test", "task": "arithmetic"}
+{"answer": "M", "id": "4198aac663f2c30a3631", "question": "Links: C->I, N->M, I->N, O->D. Follow 3 links from C. Where do you end?", "reasoning": "C -> I -> N -> M.", "split": "test", "task": "links"}
+{"answer": "K", "id": "3130b5c030281e51e08d", "question": "Links: P->M, D->P, B->G, M->K. Follow 3 links from D. Where do you end?", "reasoning": "D -> P -> M -> K.", "split": "test", "task": "links"}
+{"answer": "I", "id": "6749bf9ed7aa8e6e57fa", "question": "Links: B->M, J->K, L->O, O->B, M->I. Follow 4 links from L. Where do you end?", "reasoning": "L -> O -> B -> M -> I.", "split": "test", "task": "links"}
+{"answer": "300", "id": "ccd6cb9acc18f891599f", "question": "Compute (7 + 13) * 15.", "reasoning": "7 + 13 = 20. 20 * 15 = 300.", "split": "test", "task": "arithmetic"}
+{"answer": "K", "id": "bc6db782adca44e1bed4", "question": "Links: M->A, B->N, A->K. Follow 2 links from M. Where do you end?", "reasoning": "M -> A -> K.", "split": "test", "task": "links"}
+{"answer": "I", "id": "5816711614c011dd39fc", "question": "Links: O->E, G->J, F->I, J->F. Follow 3 links from G. Where do you end?", "reasoning": "G -> J -> F -> I.", "split": "test", "task": "links"}
+{"answer": "N", "id": "b3de9d7a1ccd3c8f0331", "question": "Links: F->N, P->B, G->C, B->F. Follow 3 links from P. Where do you end?", "reasoning": "P -> B -> F -> N.", "split": "test", "task": "links"}
+{"answer": "9", "id": "2122d8fc7911160b7394", "question": "Compute (3 + 6) * 1.", "reasoning": "3 + 6 = 9. 9 * 1 = 9.", "split": "test", "task": "arithmetic"}
+{"answer": "N", "id": "c37cd83c5c7fcddae49d", "question": "Links: A->P, G->K, F->A, H->N, P->H. Follow 4 links from F. Where do you end?", "reasoning": "F -> A -> P -> H -> N.", "split": "test", "task": "links"}
+{"answer": "M", "id": "577a1fdcf3641b758067", "question": "Links: A->I, N->B, I->M. Follow 2 links from A. Where do you end?", "reasoning": "A -> I -> M.", "split": "test", "task": "links"}
+{"answer": "89", "id": "3bac089c3ecb01d53a76", "question": "Compute 18 * 4 + 17.", "reasoning": "18 * 4 = 72. 72 + 17 = 89.", "split": "test", "task": "arithmetic"}
+{"answer": "340", "id": "b64e8cfad5eff96a2a00", "question": "Compute 20 * 16 + 20.", "reasoning": "20 * 16 = 320. 320 + 20 = 340.", "split": "test", "task": "arithmetic"}
+{"answer": "M", "id": "48ee35f2b708c626164e", "question": "Links: G->N, F->L, L->M. Follow 2 links from F. Where do you end?", "reasoning": "F -> L -> M.", "split": "test", "task": "links"}
+{"answer": "138", "id": "a2fb91666199a8a4eddf", "question": "Compute 8 * 15 + 18.", "reasoning": "8 * 15 = 120. 120 + 18 = 138.", "split": "test", "task": "arithmetic"}
+{"answer": "21", "id": "f4d68392bc79c6f7e43a", "question": "Compute (1 + 20) * 1.", "reasoning": "1 + 20 = 21. 21 * 1 = 21.", "split": "test", "task": "arithmetic"}
+{"answer": "165", "id": "b7bc4cd014167e1960c3", "question": "Compute (10 + 5) * 11.", "reasoning": "10 + 5 = 15. 15 * 11 = 165.", "split": "test", "task": "arithmetic"}
+{"answer": "E", "id": "8f71f34ce4ee63f49edf", "question": "Links: K->P, N->D, P->E. Follow 2 links from K. Where do you end?", "reasoning": "K -> P -> E.", "split": "test", "task": "links"}
+{"answer": "71", "id": "772101200064dd30beea", "question": "Compute 5 * 13 + 6.", "reasoning": "5 * 13 = 65. 65 + 6 = 71.", "split": "test", "task": "arithmetic"}
+{"answer": "E", "id": "52983e90c33ade339ede", "question": "Links: M->P, G->E, O->D, D->G. Follow 3 links from O. Where do you end?", "reasoning": "O -> D -> G -> E.", "split": "test", "task": "links"}
+{"answer": "H", "id": "110879c263e383de16a7", "question": "Links: D->F, F->H, G->E. Follow 2 links from D. Where do you end?", "reasoning": "D -> F -> H.", "split": "test", "task": "links"}
+{"answer": "377", "id": "50221db6cb1c607ad89e", "question": "Compute (18 + 11) * 13.", "reasoning": "18 + 11 = 29. 29 * 13 = 377.", "split": "test", "task": "arithmetic"}
+{"answer": "N", "id": "245752bea74f319ba496", "question": "Links: F->G, B->F, A->B, O->P, G->N. Follow 4 links from A. Where do you end?", "reasoning": "A -> B -> F -> G -> N.", "split": "test", "task": "links"}
+{"answer": "L", "id": "af8c620c588ad45bd0fb", "question": "Links: F->H, H->G, B->O, G->L. Follow 3 links from F. Where do you end?", "reasoning": "F -> H -> G -> L.", "split": "test", "task": "links"}
+{"answer": "B", "id": "64e9e7748bdfd9cb55c9", "question": "Links: P->B, F->N, N->P, E->L. Follow 3 links from F. Where do you end?", "reasoning": "F -> N -> P -> B.", "split": "test", "task": "links"}
+{"answer": "P", "id": "82e4add6b3e6908155e4", "question": "Links: O->A, E->P, H->L, A->E. Follow 3 links from O. Where do you end?", "reasoning": "O -> A -> E -> P.", "split": "test", "task": "links"}
+{"answer": "135", "id": "72c98e942c8204b91d6d", "question": "Compute (4 + 5) * 15.", "reasoning": "4 + 5 = 9. 9 * 15 = 135.", "split": "test", "task": "arithmetic"}
+{"answer": "357", "id": "1d33fa0aa8d9705c41df", "question": "Compute 20 * 17 + 17.", "reasoning": "20 * 17 = 340. 340 + 17 = 357.", "split": "test", "task": "arithmetic"}
+{"answer": "H", "id": "2163e0b8aa7d92fd20eb", "question": "Links: D->B, M->K, P->D, B->H, F->P. Follow 4 links from F. Where do you end?", "reasoning": "F -> P -> D -> B -> H.", "split": "test", "task": "links"}
+{"answer": "82", "id": "b2e76ed81279d691552f", "question": "Compute 7 * 10 + 12.", "reasoning": "7 * 10 = 70. 70 + 12 = 82.", "split": "test", "task": "arithmetic"}
+{"answer": "B", "id": "80b5f3dac68797b62309", "question": "Links: C->N, G->I, A->B, N->A. Follow 3 links from C. Where do you end?", "reasoning": "C -> N -> A -> B.", "split": "test", "task": "links"}
+{"answer": "207", "id": "ec954fa68a7df20c98c6", "question": "Compute (15 + 8) * 9.", "reasoning": "15 + 8 = 23. 23 * 9 = 207.", "split": "test", "task": "arithmetic"}
+{"answer": "B", "id": "8aa168342b7a2045eb95", "question": "Links: C->A, A->K, G->E, K->B. Follow 3 links from C. Where do you end?", "reasoning": "C -> A -> K -> B.", "split": "test", "task": "links"}
+{"answer": "42", "id": "dda81c7637264b274261", "question": "Compute 5 * 6 + 12.", "reasoning": "5 * 6 = 30. 30 + 12 = 42.", "split": "test", "task": "arithmetic"}
+{"answer": "36", "id": "6cdfa8c41b0036a062d9", "question": "Compute (2 + 7) * 4.", "reasoning": "2 + 7 = 9. 9 * 4 = 36.", "split": "test", "task": "arithmetic"}
+{"answer": "60", "id": "4b4d4e5050e01cad7b2e", "question": "Compute (5 + 5) * 6.", "reasoning": "5 + 5 = 10. 10 * 6 = 60.", "split": "test", "task": "arithmetic"}
+{"answer": "201", "id": "c87a00b2093a7b92cf5f", "question": "Compute 10 * 20 + 1.", "reasoning": "10 * 20 = 200. 200 + 1 = 201.", "split": "test", "task": "arithmetic"}
+{"answer": "403", "id": "75128b7433e7369d4dfe", "question": "Compute (19 + 12) * 13.", "reasoning": "19 + 12 = 31. 31 * 13 = 403.", "split": "test", "task": "arithmetic"}
+{"answer": "150", "id": "baf5ac8ece9f16a8c6b4", "question": "Compute (10 + 20) * 5.", "reasoning": "10 + 20 = 30. 30 * 5 = 150.", "split": "test", "task": "arithmetic"}
+{"answer": "C", "id": "09eb3e540d3578baac55", "question": "Links: I->G, M->H, H->C. Follow 2 links from M. Where do you end?", "reasoning": "M -> H -> C.", "split": "test", "task": "links"}
+{"answer": "216", "id": "cf99d73236649a01f2d0", "question": "Compute (9 + 9) * 12.", "reasoning": "9 + 9 = 18. 18 * 12 = 216.", "split": "test", "task": "arithmetic"}
+{"answer": "233", "id": "6e09b41029e690983504", "question": "Compute 16 * 14 + 9.", "reasoning": "16 * 14 = 224. 224 + 9 = 233.", "split": "test", "task": "arithmetic"}
+{"answer": "B", "id": "097a79943064d7f8dc1d", "question": "Links: C->K, N->B, D->N, O->D. Follow 3 links from O. Where do you end?", "reasoning": "O -> D -> N -> B.", "split": "test", "task": "links"}
+{"answer": "O", "id": "c368a60a5c2cf14eee89", "question": "Links: I->O, H->L, B->I. Follow 2 links from B. Where do you end?", "reasoning": "B -> I -> O.", "split": "test", "task": "links"}
+{"answer": "D", "id": "2c10f12223b3909fdb9d", "question": "Links: K->I, O->C, C->M, M->D. Follow 3 links from O. Where do you end?", "reasoning": "O -> C -> M -> D.", "split": "test", "task": "links"}
+{"answer": "307", "id": "a6709fa8ee9ac434feb7", "question": "Compute 17 * 17 + 18.", "reasoning": "17 * 17 = 289. 289 + 18 = 307.", "split": "test", "task": "arithmetic"}
+{"answer": "J", "id": "7b7d96ca5297b7afae58", "question": "Links: P->C, L->I, I->J. Follow 2 links from L. Where do you end?", "reasoning": "L -> I -> J.", "split": "test", "task": "links"}
+{"answer": "448", "id": "bce85e74e3bbb6ea714e", "question": "Compute (12 + 16) * 16.", "reasoning": "12 + 16 = 28. 28 * 16 = 448.", "split": "test", "task": "arithmetic"}
+{"answer": "I", "id": "302c0864495cad0997f9", "question": "Links: H->A, O->E, A->I, M->H. Follow 3 links from M. Where do you end?", "reasoning": "M -> H -> A -> I.", "split": "test", "task": "links"}
+{"answer": "72", "id": "48b80ab824f01ea2bdb6", "question": "Compute (2 + 16) * 4.", "reasoning": "2 + 16 = 18. 18 * 4 = 72.", "split": "test", "task": "arithmetic"}
+{"answer": "H", "id": "b7dfec265e0db956a26f", "question": "Links: N->H, E->O, P->N, M->P. Follow 3 links from M. Where do you end?", "reasoning": "M -> P -> N -> H.", "split": "test", "task": "links"}
+{"answer": "90", "id": "6da01b7258c229b34e7a", "question": "Compute (14 + 4) * 5.", "reasoning": "14 + 4 = 18. 18 * 5 = 90.", "split": "test", "task": "arithmetic"}
+{"answer": "I", "id": "5af2ab0c464485be23c2", "question": "Links: G->I, D->L, H->G. Follow 2 links from H. Where do you end?", "reasoning": "H -> G -> I.", "split": "test", "task": "links"}
+{"answer": "198", "id": "e54fbc040494241314d9", "question": "Compute (6 + 12) * 11.", "reasoning": "6 + 12 = 18. 18 * 11 = 198.", "split": "test", "task": "arithmetic"}
+{"answer": "K", "id": "5d2244fa4c35f0c0da48", "question": "Links: I->J, P->M, M->K. Follow 2 links from P. Where do you end?", "reasoning": "P -> M -> K.", "split": "test", "task": "links"}
+{"answer": "O", "id": "95b920f441103d250e32", "question": "Links: I->O, F->I, A->E, M->F. Follow 3 links from M. Where do you end?", "reasoning": "M -> F -> I -> O.", "split": "test", "task": "links"}
+{"answer": "266", "id": "3b2c9c568d07ca2e5c08", "question": "Compute (16 + 3) * 14.", "reasoning": "16 + 3 = 19. 19 * 14 = 266.", "split": "test", "task": "arithmetic"}
+{"answer": "C", "id": "a311e45cd843da943ca6", "question": "Links: J->P, F->M, G->C, M->O, O->G. Follow 4 links from F. Where do you end?", "reasoning": "F -> M -> O -> G -> C.", "split": "test", "task": "links"}
+{"answer": "C", "id": "99680e9a551cd94c8a4d", "question": "Links: J->F, M->P, F->I, I->C. Follow 3 links from J. Where do you end?", "reasoning": "J -> F -> I -> C.", "split": "test", "task": "links"}
+{"answer": "372", "id": "28c99b902affb4a31159", "question": "Compute (19 + 12) * 12.", "reasoning": "19 + 12 = 31. 31 * 12 = 372.", "split": "test", "task": "arithmetic"}
+{"answer": "E", "id": "ce60d0e61f56a55b56f4", "question": "Links: N->I, O->F, F->G, G->A, A->E. Follow 4 links from O. Where do you end?", "reasoning": "O -> F -> G -> A -> E.", "split": "test", "task": "links"}
+{"answer": "357", "id": "132218d0cb720dd18abf", "question": "Compute (1 + 20) * 17.", "reasoning": "1 + 20 = 21. 21 * 17 = 357.", "split": "test", "task": "arithmetic"}
+{"answer": "78", "id": "a0b66976f459e381e317", "question": "Compute 5 * 14 + 8.", "reasoning": "5 * 14 = 70. 70 + 8 = 78.", "split": "test", "task": "arithmetic"}
+{"answer": "198", "id": "51cd467c8051b463553c", "question": "Compute (4 + 14) * 11.", "reasoning": "4 + 14 = 18. 18 * 11 = 198.", "split": "test", "task": "arithmetic"}
+{"answer": "364", "id": "bebc62d6405a2a101709", "question": "Compute (12 + 16) * 13.", "reasoning": "12 + 16 = 28. 28 * 13 = 364.", "split": "test", "task": "arithmetic"}
+{"answer": "D", "id": "86fbb95069428a6c978d", "question": "Links: K->D, M->A, F->C, P->K, C->P. Follow 4 links from F. Where do you end?", "reasoning": "F -> C -> P -> K -> D.", "split": "test", "task": "links"}
+{"answer": "C", "id": "6115f41cab3175194ffa", "question": "Links: K->B, B->D, H->M, D->C. Follow 3 links from K. Where do you end?", "reasoning": "K -> B -> D -> C.", "split": "test", "task": "links"}
+{"answer": "544", "id": "600b978eb14f66b38e98", "question": "Compute (15 + 19) * 16.", "reasoning": "15 + 19 = 34. 34 * 16 = 544.", "split": "test", "task": "arithmetic"}
+{"answer": "K", "id": "926af0d0145b9ea0cac7", "question": "Links: N->J, A->H, F->G, H->K, J->A. Follow 4 links from N. Where do you end?", "reasoning": "N -> J -> A -> H -> K.", "split": "test", "task": "links"}
+{"answer": "F", "id": "1aea0e92abf5559ab4cb", "question": "Links: C->F, K->P, I->H, P->C. Follow 3 links from K. Where do you end?", "reasoning": "K -> P -> C -> F.", "split": "test", "task": "links"}
+{"answer": "69", "id": "8b2a9ae6cac68ecbf83f", "question": "Compute 13 * 5 + 4.", "reasoning": "13 * 5 = 65. 65 + 4 = 69.", "split": "test", "task": "arithmetic"}
+{"answer": "266", "id": "ec68a7c668dce4b77b16", "question": "Compute (11 + 8) * 14.", "reasoning": "11 + 8 = 19. 19 * 14 = 266.", "split": "test", "task": "arithmetic"}
+{"answer": "K", "id": "f698ea76a3fe4914f4b7", "question": "Links: P->F, C->K, L->C. Follow 2 links from L. Where do you end?", "reasoning": "L -> C -> K.", "split": "test", "task": "links"}
+{"answer": "520", "id": "cf5a09540bb14659cac3", "question": "Compute (18 + 8) * 20.", "reasoning": "18 + 8 = 26. 26 * 20 = 520.", "split": "test", "task": "arithmetic"}
+{"answer": "P", "id": "7fbc3bd8b1fbc90373d9", "question": "Links: E->D, K->J, G->K, J->P. Follow 3 links from G. Where do you end?", "reasoning": "G -> K -> J -> P.", "split": "test", "task": "links"}
+{"answer": "108", "id": "4425bd2eb821d5dadd32", "question": "Compute (19 + 17) * 3.", "reasoning": "19 + 17 = 36. 36 * 3 = 108.", "split": "test", "task": "arithmetic"}
+{"answer": "14", "id": "af9ccbd814e09774ae90", "question": "Compute (3 + 11) * 1.", "reasoning": "3 + 11 = 14. 14 * 1 = 14.", "split": "test", "task": "arithmetic"}
+{"answer": "M", "id": "2a9055a41ba1a8918ac5", "question": "Links: F->B, I->M, J->C, K->J, C->I. Follow 4 links from K. Where do you end?", "reasoning": "K -> J -> C -> I -> M.", "split": "test", "task": "links"}
+{"answer": "73", "id": "fa26e5f8dc8f05722b53", "question": "Compute 4 * 15 + 13.", "reasoning": "4 * 15 = 60. 60 + 13 = 73.", "split": "test", "task": "arithmetic"}
+{"answer": "100", "id": "4b7f443cf1e29845ffde", "question": "Compute (13 + 7) * 5.", "reasoning": "13 + 7 = 20. 20 * 5 = 100.", "split": "test", "task": "arithmetic"}
+{"answer": "I", "id": "9226662205bd416228be", "question": "Links: F->M, E->I, C->E. Follow 2 links from C. Where do you end?", "reasoning": "C -> E -> I.", "split": "test", "task": "links"}
+{"answer": "K", "id": "66ec9030cfa478313df6", "question": "Links: N->K, G->B, O->N. Follow 2 links from O. Where do you end?", "reasoning": "O -> N -> K.", "split": "test", "task": "links"}
+{"answer": "J", "id": "8eeebf54500f20d97f22", "question": "Links: O->C, B->D, D->J. Follow 2 links from B. Where do you end?", "reasoning": "B -> D -> J.", "split": "test", "task": "links"}
+{"answer": "113", "id": "4abf1cc0941c4d9c3b10", "question": "Compute 8 * 13 + 9.", "reasoning": "8 * 13 = 104. 104 + 9 = 113.", "split": "test", "task": "arithmetic"}
+{"answer": "I", "id": "3986883aed159638e8c2", "question": "Links: D->H, O->P, H->I. Follow 2 links from D. Where do you end?", "reasoning": "D -> H -> I.", "split": "test", "task": "links"}
+{"answer": "F", "id": "c17a17acde69d262a408", "question": "Links: D->K, I->B, M->F, B->M. Follow 3 links from I. Where do you end?", "reasoning": "I -> B -> M -> F.", "split": "test", "task": "links"}
+{"answer": "280", "id": "ad1ab14aaa20d0583a46", "question": "Compute (11 + 17) * 10.", "reasoning": "11 + 17 = 28. 28 * 10 = 280.", "split": "test", "task": "arithmetic"}
+{"answer": "300", "id": "9c072c30a794be5cf5a6", "question": "Compute (9 + 16) * 12.", "reasoning": "9 + 16 = 25. 25 * 12 = 300.", "split": "test", "task": "arithmetic"}
+{"answer": "P", "id": "7f11c5402195ce654c13", "question": "Links: F->H, M->F, J->M, H->P, E->N. Follow 4 links from J. Where do you end?", "reasoning": "J -> M -> F -> H -> P.", "split": "test", "task": "links"}
+{"answer": "E", "id": "75b265548d9014c45bd3", "question": "Links: P->E, H->I, I->K, K->P, C->B. Follow 4 links from H. Where do you end?", "reasoning": "H -> I -> K -> P -> E.", "split": "test", "task": "links"}
+{"answer": "306", "id": "aef23e7080f10650276a", "question": "Compute 15 * 20 + 6.", "reasoning": "15 * 20 = 300. 300 + 6 = 306.", "split": "test", "task": "arithmetic"}
+{"answer": "H", "id": "5921f72e865c4911d2b4", "question": "Links: B->K, K->A, D->B, A->H, N->G. Follow 4 links from D. Where do you end?", "reasoning": "D -> B -> K -> A -> H.", "split": "test", "task": "links"}
+{"answer": "P", "id": "9aab6522acb6e84ffa69", "question": "Links: K->I, A->J, I->P. Follow 2 links from K. Where do you end?", "reasoning": "K -> I -> P.", "split": "test", "task": "links"}
+{"answer": "B", "id": "fd53e56e6ba83121de0d", "question": "Links: E->C, C->B, P->D. Follow 2 links from E. Where do you end?", "reasoning": "E -> C -> B.", "split": "test", "task": "links"}
+{"answer": "250", "id": "a0ef7176a323bda36552", "question": "Compute (19 + 6) * 10.", "reasoning": "19 + 6 = 25. 25 * 10 = 250.", "split": "test", "task": "arithmetic"}
+{"answer": "N", "id": "68a85d3cc430fa450af9", "question": "Links: D->M, I->N, E->A, M->I. Follow 3 links from D. Where do you end?", "reasoning": "D -> M -> I -> N.", "split": "test", "task": "links"}
+{"answer": "M", "id": "2eb6bf92f52c72cd6cc1", "question": "Links: D->N, N->M, K->H. Follow 2 links from D. Where do you end?", "reasoning": "D -> N -> M.", "split": "test", "task": "links"}
+{"answer": "F", "id": "b5de3d10ede9c59b7b52", "question": "Links: E->N, D->O, M->D, O->F. Follow 3 links from M. Where do you end?", "reasoning": "M -> D -> O -> F.", "split": "test", "task": "links"}
+{"answer": "D", "id": "a4ccc21c702eb4dcf67c", "question": "Links: L->F, A->J, J->D, P->A. Follow 3 links from P. Where do you end?", "reasoning": "P -> A -> J -> D.", "split": "test", "task": "links"}
+{"answer": "L", "id": "0d8b21d26bed1314e4a1", "question": "Links: E->P, F->O, O->L. Follow 2 links from F. Where do you end?", "reasoning": "F -> O -> L.", "split": "test", "task": "links"}
+{"answer": "P", "id": "b2e6d4144d2adc155c2a", "question": "Links: M->F, F->P, G->I. Follow 2 links from M. Where do you end?", "reasoning": "M -> F -> P.", "split": "test", "task": "links"}
+{"answer": "19", "id": "3e77d790e1ecbefb7a7c", "question": "Compute 12 * 1 + 7.", "reasoning": "12 * 1 = 12. 12 + 7 = 19.", "split": "test", "task": "arithmetic"}
+{"answer": "C", "id": "60af0f9a9e65e3b06438", "question": "Links: K->G, L->J, P->C, G->P. Follow 3 links from K. Where do you end?", "reasoning": "K -> G -> P -> C.", "split": "test", "task": "links"}
+{"answer": "336", "id": "c77a43c0476199a56815", "question": "Compute (13 + 8) * 16.", "reasoning": "13 + 8 = 21. 21 * 16 = 336.", "split": "test", "task": "arithmetic"}
+{"answer": "100", "id": "b6022a68f83e9b577528", "question": "Compute (11 + 9) * 5.", "reasoning": "11 + 9 = 20. 20 * 5 = 100.", "split": "test", "task": "arithmetic"}
+{"answer": "C", "id": "87c7ab14b5c00cde826d", "question": "Links: B->P, O->A, A->E, E->C. Follow 3 links from O. Where do you end?", "reasoning": "O -> A -> E -> C.", "split": "test", "task": "links"}
+{"answer": "310", "id": "b4f219f8ef37549aa7e0", "question": "Compute 20 * 15 + 10.", "reasoning": "20 * 15 = 300. 300 + 10 = 310.", "split": "test", "task": "arithmetic"}
+{"answer": "26", "id": "dd8341c6c37c7b0cdd70", "question": "Compute 8 * 2 + 10.", "reasoning": "8 * 2 = 16. 16 + 10 = 26.", "split": "test", "task": "arithmetic"}
+{"answer": "J", "id": "ddf0b09e2e8f0cad5317", "question": "Links: B->J, G->D, D->H, I->O, H->B. Follow 4 links from G. Where do you end?", "reasoning": "G -> D -> H -> B -> J.", "split": "test", "task": "links"}
+{"answer": "N", "id": "47c802ac2f46b05476ce", "question": "Links: H->F, A->P, J->N, F->J. Follow 3 links from H. Where do you end?", "reasoning": "H -> F -> J -> N.", "split": "test", "task": "links"}
+{"answer": "500", "id": "7b8c6a2eab82cae244dc", "question": "Compute (17 + 8) * 20.", "reasoning": "17 + 8 = 25. 25 * 20 = 500.", "split": "test", "task": "arithmetic"}
+{"answer": "P", "id": "75759c148897aaa83cef", "question": "Links: H->P, D->H, G->C. Follow 2 links from D. Where do you end?", "reasoning": "D -> H -> P.", "split": "test", "task": "links"}
+{"answer": "O", "id": "33019b4498e35b278004", "question": "Links: H->N, E->O, F->E, I->F, J->I. Follow 4 links from J. Where do you end?", "reasoning": "J -> I -> F -> E -> O.", "split": "test", "task": "links"}
+{"answer": "F", "id": "6e3094eadcfda8032999", "question": "Links: N->H, K->C, A->F, P->A, C->P. Follow 4 links from K. Where do you end?", "reasoning": "K -> C -> P -> A -> F.", "split": "test", "task": "links"}
+{"answer": "247", "id": "f0ee3cac8c3118b8bf55", "question": "Compute (16 + 3) * 13.", "reasoning": "16 + 3 = 19. 19 * 13 = 247.", "split": "test", "task": "arithmetic"}
+{"answer": "J", "id": "7d7876163dedeb92aa2b", "question": "Links: P->M, L->J, G->P, M->L, I->K. Follow 4 links from G. Where do you end?", "reasoning": "G -> P -> M -> L -> J.", "split": "test", "task": "links"}
+{"answer": "A", "id": "20de8eae5889643fb642", "question": "Links: M->E, E->A, I->K. Follow 2 links from M. Where do you end?", "reasoning": "M -> E -> A.", "split": "test", "task": "links"}
+{"answer": "11", "id": "73a852f007d7370e61aa", "question": "Compute 4 * 1 + 7.", "reasoning": "4 * 1 = 4. 4 + 7 = 11.", "split": "test", "task": "arithmetic"}
+{"answer": "P", "id": "c5dad8045e977be63177", "question": "Links: A->P, C->A, E->K. Follow 2 links from C. Where do you end?", "reasoning": "C -> A -> P.", "split": "test", "task": "links"}
+{"answer": "93", "id": "f9cd565096004b8c3cd2", "question": "Compute 5 * 18 + 3.", "reasoning": "5 * 18 = 90. 90 + 3 = 93.", "split": "test", "task": "arithmetic"}
+{"answer": "G", "id": "6650f8c87fec519a18e8", "question": "Links: L->O, N->G, K->M, O->B, B->N. Follow 4 links from L. Where do you end?", "reasoning": "L -> O -> B -> N -> G.", "split": "test", "task": "links"}
+{"answer": "E", "id": "8fac500a11e3b4727ba5", "question": "Links: L->E, M->P, P->L, A->M, B->O. Follow 4 links from A. Where do you end?", "reasoning": "A -> M -> P -> L -> E.", "split": "test", "task": "links"}
+{"answer": "L", "id": "1421b254353550f4c62d", "question": "Links: B->F, C->K, P->C, K->L. Follow 3 links from P. Where do you end?", "reasoning": "P -> C -> K -> L.", "split": "test", "task": "links"}
+{"answer": "A", "id": "6358a418bb3fdd9f9822", "question": "Links: M->C, O->M, C->A, N->B. Follow 3 links from O. Where do you end?", "reasoning": "O -> M -> C -> A.", "split": "test", "task": "links"}
+{"answer": "L", "id": "58f1fa2e05637bced0fd", "question": "Links: C->P, P->A, A->L, O->C, H->N. Follow 4 links from O. Where do you end?", "reasoning": "O -> C -> P -> A -> L.", "split": "test", "task": "links"}
+{"answer": "K", "id": "22d51aa21571dd8cd4fc", "question": "Links: M->F, N->G, B->J, F->K, G->M. Follow 4 links from N. Where do you end?", "reasoning": "N -> G -> M -> F -> K.", "split": "test", "task": "links"}
+{"answer": "I", "id": "1fc5d054a3b4cfd89b04", "question": "Links: J->A, K->J, M->F, A->I. Follow 3 links from K. Where do you end?", "reasoning": "K -> J -> A -> I.", "split": "test", "task": "links"}
+{"answer": "57", "id": "202f4da4afa0dc6d4246", "question": "Compute 16 * 3 + 9.", "reasoning": "16 * 3 = 48. 48 + 9 = 57.", "split": "test", "task": "arithmetic"}
+{"answer": "C", "id": "8ed9a7fe2b2b050ebed9", "question": "Links: H->G, D->A, E->I, I->H, G->C. Follow 4 links from E. Where do you end?", "reasoning": "E -> I -> H -> G -> C.", "split": "test", "task": "links"}
+{"answer": "B", "id": "330247a65bf1c6993cff", "question": "Links: F->B, P->H, H->F, K->D. Follow 3 links from P. Where do you end?", "reasoning": "P -> H -> F -> B.", "split": "test", "task": "links"}
+{"answer": "I", "id": "5dedac44a23a6ec8ed48", "question": "Links: K->B, H->P, P->I. Follow 2 links from H. Where do you end?", "reasoning": "H -> P -> I.", "split": "test", "task": "links"}
+{"answer": "L", "id": "c8486c8205664902db1e", "question": "Links: M->K, N->I, A->L, P->N, I->A. Follow 4 links from P. Where do you end?", "reasoning": "P -> N -> I -> A -> L.", "split": "test", "task": "links"}
+{"answer": "G", "id": "10b58410bee32dcf4f4f", "question": "Links: I->E, E->N, L->A, N->G. Follow 3 links from I. Where do you end?", "reasoning": "I -> E -> N -> G.", "split": "test", "task": "links"}
+{"answer": "G", "id": "ad7db4704e9de5e2ad5c", "question": "Links: M->C, L->P, D->G, I->D, P->I. Follow 4 links from L. Where do you end?", "reasoning": "L -> P -> I -> D -> G.", "split": "test", "task": "links"}
+{"answer": "L", "id": "282950ccb6be6d906e25", "question": "Links: C->H, K->L, D->K. Follow 2 links from D. Where do you end?", "reasoning": "D -> K -> L.", "split": "test", "task": "links"}
+{"answer": "437", "id": "e8f6bb8c7cc3ee00844a", "question": "Compute (15 + 8) * 19.", "reasoning": "15 + 8 = 23. 23 * 19 = 437.", "split": "test", "task": "arithmetic"}
+{"answer": "165", "id": "de4b2c4060c4b7bc1f47", "question": "Compute (3 + 12) * 11.", "reasoning": "3 + 12 = 15. 15 * 11 = 165.", "split": "test", "task": "arithmetic"}
+{"answer": "D", "id": "4e325dfe57268d2643e4", "question": "Links: F->E, C->K, K->P, P->D. Follow 3 links from C. Where do you end?", "reasoning": "C -> K -> P -> D.", "split": "test", "task": "links"}
+{"answer": "80", "id": "bceefcfce0b016f516ad", "question": "Compute (5 + 3) * 10.", "reasoning": "5 + 3 = 8. 8 * 10 = 80.", "split": "test", "task": "arithmetic"}
+{"answer": "88", "id": "a5f53e3ae93e2f9a9c2b", "question": "Compute (12 + 10) * 4.", "reasoning": "12 + 10 = 22. 22 * 4 = 88.", "split": "test", "task": "arithmetic"}
+{"answer": "42", "id": "18d121c22578418d3bd7", "question": "Compute (11 + 10) * 2.", "reasoning": "11 + 10 = 21. 21 * 2 = 42.", "split": "test", "task": "arithmetic"}
+{"answer": "28", "id": "93ab1b96175c7f336b99", "question": "Compute (3 + 11) * 2.", "reasoning": "3 + 11 = 14. 14 * 2 = 28.", "split": "test", "task": "arithmetic"}
+{"answer": "K", "id": "ae4dbf1c7744a6e8c1aa", "question": "Links: I->O, N->D, O->K. Follow 2 links from I. Where do you end?", "reasoning": "I -> O -> K.", "split": "test", "task": "links"}
+{"answer": "M", "id": "7cfb3fa240436ac2e887", "question": "Links: N->G, G->M, I->H. Follow 2 links from N. Where do you end?", "reasoning": "N -> G -> M.", "split": "test", "task": "links"}
+{"answer": "34", "id": "1b184ab442aef8de57aa", "question": "Compute 2 * 13 + 8.", "reasoning": "2 * 13 = 26. 26 + 8 = 34.", "split": "test", "task": "arithmetic"}
+{"answer": "O", "id": "63eb23247b8b69792c56", "question": "Links: N->D, I->B, B->C, C->O. Follow 3 links from I. Where do you end?", "reasoning": "I -> B -> C -> O.", "split": "test", "task": "links"}
+{"answer": "O", "id": "67d6216417918586fe07", "question": "Links: H->O, M->A, A->B, B->H, D->J. Follow 4 links from M. Where do you end?", "reasoning": "M -> A -> B -> H -> O.", "split": "test", "task": "links"}
+{"answer": "182", "id": "ee93a85c662dfcf53e31", "question": "Compute 14 * 12 + 14.", "reasoning": "14 * 12 = 168. 168 + 14 = 182.", "split": "test", "task": "arithmetic"}
+{"answer": "E", "id": "91abc62ec91962bf4618", "question": "Links: B->L, O->M, K->I, L->E, M->B. Follow 4 links from O. Where do you end?", "reasoning": "O -> M -> B -> L -> E.", "split": "test", "task": "links"}
+{"answer": "216", "id": "9a8b0b3889d40f9c95a8", "question": "Compute (7 + 11) * 12.", "reasoning": "7 + 11 = 18. 18 * 12 = 216.", "split": "test", "task": "arithmetic"}
+{"answer": "A", "id": "efb26ec6b3fa22058333", "question": "Links: G->M, P->A, H->O, O->P. Follow 3 links from H. Where do you end?", "reasoning": "H -> O -> P -> A.", "split": "test", "task": "links"}
+{"answer": "254", "id": "714d1dec0ffcce77c440", "question": "Compute 18 * 13 + 20.", "reasoning": "18 * 13 = 234. 234 + 20 = 254.", "split": "test", "task": "arithmetic"}
+{"answer": "580", "id": "9fafa7fe8b71b77d9898", "question": "Compute (9 + 20) * 20.", "reasoning": "9 + 20 = 29. 29 * 20 = 580.", "split": "test", "task": "arithmetic"}
+{"answer": "21", "id": "41b76074db5ad4b2d6b1", "question": "Compute 2 * 3 + 15.", "reasoning": "2 * 3 = 6. 6 + 15 = 21.", "split": "test", "task": "arithmetic"}
+{"answer": "L", "id": "c520ba50dda50c243f6c", "question": "Links: G->P, M->G, O->M, J->H, P->L. Follow 4 links from O. Where do you end?", "reasoning": "O -> M -> G -> P -> L.", "split": "test", "task": "links"}
+{"answer": "L", "id": "80368e7ec5c7a67f2e1d", "question": "Links: A->I, G->P, O->H, I->L, P->A. Follow 4 links from G. Where do you end?", "reasoning": "G -> P -> A -> I -> L.", "split": "test", "task": "links"}
+{"answer": "375", "id": "3d850d3a6eba5921bdfa", "question": "Compute (9 + 16) * 15.", "reasoning": "9 + 16 = 25. 25 * 15 = 375.", "split": "test", "task": "arithmetic"}
+{"answer": "E", "id": "602f564c5c910f2482d8", "question": "Links: I->B, B->C, L->F, C->E. Follow 3 links from I. Where do you end?", "reasoning": "I -> B -> C -> E.", "split": "test", "task": "links"}
+{"answer": "77", "id": "ab579c06ff8880b075b5", "question": "Compute 6 * 11 + 11.", "reasoning": "6 * 11 = 66. 66 + 11 = 77.", "split": "test", "task": "arithmetic"}
+{"answer": "81", "id": "e08686123c96adea7216", "question": "Compute (13 + 14) * 3.", "reasoning": "13 + 14 = 27. 27 * 3 = 81.", "split": "test", "task": "arithmetic"}
+{"answer": "520", "id": "192997088263961f6faa", "question": "Compute (20 + 6) * 20.", "reasoning": "20 + 6 = 26. 26 * 20 = 520.", "split": "test", "task": "arithmetic"}
+{"answer": "A", "id": "9424d83cc6f3b6d9941a", "question": "Links: D->A, E->D, P->N. Follow 2 links from E. Where do you end?", "reasoning": "E -> D -> A.", "split": "test", "task": "links"}
+{"answer": "41", "id": "781563b4806426541b9c", "question": "Compute 13 * 3 + 2.", "reasoning": "13 * 3 = 39. 39 + 2 = 41.", "split": "test", "task": "arithmetic"}
+{"answer": "259", "id": "538b849c058f47fac2e3", "question": "Compute 19 * 13 + 12.", "reasoning": "19 * 13 = 247. 247 + 12 = 259.", "split": "test", "task": "arithmetic"}
+{"answer": "K", "id": "fa6c099405254d03804c", "question": "Links: I->K, O->I, P->M. Follow 2 links from O. Where do you end?", "reasoning": "O -> I -> K.", "split": "test", "task": "links"}
+{"answer": "B", "id": "e665045a5659fd19fc25", "question": "Links: K->I, G->P, I->B. Follow 2 links from K. Where do you end?", "reasoning": "K -> I -> B.", "split": "test", "task": "links"}
+{"answer": "O", "id": "a656fa3a52d49367d752", "question": "Links: K->D, D->O, B->I. Follow 2 links from K. Where do you end?", "reasoning": "K -> D -> O.", "split": "test", "task": "links"}
+{"answer": "102", "id": "c61dc0a69da6fe18778a", "question": "Compute (14 + 20) * 3.", "reasoning": "14 + 20 = 34. 34 * 3 = 102.", "split": "test", "task": "arithmetic"}
+{"answer": "C", "id": "b26ba032621261e207c2", "question": "Links: J->D, K->E, N->C, B->K, E->N. Follow 4 links from B. Where do you end?", "reasoning": "B -> K -> E -> N -> C.", "split": "test", "task": "links"}
+{"answer": "300", "id": "71ac7d82f1bb8affa860", "question": "Compute (4 + 16) * 15.", "reasoning": "4 + 16 = 20. 20 * 15 = 300.", "split": "test", "task": "arithmetic"}
+{"answer": "G", "id": "f14a27b01cc12fe82773", "question": "Links: C->E, H->J, F->G, P->F, J->P. Follow 4 links from H. Where do you end?", "reasoning": "H -> J -> P -> F -> G.", "split": "test", "task": "links"}
+{"answer": "C", "id": "00557670b4bb1677b358", "question": "Links: F->B, B->O, O->C, M->G. Follow 3 links from F. Where do you end?", "reasoning": "F -> B -> O -> C.", "split": "test", "task": "links"}
+{"answer": "68", "id": "0ae99c101736a0939336", "question": "Compute 4 * 12 + 20.", "reasoning": "4 * 12 = 48. 48 + 20 = 68.", "split": "test", "task": "arithmetic"}
+{"answer": "P", "id": "52950dec7b7d61a994d1", "question": "Links: L->G, A->L, G->P, O->J. Follow 3 links from A. Where do you end?", "reasoning": "A -> L -> G -> P.", "split": "test", "task": "links"}
+{"answer": "107", "id": "5325c12a2053ad33b04e", "question": "Compute 16 * 6 + 11.", "reasoning": "16 * 6 = 96. 96 + 11 = 107.", "split": "test", "task": "arithmetic"}
+{"answer": "64", "id": "8638de9e90f57b255b76", "question": "Compute 10 * 5 + 14.", "reasoning": "10 * 5 = 50. 50 + 14 = 64.", "split": "test", "task": "arithmetic"}
+{"answer": "L", "id": "cefe96140dd8ddcb7bd2", "question": "Links: O->L, K->C, I->O. Follow 2 links from I. Where do you end?", "reasoning": "I -> O -> L.", "split": "test", "task": "links"}
+{"answer": "308", "id": "daad2390bca7990ac158", "question": "Compute 16 * 18 + 20.", "reasoning": "16 * 18 = 288. 288 + 20 = 308.", "split": "test", "task": "arithmetic"}
+{"answer": "187", "id": "1a11371623985e5dab30", "question": "Compute (1 + 10) * 17.", "reasoning": "1 + 10 = 11. 11 * 17 = 187.", "split": "test", "task": "arithmetic"}
+{"answer": "D", "id": "45ef8ffe00c031dc810d", "question": "Links: K->C, H->A, N->K, C->D. Follow 3 links from N. Where do you end?", "reasoning": "N -> K -> C -> D.", "split": "test", "task": "links"}
+{"answer": "110", "id": "325407721d02732442a7", "question": "Compute 12 * 8 + 14.", "reasoning": "12 * 8 = 96. 96 + 14 = 110.", "split": "test", "task": "arithmetic"}
+{"answer": "E", "id": "13bf4aba4912c4f52529", "question": "Links: P->C, O->B, C->J, J->E. Follow 3 links from P. Where do you end?", "reasoning": "P -> C -> J -> E.", "split": "test", "task": "links"}
+{"answer": "49", "id": "1a4a297cac6bf4e1061c", "question": "Compute 3 * 12 + 13.", "reasoning": "3 * 12 = 36. 36 + 13 = 49.", "split": "test", "task": "arithmetic"}
+{"answer": "E", "id": "4e7e624e5018c6ffd088", "question": "Links: P->A, A->E, K->P, D->L. Follow 3 links from K. Where do you end?", "reasoning": "K -> P -> A -> E.", "split": "test", "task": "links"}
+{"answer": "H", "id": "8e5d52624f6ebbe29ecc", "question": "Links: E->L, N->H, J->A, L->N. Follow 3 links from E. Where do you end?", "reasoning": "E -> L -> N -> H.", "split": "test", "task": "links"}
+{"answer": "204", "id": "2980045c7118640139d1", "question": "Compute (6 + 11) * 12.", "reasoning": "6 + 11 = 17. 17 * 12 = 204.", "split": "test", "task": "arithmetic"}
+{"answer": "187", "id": "2e687652b222b7d84da9", "question": "Compute 10 * 17 + 17.", "reasoning": "10 * 17 = 170. 170 + 17 = 187.", "split": "test", "task": "arithmetic"}
+{"answer": "255", "id": "1143888ca7681e5774af", "question": "Compute (6 + 11) * 15.", "reasoning": "6 + 11 = 17. 17 * 15 = 255.", "split": "test", "task": "arithmetic"}
+{"answer": "K", "id": "61e16016c66561acc738", "question": "Links: O->N, H->L, E->K, L->E. Follow 3 links from H. Where do you end?", "reasoning": "H -> L -> E -> K.", "split": "test", "task": "links"}
+{"answer": "68", "id": "ffedcf606a8479b665bb", "question": "Compute (12 + 5) * 4.", "reasoning": "12 + 5 = 17. 17 * 4 = 68.", "split": "test", "task": "arithmetic"}
+{"answer": "100", "id": "129602f0fc39869810ae", "question": "Compute (6 + 14) * 5.", "reasoning": "6 + 14 = 20. 20 * 5 = 100.", "split": "test", "task": "arithmetic"}
+{"answer": "440", "id": "dfba24a0e540b19dc2a4", "question": "Compute (6 + 16) * 20.", "reasoning": "6 + 16 = 22. 22 * 20 = 440.", "split": "test", "task": "arithmetic"}
+{"answer": "115", "id": "e15a885edc8c91d64ef4", "question": "Compute (3 + 20) * 5.", "reasoning": "3 + 20 = 23. 23 * 5 = 115.", "split": "test", "task": "arithmetic"}
+{"answer": "143", "id": "dba6a474283c507dc349", "question": "Compute 18 * 7 + 17.", "reasoning": "18 * 7 = 126. 126 + 17 = 143.", "split": "test", "task": "arithmetic"}
+{"answer": "P", "id": "13e0fa3457e2c89342b2", "question": "Links: J->L, O->J, K->H, L->P. Follow 3 links from O. Where do you end?", "reasoning": "O -> J -> L -> P.", "split": "test", "task": "links"}
+{"answer": "J", "id": "72743778a4ed63213ee5", "question": "Links: G->J, I->G, A->E. Follow 2 links from I. Where do you end?", "reasoning": "I -> G -> J.", "split": "test", "task": "links"}
+{"answer": "96", "id": "44e8a37077569b891ab8", "question": "Compute (11 + 5) * 6.", "reasoning": "11 + 5 = 16. 16 * 6 = 96.", "split": "test", "task": "arithmetic"}
+{"answer": "39", "id": "95044f94086899b0b384", "question": "Compute 11 * 3 + 6.", "reasoning": "11 * 3 = 33. 33 + 6 = 39.", "split": "test", "task": "arithmetic"}
+{"answer": "24", "id": "f4848948ff0f64659ecc", "question": "Compute 9 * 2 + 6.", "reasoning": "9 * 2 = 18. 18 + 6 = 24.", "split": "test", "task": "arithmetic"}
+{"answer": "47", "id": "e517b73cbaa65157f207", "question": "Compute 11 * 3 + 14.", "reasoning": "11 * 3 = 33. 33 + 14 = 47.", "split": "test", "task": "arithmetic"}
+{"answer": "22", "id": "61303480b72f19bd3c2f", "question": "Compute 9 * 1 + 13.", "reasoning": "9 * 1 = 9. 9 + 13 = 22.", "split": "test", "task": "arithmetic"}
+{"answer": "E", "id": "9457b806b11fccaa38da", "question": "Links: B->H, H->E, P->M. Follow 2 links from B. Where do you end?", "reasoning": "B -> H -> E.", "split": "test", "task": "links"}
+{"answer": "66", "id": "dfc07792afc62379f788", "question": "Compute 11 * 5 + 11.", "reasoning": "11 * 5 = 55. 55 + 11 = 66.", "split": "test", "task": "arithmetic"}
+{"answer": "B", "id": "2fb1d1cace28d22c846e", "question": "Links: M->J, O->H, H->F, E->O, F->B. Follow 4 links from E. Where do you end?", "reasoning": "E -> O -> H -> F -> B.", "split": "test", "task": "links"}
+{"answer": "176", "id": "a83f5f5efefe735ba898", "question": "Compute (6 + 10) * 11.", "reasoning": "6 + 10 = 16. 16 * 11 = 176.", "split": "test", "task": "arithmetic"}
+{"answer": "255", "id": "e1fc96a8dc90aca5d41f", "question": "Compute 14 * 17 + 17.", "reasoning": "14 * 17 = 238. 238 + 17 = 255.", "split": "test", "task": "arithmetic"}
+{"answer": "629", "id": "600499e80be68814823d", "question": "Compute (19 + 18) * 17.", "reasoning": "19 + 18 = 37. 37 * 17 = 629.", "split": "test", "task": "arithmetic"}
+{"answer": "B", "id": "5ea0d98637535ff85432", "question": "Links: K->H, F->C, C->B. Follow 2 links from F. Where do you end?", "reasoning": "F -> C -> B.", "split": "test", "task": "links"}
+{"answer": "91", "id": "d4409fd23b4961324a2a", "question": "Compute 10 * 8 + 11.", "reasoning": "10 * 8 = 80. 80 + 11 = 91.", "split": "test", "task": "arithmetic"}
+{"answer": "85", "id": "237d6a5e17dcbb2a2b5a", "question": "Compute (13 + 4) * 5.", "reasoning": "13 + 4 = 17. 17 * 5 = 85.", "split": "test", "task": "arithmetic"}
+{"answer": "A", "id": "d00ca3acb93d54915fdd", "question": "Links: C->M, L->A, N->B, K->N, B->L. Follow 4 links from K. Where do you end?", "reasoning": "K -> N -> B -> L -> A.", "split": "test", "task": "links"}
+{"answer": "K", "id": "f8abb6f4a9dc463c95d6", "question": "Links: F->K, N->F, I->P. Follow 2 links from N. Where do you end?", "reasoning": "N -> F -> K.", "split": "test", "task": "links"}
+{"answer": "112", "id": "15c2154af6c4ee9b594b", "question": "Compute 19 * 5 + 17.", "reasoning": "19 * 5 = 95. 95 + 17 = 112.", "split": "test", "task": "arithmetic"}
+{"answer": "C", "id": "d7f245b8c2cb0a1cf948", "question": "Links: I->O, M->C, O->M, E->A. Follow 3 links from I. Where do you end?", "reasoning": "I -> O -> M -> C.", "split": "test", "task": "links"}
+{"answer": "83", "id": "09da0918c0e616078393", "question": "Compute 16 * 5 + 3.", "reasoning": "16 * 5 = 80. 80 + 3 = 83.", "split": "test", "task": "arithmetic"}
+{"answer": "19", "id": "841c1716b95324d146ba", "question": "Compute 2 * 8 + 3.", "reasoning": "2 * 8 = 16. 16 + 3 = 19.", "split": "test", "task": "arithmetic"}
+{"answer": "171", "id": "782e0630bb9b3a1cabfd", "question": "Compute 12 * 13 + 15.", "reasoning": "12 * 13 = 156. 156 + 15 = 171.", "split": "test", "task": "arithmetic"}
+{"answer": "I", "id": "e7c8cb926ac4a3c80b90", "question": "Links: K->E, M->K, E->I, H->B. Follow 3 links from M. Where do you end?", "reasoning": "M -> K -> E -> I.", "split": "test", "task": "links"}
+{"answer": "F", "id": "946e1ec0235e5fabcfad", "question": "Links: P->F, A->P, H->O. Follow 2 links from A. Where do you end?", "reasoning": "A -> P -> F.", "split": "test", "task": "links"}
+{"answer": "25", "id": "da903668c2c25f8d6484", "question": "Compute 1 * 9 + 16.", "reasoning": "1 * 9 = 9. 9 + 16 = 25.", "split": "test", "task": "arithmetic"}
+{"answer": "D", "id": "385af662fcb20b7bd15b", "question": "Links: K->D, F->K, M->J. Follow 2 links from F. Where do you end?", "reasoning": "F -> K -> D.", "split": "test", "task": "links"}
+{"answer": "108", "id": "73c3cfa8e2029f1d66d7", "question": "Compute 9 * 10 + 18.", "reasoning": "9 * 10 = 90. 90 + 18 = 108.", "split": "test", "task": "arithmetic"}
+{"answer": "141", "id": "e37cb0763559c3b0f27c", "question": "Compute 8 * 17 + 5.", "reasoning": "8 * 17 = 136. 136 + 5 = 141.", "split": "test", "task": "arithmetic"}
+{"answer": "139", "id": "037b71d806670068de52", "question": "Compute 8 * 17 + 3.", "reasoning": "8 * 17 = 136. 136 + 3 = 139.", "split": "test", "task": "arithmetic"}
+{"answer": "C", "id": "ba1bb4ac2ccb4f7ff8bd", "question": "Links: G->P, N->G, O->C, A->M, P->O. Follow 4 links from N. Where do you end?", "reasoning": "N -> G -> P -> O -> C.", "split": "test", "task": "links"}
+{"answer": "89", "id": "dde7f6a236ddf314c28b", "question": "Compute 4 * 20 + 9.", "reasoning": "4 * 20 = 80. 80 + 9 = 89.", "split": "test", "task": "arithmetic"}
+{"answer": "59", "id": "233175d6aa4eebe944f5", "question": "Compute 8 * 5 + 19.", "reasoning": "8 * 5 = 40. 40 + 19 = 59.", "split": "test", "task": "arithmetic"}
+{"answer": "H", "id": "f9c772b2545b2c6dd114", "question": "Links: F->N, I->E, N->H. Follow 2 links from F. Where do you end?", "reasoning": "F -> N -> H.", "split": "test", "task": "links"}
+{"answer": "190", "id": "1ea32e6a9111d5764127", "question": "Compute (14 + 5) * 10.", "reasoning": "14 + 5 = 19. 19 * 10 = 190.", "split": "test", "task": "arithmetic"}
+{"answer": "F", "id": "5051075c2debab69944d", "question": "Links: A->I, G->E, H->A, I->F. Follow 3 links from H. Where do you end?", "reasoning": "H -> A -> I -> F.", "split": "test", "task": "links"}
+{"answer": "243", "id": "633adcda57b6e9d3a9fc", "question": "Compute 12 * 19 + 15.", "reasoning": "12 * 19 = 228. 228 + 15 = 243.", "split": "test", "task": "arithmetic"}
+{"answer": "264", "id": "ccbb0d74edb9f3f2d0b5", "question": "Compute (5 + 19) * 11.", "reasoning": "5 + 19 = 24. 24 * 11 = 264.", "split": "test", "task": "arithmetic"}
+{"answer": "G", "id": "e5d3cb486ae4460f2e0f", "question": "Links: A->H, C->D, L->J, J->G, D->L. Follow 4 links from C. Where do you end?", "reasoning": "C -> D -> L -> J -> G.", "split": "test", "task": "links"}
+{"answer": "F", "id": "d072a4b8ccdc19e398d1", "question": "Links: H->C, M->H, P->L, C->F. Follow 3 links from M. Where do you end?", "reasoning": "M -> H -> C -> F.", "split": "test", "task": "links"}
+{"answer": "210", "id": "88db1cac285973b78dab", "question": "Compute (13 + 8) * 10.", "reasoning": "13 + 8 = 21. 21 * 10 = 210.", "split": "test", "task": "arithmetic"}
+{"answer": "23", "id": "e97ac8f012d4d5428b80", "question": "Compute 5 * 3 + 8.", "reasoning": "5 * 3 = 15. 15 + 8 = 23.", "split": "test", "task": "arithmetic"}
+{"answer": "B", "id": "702e8d560da17a97a035", "question": "Links: K->B, N->L, I->K, A->I, C->A. Follow 4 links from C. Where do you end?", "reasoning": "C -> A -> I -> K -> B.", "split": "test", "task": "links"}
+{"answer": "C", "id": "0c21ba727af5b502f18a", "question": "Links: E->M, M->C, P->J. Follow 2 links from E. Where do you end?", "reasoning": "E -> M -> C.", "split": "test", "task": "links"}
+{"answer": "135", "id": "f1b0220e3fd506e61924", "question": "Compute (11 + 16) * 5.", "reasoning": "11 + 16 = 27. 27 * 5 = 135.", "split": "test", "task": "arithmetic"}
+{"answer": "133", "id": "a40a6f282e82a1c2f2eb", "question": "Compute (17 + 2) * 7.", "reasoning": "17 + 2 = 19. 19 * 7 = 133.", "split": "test", "task": "arithmetic"}
+{"answer": "J", "id": "170864a4f964b9edbf15", "question": "Links: I->J, F->I, E->K. Follow 2 links from F. Where do you end?", "reasoning": "F -> I -> J.", "split": "test", "task": "links"}
+{"answer": "52", "id": "d26eca26b6a88ab03e50", "question": "Compute 16 * 2 + 20.", "reasoning": "16 * 2 = 32. 32 + 20 = 52.", "split": "test", "task": "arithmetic"}
+{"answer": "F", "id": "82e44350741405d05eaa", "question": "Links: J->G, D->N, L->F, O->D, N->L. Follow 4 links from O. Where do you end?", "reasoning": "O -> D -> N -> L -> F.", "split": "test", "task": "links"}
+{"answer": "174", "id": "e7aab1c0ce0044a6a892", "question": "Compute 9 * 19 + 3.", "reasoning": "9 * 19 = 171. 171 + 3 = 174.", "split": "test", "task": "arithmetic"}
+{"answer": "H", "id": "62db5120124a02a3cc93", "question": "Links: D->I, K->D, I->H, F->A. Follow 3 links from K. Where do you end?", "reasoning": "K -> D -> I -> H.", "split": "test", "task": "links"}
+{"answer": "558", "id": "9afc672ec186926e8136", "question": "Compute (12 + 19) * 18.", "reasoning": "12 + 19 = 31. 31 * 18 = 558.", "split": "test", "task": "arithmetic"}
+{"answer": "O", "id": "42a6c48ea3f61ae18688", "question": "Links: L->N, H->D, M->E, D->L, N->O. Follow 4 links from H. Where do you end?", "reasoning": "H -> D -> L -> N -> O.", "split": "test", "task": "links"}
+{"answer": "178", "id": "d7289010a93637bcc9eb", "question": "Compute 16 * 10 + 18.", "reasoning": "16 * 10 = 160. 160 + 18 = 178.", "split": "test", "task": "arithmetic"}
+{"answer": "136", "id": "4f272bf44f4d8f5ed627", "question": "Compute 13 * 10 + 6.", "reasoning": "13 * 10 = 130. 130 + 6 = 136.", "split": "test", "task": "arithmetic"}
+{"answer": "H", "id": "2a2d081e3c5f218cc319", "question": "Links: D->A, G->E, C->G, B->C, E->H. Follow 4 links from B. Where do you end?", "reasoning": "B -> C -> G -> E -> H.", "split": "test", "task": "links"}
+{"answer": "M", "id": "522b9966cc60d3b00699", "question": "Links: F->O, P->M, J->F, O->P, C->D. Follow 4 links from J. Where do you end?", "reasoning": "J -> F -> O -> P -> M.", "split": "test", "task": "links"}
+{"answer": "L", "id": "654c5878b2af5264c0fc", "question": "Links: A->G, G->J, C->M, J->P, P->L. Follow 4 links from A. Where do you end?", "reasoning": "A -> G -> J -> P -> L.", "split": "test", "task": "links"}
+{"answer": "O", "id": "6694876ec218a681c7d8", "question": "Links: K->A, A->O, D->K, I->C. Follow 3 links from D. Where do you end?", "reasoning": "D -> K -> A -> O.", "split": "test", "task": "links"}
+{"answer": "C", "id": "fe93d8da5b5b66560981", "question": "Links: G->F, F->I, E->G, I->C, A->D. Follow 4 links from E. Where do you end?", "reasoning": "E -> G -> F -> I -> C.", "split": "test", "task": "links"}
+{"answer": "O", "id": "c0eb5a942f20335df63f", "question": "Links: M->O, K->C, D->M, C->D, H->I. Follow 4 links from K. Where do you end?", "reasoning": "K -> C -> D -> M -> O.", "split": "test", "task": "links"}
+{"answer": "280", "id": "4dbee73e91e43b0992b4", "question": "Compute 17 * 16 + 8.", "reasoning": "17 * 16 = 272. 272 + 8 = 280.", "split": "test", "task": "arithmetic"}
+{"answer": "M", "id": "a994080008bcdae396fa", "question": "Links: L->A, H->P, C->M, F->C, A->F. Follow 4 links from L. Where do you end?", "reasoning": "L -> A -> F -> C -> M.", "split": "test", "task": "links"}
+{"answer": "128", "id": "8caeea5cec59ab3e76fd", "question": "Compute 18 * 6 + 20.", "reasoning": "18 * 6 = 108. 108 + 20 = 128.", "split": "test", "task": "arithmetic"}
+{"answer": "240", "id": "61f6c0141967c40c553f", "question": "Compute (2 + 14) * 15.", "reasoning": "2 + 14 = 16. 16 * 15 = 240.", "split": "test", "task": "arithmetic"}
+{"answer": "51", "id": "43a3ad2a82dda3f32367", "question": "Compute 9 * 4 + 15.", "reasoning": "9 * 4 = 36. 36 + 15 = 51.", "split": "test", "task": "arithmetic"}
+{"answer": "J", "id": "14aa9e7a91a6c1c17461", "question": "Links: G->J, L->G, P->E, E->L, C->I. Follow 4 links from P. Where do you end?", "reasoning": "P -> E -> L -> G -> J.", "split": "test", "task": "links"}
+{"answer": "P", "id": "6588e342f606af85aa62", "question": "Links: D->F, L->N, I->B, F->P, B->D. Follow 4 links from I. Where do you end?", "reasoning": "I -> B -> D -> F -> P.", "split": "test", "task": "links"}
+{"answer": "M", "id": "d7b840d4a95a4c263c2c", "question": "Links: O->M, E->N, K->O. Follow 2 links from K. Where do you end?", "reasoning": "K -> O -> M.", "split": "test", "task": "links"}
+{"answer": "E", "id": "090e0444cad6b2fd3073", "question": "Links: F->E, G->B, B->C, C->F, K->J. Follow 4 links from G. Where do you end?", "reasoning": "G -> B -> C -> F -> E.", "split": "test", "task": "links"}
+{"answer": "35", "id": "c1faaf8485987428f182", "question": "Compute 10 * 3 + 5.", "reasoning": "10 * 3 = 30. 30 + 5 = 35.", "split": "test", "task": "arithmetic"}

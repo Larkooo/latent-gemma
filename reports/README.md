@@ -8,7 +8,9 @@ measurement metadata; use the current result summaries when comparing methods.
 
 | Report | Result |
 |---|---|
-| [Accuracy and latency](boundary-accuracy-latency/README.md) | 96/100 versus 99/100; 17.6% lower median answer latency across 600 requests. |
+| [Independent diagnostic test](independent-test/README.md) | 583/600 versus 598/600; 10.6% lower median answer latency across 2400 requests. |
+| [Validation accuracy and latency](boundary-accuracy-latency/README.md) | 96/100 versus 99/100; 17.6% lower median answer latency across 600 requests. |
+| [Two versus three latent steps](latent-step-count/README.md) | Both 96/100; three-step median latency 5.3% higher, with an interval including equal speed. |
 | [Matched shortened-text training](matched-short-text-control/README.md) | 96/100 with latent steps versus 66/100 without them. |
 | [Feedback controls](curriculum-boundary-stage1/README.md) | Fixed-boundary recipe and activation ablations. |
 | [Arithmetic continuations](arithmetic-compression-audit/README.md) | Correct, exactly shortened continuations on 46/53 versus 16/53 questions. |

@@ -6,25 +6,28 @@ trace. The model then generates the remaining reasoning and answer.
 
 ## Results
 
-The current Gemma 4 E2B pilot uses two latent positions followed by a fixed text
-transition. On 100 diagnostic arithmetic and link-traversal questions:
+The current Gemma 4 E2B experiment uses two latent positions followed by a fixed
+text transition. On 600 held-out diagnostic arithmetic and link-traversal questions:
 
 | Method | Accuracy | Median answer latency |
 |---|---:|---:|
-| Text reasoning | 99/100 | 1.339 s |
-| Hybrid latent/text reasoning | 96/100 | 1.103 s |
+| Text reasoning | 598/600 (99.67%) | 1.031 s |
+| Hybrid latent/text reasoning | 583/600 (97.17%) | 0.922 s |
 
-The hybrid reduced median completed-answer latency by **17.6%**. Measurements
-used three repeats per method and question, alternating methods on an Apple M5
-with 32 GB memory. The speed ratio was 1.214, with a paired-question bootstrap
-95% interval of [1.105, 1.376].
+The hybrid reduced median completed-answer latency by **10.6%**, with a
+**2.5 percentage-point accuracy loss**. Two repeats per method and question
+produced 2400 timed requests, with randomized, counterbalanced order on an Apple
+M5 with 32 GB memory. The speed ratio was 1.118, with a paired-question bootstrap
+95% interval of [1.069, 1.152]. The recipe was fixed before this test.
+Mean completed-answer latency was 1.195 s versus 0.994 s, a 16.8% reduction.
 
-A separately trained control using the same shortened text targets without latent
-positions scored 66/100. These are exploratory validation results from one seed.
-Independent test and OOD evaluation is running. Broader reasoning gains and lower
-total computation have not been established.
+The earlier 100-question validation pilot scored 96/100 versus 99/100 with 17.6%
+lower latency. A separately trained control using the same shortened text targets
+without latent positions scored 66/100 on that validation sample. Results use one
+training seed and two procedural task families. The harder OOD evaluation is
+pending; broader reasoning gains and lower total computation have not been established.
 
-[Accuracy and latency report](reports/boundary-accuracy-latency/README.md) ·
+[Independent test report](reports/independent-test/README.md) ·
 [Experiment results](docs/experiment-log.md) ·
 [All reports](reports/README.md)
 

@@ -1,0 +1,12 @@
+{
+  "coordinator_pid": 74779,
+  "coordinator_command": "work/.venv/bin/python work/frozen_boundary_comparison.py",
+  "test_pid": 74782,
+  "test_command": "$EXPERIMENT_ROOT/work/.venv/bin/python $EXPERIMENT_ROOT/outputs/latent-gemma/scripts/benchmark_pair.py --model $EXPERIMENT_ROOT/work/models/gemma-4-e2b-it-4bit --adapter $EXPERIMENT_ROOT/work/runs/gemma4-curriculum-boundary-stage1/best --baseline-adapter $EXPERIMENT_ROOT/work/runs/gemma4-warmup-v2/best --data $EXPERIMENT_ROOT/work/data/diagnostics/test.jsonl --output $EXPERIMENT_ROOT/work/runs/frozen-boundary-comparison/test --candidate-mode hybrid --latent-steps 2 --max-tokens 96 --baseline-decode serial --candidate-decode serial --limit 600 --repeats 2",
+  "reason": "Finish the current test split, run the requested validation comparison, then continue OOD without overlapping timed GPU workloads.",
+  "coordinator_paused_unix_s": 1788590569.225334,
+  "completed_test_result_sha256": "03e62fc91e3477e6be654ceaec4c70b03f4d1b8833c805a22430b4bcc1a4dcbd",
+  "comparison_started_unix_s": 1788590844.240661,
+  "comparison_completed_unix_s": 1788591245.737906,
+  "coordinator_resumed_unix_s": 1788591245.742599
+}
