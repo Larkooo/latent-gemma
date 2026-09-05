@@ -68,8 +68,30 @@ been evaluated. Failed experiments remain part of the record.
   its step-100 validation. Clean `gemma4-warmup-v2` and `gemma4-latent-k4-v2` runs
   restart from the base checkpoint with corrected labels and source snapshots.
 
-## Running next
+## Corrected training and additional checks
 
-Gemma 4 direct/CoT warmup, followed by mixed direct/CoT/latent training at K=4.
-Next steps are validation generation, activation ablations, training-budget
-controls, a public reasoning benchmark, and a frozen final test evaluation.
+- The real-tokenizer alignment audit passed for all 6,000 diagnostic and 6,973
+  GSM8K training examples in both direct and latent modes: forced prefixes match
+  inference, all answer tokens are supervised, and answer tokens round-trip.
+- Re-running pinned GSM8K preparation reproduced every manifest field and split
+  hash exactly.
+- Gemma 4 cached feedback gradients agree with full-sequence recomputation to
+  relative vector error below 1e-4 on the small float32 test architecture. Causal
+  target alignment also passes with shared KV layers. The suite now has 42 tests.
+- `gemma4-warmup-v2` completed 400 updates, batch size 4, learning rate 2e-5,
+  alternating direct/CoT modes. Its selected checkpoint is step 400, with mean
+  validation token losses 0.22037 (direct) and 0.00166 (CoT). Elapsed training plus
+  periodic validation was 356.90 seconds. These are losses, not accuracy results.
+- `gemma4-latent-k4-v2` continues from that checkpoint for 600 planned updates,
+  alternating direct/CoT/latent modes. Gradients remain finite but can have very
+  large norms before clipping. Accuracy and activation ablations are queued.
+- A separate staged-compression path is implemented: `hybrid` decoding runs
+  continuous steps and then generates remaining text reasoning. Training can
+  remove initial annotated reasoning steps while retaining the rest as targets.
+  This enables a curriculum; it does not establish a performance improvement.
+
+## Remaining experiments
+
+Validation generation, activation ablations, training-budget controls, staged
+compression if needed, a public reasoning benchmark, and a frozen final test
+evaluation remain necessary before claiming success.
