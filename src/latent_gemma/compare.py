@@ -34,6 +34,7 @@ def compare(
                 raise ValueError(f"Missing or invalid {latency_field} for example {key}")
     result = {}
     rng = np.random.default_rng(seed)
+    timing_rng = np.random.default_rng(seed)
     tasks = ["overall", *sorted({x["task"] for x in baseline})]
     for task in tasks:
         keys = [k for k in a if task == "overall" or a[k]["task"] == task]
@@ -43,6 +44,18 @@ def compare(
         )
         before_latency = np.array([a[k][latency_field] for k in keys])
         after_latency = np.array([b[k][latency_field] for k in keys])
+        paired_speedups = before_latency / after_latency
+        timing_samples = []
+        # Resample paired questions, keeping memory bounded for larger evaluations.
+        # These intervals describe question sampling, not between-session drift.
+        for start in range(0, 10000, 256):
+            indices = timing_rng.integers(0, len(keys), (min(256, 10000 - start), len(keys)))
+            ratio = np.median(before_latency[indices], axis=1) / np.median(
+                after_latency[indices], axis=1
+            )
+            paired = np.median(paired_speedups[indices], axis=1)
+            timing_samples.append(np.column_stack((ratio, paired)))
+        timing_intervals = np.percentile(np.concatenate(timing_samples), [2.5, 97.5], axis=0)
         result[task] = {
             "latency_field": latency_field,
             "n": len(keys),
@@ -57,5 +70,9 @@ def compare(
             "ratio_of_median_latencies": float(
                 np.median(before_latency) / np.median(after_latency)
             ),
+            "ratio_of_median_latencies_ci95": timing_intervals[:, 0].tolist(),
+            "median_paired_speedup": float(np.median(paired_speedups)),
+            "median_paired_speedup_ci95": timing_intervals[:, 1].tolist(),
+            "fraction_questions_faster": float(np.mean(after_latency < before_latency)),
         }
     return result

@@ -227,3 +227,12 @@ Gemma's nearest-token fallback. That verifies the implemented data path, not a
 claim that the activations constitute an independently established language of
 thought or that they reproduce Astra. Feedback ablations and the matched
 zero-latent training control test the method's practical contribution.
+
+The fixed-boundary feedback controls finished at 93/100 for zeroed feedback,
+90/100 for reversed features, and 86/100 for a repeated initial state, compared
+with 96/100 for normal feedback. The retained CoT mode scored 99/100. These
+observations motivate the matched training comparison; they do not yet establish
+a general reasoning improvement. The timing comparison now also reports paired
+bootstrap intervals for speed ratios and the fraction of questions answered
+faster. Repeated measurements remain necessary because bootstrap intervals alone
+cannot remove hardware-session drift.

@@ -55,3 +55,31 @@ def test_old_measurement_cannot_substitute_for_end_to_end_latency():
     b = {**a, "end_to_end_latency_s": 1.2}
     with pytest.raises(ValueError, match="end_to_end_latency_s"):
         compare([a], [b], latency_field="end_to_end_latency_s")
+
+
+def test_latency_bootstrap_preserves_question_pairing():
+    a = [row(str(i), True, duration) for i, duration in enumerate([1.0, 10.0, 100.0, 1000.0])]
+    b = [{**r, "latency_s": r["latency_s"] / 2} for r in reversed(a)]
+    result = compare(a, b)["overall"]
+    assert result["ratio_of_median_latencies_ci95"] == [2.0, 2.0]
+    assert result["median_paired_speedup"] == 2.0
+    assert result["median_paired_speedup_ci95"] == [2.0, 2.0]
+    assert result["fraction_questions_faster"] == 1.0
+
+
+def test_identical_timings_have_no_speedup():
+    rows = [row("a", True, 0.25), row("b", False, 25)]
+    result = compare(rows, rows)["overall"]
+    assert result["ratio_of_median_latencies_ci95"] == [1.0, 1.0]
+    assert result["median_paired_speedup_ci95"] == [1.0, 1.0]
+    assert result["fraction_questions_faster"] == 0.0
+
+
+def test_latency_intervals_cover_variability_and_are_reproducible():
+    a = [row(str(i), True) for i in range(4)]
+    b = [row(str(i), True, duration) for i, duration in enumerate([0.5, 0.5, 2.0, 2.0])]
+    result = compare(a, b)
+    assert result == compare(a, b)
+    lower, upper = result["overall"]["median_paired_speedup_ci95"]
+    assert lower < 1.0 < upper
+    assert result["overall"]["fraction_questions_faster"] == 0.5

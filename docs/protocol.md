@@ -46,6 +46,8 @@ reproduce its exact training curriculum or results.
   counterbalanced order and repeated measurements. Count each question once for
   accuracy, and retain raw trials. Check equivalent decoding paths as a timing
   control; single sequential runs can drift with machine load and thermal state.
+  Bootstrap paired questions for speed-ratio intervals after aggregating repeats.
+  These intervals cover question sampling, not variation between hardware sessions.
 - Compare accuracy versus measured latency, not just token counts. CoT has more
   text positions; latent positions still consume transformer computation.
 - Ablate latent states (zero, corrupted features, repeated first state). This
