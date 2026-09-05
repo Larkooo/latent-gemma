@@ -5,14 +5,19 @@ bridge feeds transformer hidden states back as input embeddings for a configurab
 number of steps, then the model generates an answer. Latent steps do not sample
 tokens or project states into vocabulary logits.
 
-**Status: the latest hybrid pilot scored 96/100; performance checks are in progress.**
+**Status: the hybrid pilot scored 96/100 with 18% lower median answer latency.**
 On 100 diagnostic validation examples, two continuous feedback steps followed by
 a fixed text boundary and remaining text reasoning scored 96/100, versus 99/100
 for the warmup text-reasoning reference. This is a hybrid of latent and text
 reasoning. A separately trained shortened-text control scored 66/100, while
 retaining 99/100 in full text mode. The [matched-training comparison](reports/matched-short-text-control/README.md)
-supports useful latent computation on this pilot. Repeated latency measurements
-and public-benchmark checks remain necessary before claiming a broader performance gain.
+supports useful latent computation on this pilot. A combined comparison measured
+median completed-answer latency of 1.103 seconds for the hybrid versus 1.339 seconds
+for warmup text CoT, using 100 questions and three repeats per method (600 requests).
+The speed ratio was 1.214, with a paired-question bootstrap 95% interval of
+[1.105, 1.376]. See the [accuracy and latency report](reports/boundary-accuracy-latency/README.md).
+Independent test/OOD checks are in progress; broad reasoning improvement and lower
+total computation remain unestablished.
 See the [fixed-boundary report](reports/curriculum-boundary-stage1/README.md) for
 the complete accuracy matrix, raw predictions, and limitations.
 

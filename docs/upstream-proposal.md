@@ -1,8 +1,8 @@
 # Proposed contribution: continuous embedding inputs for Gemma research
 
-Status: local working draft. No issue or pull request has been submitted. Measured
-latency, independent test results, and final scope must be added before this is
-proposed upstream.
+Status: local working draft. No issue or pull request has been submitted. The
+first combined validation accuracy/latency result is included. Independent test
+results and final scope remain outstanding.
 
 ## Current evidence
 
@@ -15,11 +15,23 @@ full text mode. The hybrid solved 30 additional questions and lost none, with a
 paired bootstrap accuracy-difference interval of [21, 39] percentage points.
 See the [matched-training report](../reports/matched-short-text-control/README.md).
 
-This supports useful latent computation under the tested recipe. It is one seed,
-simple diagnostic tasks, and exploratory validation that overlaps checkpoint
-selection. Training FLOPs are not matched. Repeated latency measurements, public
-transfer, and independent test/OOD evaluation remain outstanding. No speedup or
-broad reasoning improvement should be claimed in an upstream submission yet.
+The combined accuracy/latency comparison retained 96/100 versus 99/100 while
+measuring median warm completed-answer latency of 1.103 seconds versus 1.339
+seconds: 17.6% lower median latency, or a 1.214 speed ratio. Both methods answered
+the same 100 questions three times, with randomized, counterbalanced order, fresh
+caches, and the same serial decoder. The speed-ratio 95% paired-question interval
+was [1.105, 1.376]. The benefit was concentrated in arithmetic; link-question
+latencies were approximately equal. See the
+[combined report](../reports/boundary-accuracy-latency/README.md).
+
+This supports useful latent computation and a measured pilot latency benefit
+under the tested recipe. It is one seed, one Apple Silicon session, simple
+diagnostic tasks, and exploratory validation that overlaps checkpoint selection.
+Training FLOPs are not matched, and lower inference FLOPs have not been measured.
+Initial GSM8K transfer scored 24/40 for the hybrid, 24/40 for warmup text CoT, and
+28/40 for the candidate adapter in full-text mode; no adapter was trained on
+GSM8K. Independent diagnostic test/OOD evaluation is in progress. An upstream
+submission must not generalize the pilot speedup into a broad model-quality claim.
 
 ## Problem
 

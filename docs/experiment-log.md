@@ -361,3 +361,24 @@ no results. The two-step candidate versus warmup-CoT benchmark is now running
 directly, collecting accuracy and repeated completed-answer timings together on
 100 questions. The documented default workflow now runs this combined comparison
 immediately after training.
+
+The primary combined comparison completed all 600 requests: 100 questions, two
+conditions, and three repeats. Accuracy reproduced at 99/100 for warmup text CoT
+and 96/100 for the fixed two-step hybrid. Median warm completed-answer latency
+was 1.339100 seconds versus 1.103280 seconds, a 1.2137 baseline/candidate ratio
+and 17.6% lower candidate latency. The paired-question bootstrap speed-ratio
+interval was [1.1053, 1.3764]; the hybrid answered faster on 74% of questions.
+Arithmetic showed a 1.3455 ratio of median latencies; links showed 1.0229 with an
+interval spanning equal speed. All repeated token sequences and correctness
+values were identical, both conditions had zero truncations, and the exporter
+verified every question median against its raw trials. The
+[frozen combined report](../reports/boundary-accuracy-latency/README.md) retains
+all 600 measurements and the 100 input questions.
+
+This positive pilot result triggered the independent check. The stopped
+sequential holdout plan was superseded before it produced any predictions by
+one combined comparison job on all 600 test and 400 OOD questions. It retains
+the already pinned two-step candidate, warmup baseline, source/data hashes,
+serial decoding, and 96-token cap, with two interleaved repeats per method.
+Accuracy and latency are measured together on every question (4,000 requests).
+The independent results remain pending; the other deferred variants stay stopped.
