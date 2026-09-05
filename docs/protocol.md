@@ -43,6 +43,11 @@ reproduce its exact training curriculum or results.
   text positions; latent positions still consume transformer computation.
 - Ablate latent states (zero, corrupted features, repeated first state). This
   checks whether input-dependent recurrent activations matter beyond extra slots.
+  These controls alter the explicit feedback input; they retain attention caches.
+  A zero input can still produce problem-dependent cached activations by attending
+  to the prompt. A null feedback result therefore does not prove that all latent
+  computation is irrelevant. Matched training without latent positions remains
+  necessary to distinguish useful latent memory from shorter text supervision.
 - Test cache equivalence, causal target alignment, gradient flow through feedback,
   checkpoint round trips, and the zero-step path against original model outputs.
 - Evaluate a public reasoning benchmark in addition to generated diagnostic tasks.

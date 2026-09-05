@@ -1,0 +1,6 @@
+{
+  "purpose": "Intermediate correctness/format audit only",
+  "checkpoint_step": 200,
+  "excluded_from_latency_comparisons": true,
+  "reason": "Runs concurrently with training; latency is not comparable with serial benchmarks."
+}

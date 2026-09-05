@@ -1,0 +1,105 @@
+{
+  "train_sha256": "10c2357b3c0d630c1049cbab47984a93efb7620a8be68bad854b42ea60cf9a1f",
+  "dataset_examples": 6000,
+  "runs": {
+    "gemma4-warmup-v2": {
+      "selected_step": 400,
+      "modes": {
+        "direct": {
+          "draws": 800,
+          "unique_examples": 759,
+          "draws_by_task": {
+            "links": 392,
+            "arithmetic": 408
+          },
+          "unique_by_task": {
+            "arithmetic": 387,
+            "links": 372
+          }
+        },
+        "cot": {
+          "draws": 800,
+          "unique_examples": 761,
+          "draws_by_task": {
+            "links": 404,
+            "arithmetic": 396
+          },
+          "unique_by_task": {
+            "arithmetic": 379,
+            "links": 382
+          }
+        }
+      }
+    },
+    "gemma4-latent-k4-v2": {
+      "selected_step": 500,
+      "modes": {
+        "direct": {
+          "draws": 668,
+          "unique_examples": 635,
+          "draws_by_task": {
+            "links": 312,
+            "arithmetic": 356
+          },
+          "unique_by_task": {
+            "arithmetic": 333,
+            "links": 302
+          }
+        },
+        "cot": {
+          "draws": 668,
+          "unique_examples": 637,
+          "draws_by_task": {
+            "links": 328,
+            "arithmetic": 340
+          },
+          "unique_by_task": {
+            "arithmetic": 321,
+            "links": 316
+          }
+        },
+        "latent": {
+          "draws": 664,
+          "unique_examples": 632,
+          "draws_by_task": {
+            "links": 308,
+            "arithmetic": 356
+          },
+          "unique_by_task": {
+            "arithmetic": 342,
+            "links": 290
+          }
+        }
+      }
+    },
+    "gemma4-curriculum-stage1": {
+      "selected_step": 400,
+      "modes": {
+        "cot": {
+          "draws": 800,
+          "unique_examples": 759,
+          "draws_by_task": {
+            "links": 392,
+            "arithmetic": 408
+          },
+          "unique_by_task": {
+            "arithmetic": 387,
+            "links": 372
+          }
+        },
+        "hybrid": {
+          "draws": 800,
+          "unique_examples": 761,
+          "draws_by_task": {
+            "links": 404,
+            "arithmetic": 396
+          },
+          "unique_by_task": {
+            "arithmetic": 379,
+            "links": 382
+          }
+        }
+      }
+    }
+  }
+}

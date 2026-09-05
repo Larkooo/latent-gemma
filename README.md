@@ -9,6 +9,10 @@ tokens or project states into vocabulary logits.
 On 100 diagnostic validation examples, text reasoning scored 99/100 and four
 latent steps scored 80/100. Zeroed feedback scored 81/100, so useful feedback has
 not been demonstrated. See the [pilot report and raw results](reports/pilot-v2/README.md).
+The initial staged recipe also failed: hybrid reasoning scored 62/100 versus
+99/100 for its retained text mode. Its [report](reports/curriculum-stage1/README.md)
+records the accuracy gap and the timing variability that motivated interleaved
+measurements.
 Correctness checks pass on small Gemma 3 and Gemma 4 architectures.
 This project does not reproduce Astra's undisclosed architecture.
 
