@@ -34,6 +34,7 @@ class AdapterConfig:
     bridge_rank: int = 64
     seed: int = 42
     compute_dtype: str = "auto"
+    feedback_kind: str = "recurrent"
 
 
 class FeedbackBridge(nn.Module):
@@ -94,6 +95,19 @@ class LatentModel(nn.Module):
                 },
             )
         self.bridge = FeedbackBridge(self.hidden_size, config.bridge_rank, embedding_rms)
+        if config.feedback_kind not in {"recurrent", "pause"}:
+            raise ValueError(f"Unknown feedback kind: {config.feedback_kind}")
+        if config.feedback_kind == "pause":
+            self.enable_pause_positions()
+
+    def enable_pause_positions(self) -> None:
+        """Use one learned, question-independent embedding at every latent position."""
+        if hasattr(self, "pause_embedding"):
+            return
+        scale = self.bridge.gain.item()
+        self.pause_embedding = mx.random.normal((1, 1, self.hidden_size)) * scale
+        self.bridge.freeze()
+        self.config = replace(self.config, feedback_kind="pause")
 
     def expand_lora(self, num_layers: int) -> None:
         """Add zero-output adapters to earlier layers, preserving trained weights."""
@@ -175,7 +189,10 @@ class LatentModel(nn.Module):
         state = self.hidden(prompt, cache=cache)[:, -1:, :]
         initial = state
         for _ in range(steps):
-            feedback = self.bridge(initial if ablation == "repeat" else state)
+            if self.config.feedback_kind == "pause":
+                feedback = mx.broadcast_to(self.pause_embedding, state.shape).astype(state.dtype)
+            else:
+                feedback = self.bridge(initial if ablation == "repeat" else state)
             if ablation == "zero":
                 feedback = mx.zeros_like(feedback)
             elif ablation == "shuffle":
@@ -227,7 +244,8 @@ def load_model(model_path: str, config: AdapterConfig, adapter_path: Path | None
 def parameter_counts(model: LatentModel) -> dict[str, int]:
     return {
         "total": get_total_parameters(model.backbone)
-        + sum(p.size for _, p in tree_flatten(model.bridge.parameters())),
+        + sum(p.size for _, p in tree_flatten(model.bridge.parameters()))
+        + (model.pause_embedding.size if hasattr(model, "pause_embedding") else 0),
         "trainable": sum(p.size for _, p in tree_flatten(model.trainable_parameters())),
     }
 

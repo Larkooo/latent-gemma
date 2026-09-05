@@ -18,11 +18,12 @@ def main():
     parser.add_argument("--baseline-adapter", type=Path)
     parser.add_argument("--data", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--baseline-mode", choices=["cot", "direct", "hybrid"], default="cot")
+    parser.add_argument("--baseline-mode", choices=["cot", "direct", "hybrid", "latent"], default="cot")
     parser.add_argument("--candidate-mode", choices=["latent", "hybrid"], default="hybrid")
     parser.add_argument("--baseline-decode", choices=["serial", "pipelined"], default="serial")
     parser.add_argument("--candidate-decode", choices=["serial", "pipelined"], default="serial")
     parser.add_argument("--latent-steps", type=int, default=2)
+    parser.add_argument("--baseline-latent-steps", type=int, default=0)
     parser.add_argument(
         "--candidate-ablation",
         choices=["none", "zero", "shuffle", "repeat"],
@@ -35,7 +36,8 @@ def main():
     args = parser.parse_args()
     if args.output.exists():
         raise FileExistsError(f"Refusing to overwrite benchmark: {args.output}")
-    if args.limit <= 0 or args.latent_steps < 0 or args.max_tokens <= 0 or args.repeats < 2:
+    if (args.limit <= 0 or min(args.latent_steps, args.baseline_latent_steps) < 0
+            or args.max_tokens <= 0 or args.repeats < 2):
         raise ValueError("Invalid benchmark counts")
     saved = json.loads((args.adapter / "config.json").read_text())
     config = AdapterConfig(**saved["adapter"])
@@ -59,7 +61,9 @@ def main():
     baseline_boundary = baseline_saved.get("run", {}).get("hybrid_boundary", "none")
     baseline = DecodeCondition(
         args.baseline_mode,
+        steps=args.baseline_latent_steps,
         max_tokens=args.max_tokens,
+        ablation=baseline_saved.get("run", {}).get("train_ablation", "none"),
         hybrid_boundary=baseline_boundary,
         decode_strategy=args.baseline_decode,
     )

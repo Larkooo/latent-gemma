@@ -30,9 +30,9 @@ def session_calibration(size: int = 1024, repeats: int = 10) -> dict:
     """Record a fixed, model-independent workload so sessions can be compared.
 
     Absolute latencies drift with concurrent load, thermal state, and power
-    settings. Paired ratios within a run are robust to a constant slowdown; the
-    absolute numbers are not. This probe does not make sessions equivalent, it
-    makes an inflated session detectable.
+    settings. Interleaving reduces order bias but does not establish that ratios
+    are invariant to load. This probe describes the session; it is not a timing
+    correction or proof that the machine was idle.
     """
     a = mx.random.normal((size, size))
     b = mx.random.normal((size, size))
@@ -41,9 +41,10 @@ def session_calibration(size: int = 1024, repeats: int = 10) -> dict:
     started = time.perf_counter()
     for _ in range(repeats):
         c = a @ b
-    mx.eval(c)
+        mx.eval(c)
     mx.synchronize()
     result = {
+        "probe_policy": "synchronized-matmul-v2",
         "matmul_size": size,
         "matmul_repeats": repeats,
         "matmul_s": time.perf_counter() - started,

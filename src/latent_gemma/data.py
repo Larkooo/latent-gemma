@@ -120,8 +120,10 @@ def prompt_text(
     return text if native_thinking or not reasoning_prefix else text + "Reasoning: "
 
 
-def remaining_reasoning(example: Example, steps_to_drop: int) -> str:
+def remaining_reasoning(example: Example, steps_to_drop: int | None) -> str:
     """Remove a prefix of annotated reasoning, without supplying it in the prompt."""
+    if steps_to_drop is None:
+        return ""
     if steps_to_drop < 0:
         raise ValueError("steps_to_drop must be nonnegative")
     if steps_to_drop == 0:
@@ -152,7 +154,7 @@ def encode_example(
     tokenizer,
     example: Example,
     mode: str,
-    reasoning_steps_to_drop: int = 0,
+    reasoning_steps_to_drop: int | None = 0,
     hybrid_boundary: str = "none",
 ):
     if mode not in {"direct", "cot", "latent", "hybrid"}:

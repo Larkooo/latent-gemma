@@ -124,6 +124,46 @@ def test_invalid_steps_fail(model):
         model.prefill(mx.array([[2]]), -1)
 
 
+def test_learned_pause_is_question_independent_but_receives_gradients(model, monkeypatch):
+    model.enable_pause_positions()
+    captured = []
+    hidden = model.hidden
+
+    def record(ids, cache=None, embeddings=None):
+        if embeddings is not None:
+            captured.append(np.array(embeddings))
+        return hidden(ids, cache, embeddings)
+
+    monkeypatch.setattr(model, "hidden", record)
+    a, _ = model.prefill(mx.array([[2, 3, 4]]), 2)
+    b, _ = model.prefill(mx.array([[6, 7, 8]]), 2)
+    assert len(captured) == 4
+    for embedding in captured[1:]:
+        np.testing.assert_array_equal(embedding, captured[0])
+    assert not np.allclose(np.array(a), np.array(b))
+    monkeypatch.setattr(model, "hidden", hidden)
+    parameters = dict(tree_flatten(model.trainable_parameters()))
+    assert "pause_embedding" in parameters
+    assert not any(key.startswith("bridge.") for key in parameters)
+    loss, grads = nn.value_and_grad(model, token_loss)(
+        model, mx.array([[2, 3, 4]]), mx.array([[5, 6]]), mx.ones((1, 2)), 2
+    )
+    assert np.isfinite(loss.item())
+    assert mx.sum(mx.abs(grads["pause_embedding"])).item() > 0
+
+
+def test_pause_adapter_round_trip(tmp_path, model):
+    model.enable_pause_positions()
+    ids = mx.array([[2, 3, 4]])
+    expected = np.array(model.prefill(ids, 2)[0])
+    model.save_adapter(tmp_path, {"model_path": "tiny"})
+    config = AdapterConfig(**json.loads((tmp_path / "config.json").read_text())["adapter"])
+    restored = LatentModel(Model(model.backbone.args), config)
+    restored.backbone.load_weights(tree_flatten(model.backbone.parameters()))
+    restored.load_weights(list(mx.load(str(tmp_path / "adapter.safetensors")).items()), strict=False)
+    assert_close(restored.prefill(ids, 2)[0], expected)
+
+
 def test_training_ablation_matches_inference_ablation(model):
     prompt = mx.array([[2, 3, 4]])
     target = mx.array([[5, 6, 7]])
