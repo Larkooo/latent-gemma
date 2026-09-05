@@ -7,6 +7,10 @@ no token sampling or nearest vocabulary lookup, preserves Gemma 4's continuous
 per-layer embedding branch, and zeros the token-indexed contribution at latent
 positions!
 
+I used two latent steps as a starting point. The count is configurable, but this
+checkpoint was trained with two; I haven't yet systematically compared other
+counts for accuracy and latency.
+
 Here are some benchmarks I ran on 100 diagnostic arithmetic and link-traversal
 validation questions:
 
