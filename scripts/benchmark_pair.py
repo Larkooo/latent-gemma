@@ -20,6 +20,8 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--baseline-mode", choices=["cot", "direct", "hybrid"], default="cot")
     parser.add_argument("--candidate-mode", choices=["latent", "hybrid"], default="hybrid")
+    parser.add_argument("--baseline-decode", choices=["serial", "pipelined"], default="serial")
+    parser.add_argument("--candidate-decode", choices=["serial", "pipelined"], default="serial")
     parser.add_argument("--latent-steps", type=int, default=2)
     parser.add_argument(
         "--candidate-ablation", choices=["none", "zero", "shuffle", "repeat"], default="none"
@@ -51,10 +53,18 @@ def main():
             raise ValueError("Paired timing requires matching computation dtypes")
     baseline_boundary = baseline_saved.get("run", {}).get("hybrid_boundary", "none")
     baseline = DecodeCondition(
-        args.baseline_mode, max_tokens=args.max_tokens, hybrid_boundary=baseline_boundary
+        args.baseline_mode,
+        max_tokens=args.max_tokens,
+        hybrid_boundary=baseline_boundary,
+        decode_strategy=args.baseline_decode,
     )
     candidate = DecodeCondition(
-        args.candidate_mode, args.latent_steps, args.max_tokens, args.candidate_ablation, boundary
+        args.candidate_mode,
+        args.latent_steps,
+        args.max_tokens,
+        args.candidate_ablation,
+        boundary,
+        args.candidate_decode,
     )
     metadata = {
         "model": args.model,

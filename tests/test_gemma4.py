@@ -5,6 +5,8 @@ import pytest
 from mlx.utils import tree_flatten
 from mlx_lm.models.gemma4_text import Model, ModelArgs
 
+from latent_gemma.data import Example
+from latent_gemma.evaluate import generate
 from latent_gemma.model import AdapterConfig, LatentModel, token_loss
 
 
@@ -35,6 +37,39 @@ def model():
 
 def close(a, b):
     np.testing.assert_allclose(np.array(a), np.array(b), atol=3e-5, rtol=3e-5)
+
+
+@pytest.mark.parametrize("mode,steps", [("cot", 0), ("hybrid", 0), ("hybrid", 2), ("latent", 2)])
+def test_pipelined_decoding_preserves_gemma4_cached_tokens(model, mode, steps):
+    class Tokenizer:
+        eos_token_id = 100
+
+        def apply_chat_template(self, *args, **kwargs):
+            return "prompt"
+
+        def encode(self, text, **kwargs):
+            return [2, 3, 4] if text.startswith("prompt") else [5, 6]
+
+        def decode(self, ids):
+            return " ".join(map(str, ids))
+
+    example = Example("test", "links", "Question", "", "A", "validation")
+    settings = dict(mode=mode, steps=steps, max_tokens=6, hybrid_boundary="reasoning")
+    serial = generate(model, Tokenizer(), example, **settings)
+    pipelined = generate(model, Tokenizer(), example, **settings, decode_strategy="pipelined")
+    for field in (
+        "text",
+        "prediction",
+        "generated_tokens",
+        "token_ids",
+        "terminated",
+        "forced_tokens",
+        "transformer_positions",
+        "vocabulary_projections",
+    ):
+        assert pipelined[field] == serial[field]
+    assert pipelined["generated_tokens"] == 6
+    assert pipelined["prefetched_text_positions"] == 0
 
 
 def test_original_path_preserves_ple_shared_cache_and_logit_softcap(model):

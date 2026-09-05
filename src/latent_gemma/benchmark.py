@@ -21,6 +21,7 @@ class DecodeCondition:
     max_tokens: int = 96
     ablation: str = "none"
     hybrid_boundary: str = "none"
+    decode_strategy: str = "serial"
 
 
 def benchmark_pair(
@@ -60,6 +61,7 @@ def benchmark_pair(
         "correct",
         "text",
         "generated_tokens",
+        "token_ids",
         "prompt_tokens",
         "forced_tokens",
         "terminated",

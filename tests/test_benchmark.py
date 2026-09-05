@@ -17,6 +17,7 @@ def fake_generate(model, tokenizer, example, mode, **kwargs):
         "latency_s": 1.0,
         "end_to_end_latency_s": 2.0 if mode == "cot" else 1.0,
         "generated_tokens": 2,
+        "token_ids": [0, 1],
         "prompt_tokens": 3,
         "forced_tokens": 0,
         "terminated": True,

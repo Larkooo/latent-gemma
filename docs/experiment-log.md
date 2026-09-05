@@ -282,3 +282,18 @@ generalization remain unresolved. The initial 40-question GSM8K transfer matrix
 has begun. After it and the repeated timing comparisons finish, a queued
 one-latent-step inference check will test whether the accepted accuracy can be
 retained with less recurrence; timing proceeds only if its quality screen passes.
+
+An optional pipelined text decoder now schedules one token ahead so CPU graph
+construction can overlap GPU execution. Serial decoding remains the default for
+the already-planned comparisons. Requests ending before the cap perform one
+unused continuation; synchronization includes it in measured time, and new rows
+record its position and vocabulary-projection cost. Emitted token IDs are retained
+to verify exact decoder equivalence rather than relying only on decoded text.
+
+The full 72-test suite passed, including small Gemma 4 comparisons with shared
+attention caches, continuous latent positions, forced prefixes, and capped output,
+plus EOS accounting and CLI routing checks. These tests use CPU execution. Real
+checkpoint verification is queued after the existing experiments: a ten-question
+serial/pipelined comparison, followed by a 100-question latent-versus-CoT timing
+comparison with both sides pipelined. Its emitted tokens must match the serial
+reference. No pipeline speed benefit is assumed before those measurements finish.

@@ -142,6 +142,17 @@ separately trained zero-latent shortened-text control. Both adapters must use th
 same base checkpoint and computation dtype. They are loaded before measurement;
 this option requires memory for both model instances.
 
+An experimental `--decode-strategy pipelined` evaluation option schedules the
+next text token before reading the current token on the host. It can overlap
+CPU graph construction with GPU execution. A request ending before its token cap
+performs one unused continuation step; that work is included in time and position
+counts, and is recorded in `prefetched_text_positions` and `vocabulary_projections`.
+It is a latency optimization to measure, not a reduction in computation.
+The default remains `serial`. To compare methods using the same pipelined decoder,
+pass `--baseline-decode pipelined --candidate-decode pipelined` to
+`scripts/benchmark_pair.py`. Token equivalence is tested on small Gemma models;
+verification and timing on the real checkpoint remain pending.
+
 ## Staged compression
 
 `hybrid` mode runs the latent loop, then generates the remaining text reasoning

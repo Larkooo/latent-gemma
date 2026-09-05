@@ -13,6 +13,39 @@ from .data import Example, extract_answer, hybrid_boundary_text, prompt_text
 from .model import LatentModel
 
 
+def _decode_tokens(model, state, cache, stops, max_tokens, strategy):
+    tokens = []
+    if strategy == "serial":
+        for index in range(max_tokens):
+            next_id = mx.argmax(model.logits(state[:, -1:, :]), axis=-1).item()
+            tokens.append(next_id)
+            if next_id in stops:
+                return tokens, True, 0
+            if index + 1 < max_tokens:
+                state = model.hidden(mx.array([[next_id]]), cache=cache)
+        return tokens, False, 0
+
+    # Schedule the next token before reading the current one on the host. This
+    # overlaps graph construction and execution, as in MLX LM's generation loop.
+    token = mx.argmax(model.logits(state[:, -1:, :]), axis=-1)
+    mx.async_eval(token)
+    for index in range(max_tokens):
+        prefetched = index + 1 < max_tokens
+        if prefetched:
+            state = model.hidden(token.reshape(1, 1), cache=cache)
+            next_token = mx.argmax(model.logits(state[:, -1:, :]), axis=-1)
+            mx.async_eval(next_token)
+        next_id = token.item()
+        tokens.append(next_id)
+        if next_id in stops:
+            # A request ending before its cap scheduled one unused continuation.
+            # Synchronization below includes that work in latency measurements.
+            return tokens, True, int(prefetched)
+        if prefetched:
+            token = next_token
+    return tokens, False, 0
+
+
 def generate(
     model: LatentModel,
     tokenizer,
@@ -22,9 +55,14 @@ def generate(
     max_tokens: int = 96,
     ablation: str = "none",
     hybrid_boundary: str = "none",
+    decode_strategy: str = "serial",
 ) -> dict:
     if mode not in {"direct", "cot", "latent", "native", "hybrid", "plain"}:
         raise ValueError(f"Unknown mode: {mode}")
+    if decode_strategy not in {"serial", "pipelined"}:
+        raise ValueError(f"Unknown decode strategy: {decode_strategy}")
+    if max_tokens <= 0:
+        raise ValueError("max_tokens must be positive")
     model.eval()
     mx.synchronize()
     request_started = time.perf_counter()
@@ -50,21 +88,14 @@ def generate(
         suffix = tokenizer.encode(suffix_text, add_special_tokens=False)
         forced_count = len(suffix)
         state = model.hidden(mx.array([suffix]), cache=cache)[:, -1:, :]
-    tokens = []
     stops = (
         set(tokenizer.eos_token_ids)
         if hasattr(tokenizer, "eos_token_ids")
         else {tokenizer.eos_token_id}
     )
-    terminated = False
-    for index in range(max_tokens):
-        next_id = mx.argmax(model.logits(state[:, -1:, :]), axis=-1).item()
-        tokens.append(next_id)
-        if next_id in stops:
-            terminated = True
-            break
-        if index + 1 < max_tokens:
-            state = model.hidden(mx.array([[next_id]]), cache=cache)
+    tokens, terminated, prefetched = _decode_tokens(
+        model, state, cache, stops, max_tokens, decode_strategy
+    )
     mx.synchronize()
     latency = time.perf_counter() - started
     text = tokenizer.decode([t for t in tokens if t not in stops])
@@ -77,6 +108,7 @@ def generate(
         "latent_steps": latent_steps,
         "ablation": ablation,
         "hybrid_boundary": hybrid_boundary if mode == "hybrid" else "none",
+        "decode_strategy": decode_strategy,
         "prediction": prediction,
         "answer": example.answer,
         "correct": prediction == example.answer,
@@ -84,13 +116,17 @@ def generate(
         "latency_s": latency,
         "end_to_end_latency_s": end_to_end_latency,
         "generated_tokens": len(tokens),
+        "token_ids": tokens,
         "prompt_tokens": prompt.shape[1],
         "forced_tokens": forced_count,
         "terminated": terminated,
+        "prefetched_text_positions": prefetched,
+        "vocabulary_projections": len(tokens) + prefetched,
         "transformer_positions": prompt.shape[1]
         + forced_count
         + latent_steps
-        + max(0, len(tokens) - 1),
+        + max(0, len(tokens) - 1)
+        + prefetched,
         "peak_memory_bytes": mx.get_peak_memory(),
     }
 
@@ -126,6 +162,9 @@ def summarize(rows: list[dict]) -> dict:
             durations = [x["end_to_end_latency_s"] for x in group]
             result["median_end_to_end_latency_s"] = statistics.median(durations)
             result["p95_end_to_end_latency_s"] = float(np.percentile(durations, 95))
+        for field in ("prefetched_text_positions", "vocabulary_projections"):
+            if all(field in x for x in group):
+                result[f"mean_{field}"] = statistics.mean(x[field] for x in group)
         return result
 
     return {
@@ -148,6 +187,7 @@ def evaluate(
     ablation: str = "none",
     metadata: dict | None = None,
     hybrid_boundary: str = "none",
+    decode_strategy: str = "serial",
 ) -> dict:
     if output.exists():
         raise FileExistsError(f"Refusing to overwrite evaluation: {output}")
@@ -163,13 +203,22 @@ def evaluate(
         max_tokens=min(max_tokens, 8),
         ablation=ablation,
         hybrid_boundary=hybrid_boundary,
+        decode_strategy=decode_strategy,
     )
     mx.reset_peak_memory()
     rows = []
     with output.open("w") as file:
         for i, example in enumerate(examples):
             row = generate(
-                model, tokenizer, example, mode, steps, max_tokens, ablation, hybrid_boundary
+                model,
+                tokenizer,
+                example,
+                mode,
+                steps,
+                max_tokens,
+                ablation,
+                hybrid_boundary,
+                decode_strategy,
             )
             rows.append(row)
             file.write(json.dumps(row) + "\n")
@@ -186,6 +235,7 @@ def evaluate(
         "max_tokens": max_tokens,
         "ablation": ablation,
         "hybrid_boundary": hybrid_boundary if mode == "hybrid" else "none",
+        "decode_strategy": decode_strategy,
         "timing_scope": {
             "latency_s": "Prompt prefill, latent computation, forced prefix, and generation through stop or token cap; excludes prompt formatting and final decoding.",
             "end_to_end_latency_s": "Warm model request, from prompt formatting/tokenization through final decoding and answer extraction; excludes model loading, warmup, and external serving/network overhead.",

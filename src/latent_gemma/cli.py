@@ -43,6 +43,7 @@ def main():
             cmd.add_argument("--reasoning-steps-to-drop", type=int, default=0)
         else:
             cmd.add_argument("--data", type=Path, required=True)
+            cmd.add_argument("--decode-strategy", choices=["serial", "pipelined"], default="serial")
             cmd.add_argument(
                 "--mode",
                 choices=["direct", "cot", "latent", "native", "hybrid", "plain"],
@@ -127,6 +128,7 @@ def main():
             args.ablation,
             metadata,
             hybrid_boundary,
+            args.decode_strategy,
         )
 
 

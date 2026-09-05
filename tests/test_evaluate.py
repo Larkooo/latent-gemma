@@ -114,3 +114,63 @@ def test_summary_does_not_invent_missing_end_to_end_measurements():
     assert summarize([measured])["overall"]["median_end_to_end_latency_s"] == 2.0
     assert "median_end_to_end_latency_s" not in summarize([row])["overall"]
     assert "median_end_to_end_latency_s" not in summarize([row, measured])["overall"]
+
+
+@pytest.mark.parametrize("max_tokens,expected_extra", [(1, 0), (5, 1)])
+def test_pipelined_eos_preserves_output_and_counts_unused_work(max_tokens, expected_extra):
+    class Tokenizer:
+        eos_token_id = 1
+
+        def apply_chat_template(self, *args, **kwargs):
+            return "prompt"
+
+        def encode(self, *args, **kwargs):
+            return [0]
+
+        def decode(self, ids):
+            assert ids == []
+            return ""
+
+    class Model:
+        hidden_calls = 0
+        logit_calls = 0
+
+        def eval(self):
+            pass
+
+        def prefill(self, prompt, steps, ablation):
+            return mx.zeros((1, 1, 2)), []
+
+        def logits(self, state):
+            self.logit_calls += 1
+            return mx.array([[[0.0, 1.0]]])
+
+        def hidden(self, ids, cache):
+            assert ids.tolist() == [[1]]
+            self.hidden_calls += 1
+            return mx.zeros((1, 1, 2))
+
+    example = Example("test", "links", "Question", "", "A", "validation")
+    serial_model, pipelined_model = Model(), Model()
+    serial = generate(serial_model, Tokenizer(), example, "cot", max_tokens=max_tokens)
+    pipelined = generate(
+        pipelined_model,
+        Tokenizer(),
+        example,
+        "cot",
+        max_tokens=max_tokens,
+        decode_strategy="pipelined",
+    )
+    for field in ("text", "prediction", "correct", "generated_tokens", "terminated"):
+        assert pipelined[field] == serial[field]
+    assert pipelined["prefetched_text_positions"] == expected_extra
+    assert pipelined["transformer_positions"] == serial["transformer_positions"] + expected_extra
+    assert pipelined["vocabulary_projections"] == serial["vocabulary_projections"] + expected_extra
+    assert pipelined_model.hidden_calls == expected_extra
+    assert pipelined_model.logit_calls == 1 + expected_extra
+
+
+@pytest.mark.parametrize("options", [{"max_tokens": 0}, {"decode_strategy": "unknown"}])
+def test_invalid_decode_options_fail_before_model_work(options):
+    with pytest.raises(ValueError):
+        generate(None, None, None, "cot", **options)

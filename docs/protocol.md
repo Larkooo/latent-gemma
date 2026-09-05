@@ -48,6 +48,10 @@ reproduce its exact training curriculum or results.
   control; single sequential runs can drift with machine load and thermal state.
   Bootstrap paired questions for speed-ratio intervals after aggregating repeats.
   These intervals cover question sampling, not variation between hardware sessions.
+  When evaluating decoder optimizations, compare the same token outputs before
+  attributing timing differences to scheduling. Use the same decoder strategy for
+  latent-versus-text claims. Count any unused prefetched work at the end of a
+  request in both latency and computation diagnostics.
 - Compare accuracy versus measured latency, not just token counts. CoT has more
   text positions; latent positions still consume transformer computation.
 - Ablate latent states (zero, corrupted features, repeated first state). This
