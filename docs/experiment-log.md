@@ -197,3 +197,16 @@ a completed benchmark-specific training recipe.
 Paired timing can now compare separately trained adapters while preserving each
 checkpoint's boundary policy and requiring the same backbone and computation
 dtype. Both models are resident before timing. The CPU suite passes 59 tests.
+
+The fixed-boundary training run completed 400 updates and selected step 300 by
+hybrid validation loss (0.01113). Initial generated-answer validation scored
+96/100: 49/53 arithmetic and all 47 link problems, with no truncations and mean
+15.64 generated tokens. The four errors concern incorrect intermediate arithmetic
+or repetition of an operation, rather than an empty output or unparseable date.
+Against the earlier warmup CoT result (99/100), the paired difference is -3 points
+with a 95% bootstrap interval of [-8, +1] points. This does not establish matched
+accuracy. The same-checkpoint CoT and feedback controls are still running.
+Sequential-run timing is not used to claim a speedup. Because 96/100 is below the
+predeclared timing screen, its full repeated speed comparison will be skipped;
+the equivalent-path timing check, matched training control, and GSM8K checks remain
+queued.
