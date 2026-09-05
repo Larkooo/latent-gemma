@@ -184,3 +184,16 @@ adapter-expansion checks are queued after the current boundary experiment. A
 full paired timing run for that candidate is conditional on its validation score
 reaching at least 98/100 while its CoT mode retains 99/100; this screening threshold
 does not replace the final accuracy-matching target.
+
+The next queued control starts from the same warmup checkpoint and uses the same
+400-update budget, data sampling, shortened targets, and fixed boundary, with
+zero latent steps. Its run configuration will be checked against the candidate
+before evaluation. This matches examples and updates, not training FLOPs. A first
+GSM8K transfer evaluation is queued afterward: 40 validation examples for native
+Gemma, warmup CoT, boundary-checkpoint CoT/hybrid, and the shortened-text control.
+These adapters have not been trained on GSM8K; this measures transfer rather than
+a completed benchmark-specific training recipe.
+
+Paired timing can now compare separately trained adapters while preserving each
+checkpoint's boundary policy and requiring the same backbone and computation
+dtype. Both models are resident before timing. The CPU suite passes 59 tests.

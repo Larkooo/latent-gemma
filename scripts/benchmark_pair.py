@@ -15,6 +15,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--model", required=True)
     parser.add_argument("--adapter", type=Path, required=True)
+    parser.add_argument("--baseline-adapter", type=Path)
     parser.add_argument("--data", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--baseline-mode", choices=["cot", "direct", "hybrid"], default="cot")
@@ -37,8 +38,20 @@ def main():
     validate_adapter_model(saved, args.model)
     model, tokenizer = load_model(args.model, config, args.adapter)
     boundary = saved.get("run", {}).get("hybrid_boundary", "none")
+    baseline_model = model
+    baseline_saved = saved
+    baseline_path = args.baseline_adapter or args.adapter
+    if baseline_path.resolve() != args.adapter.resolve():
+        baseline_saved = json.loads((baseline_path / "config.json").read_text())
+        validate_adapter_model(baseline_saved, args.model)
+        baseline_model, _ = load_model(
+            args.model, AdapterConfig(**baseline_saved["adapter"]), baseline_path
+        )
+        if baseline_model.compute_dtype != model.compute_dtype:
+            raise ValueError("Paired timing requires matching computation dtypes")
+    baseline_boundary = baseline_saved.get("run", {}).get("hybrid_boundary", "none")
     baseline = DecodeCondition(
-        args.baseline_mode, max_tokens=args.max_tokens, hybrid_boundary=boundary
+        args.baseline_mode, max_tokens=args.max_tokens, hybrid_boundary=baseline_boundary
     )
     candidate = DecodeCondition(
         args.candidate_mode, args.latent_steps, args.max_tokens, args.candidate_ablation, boundary
@@ -50,6 +63,9 @@ def main():
         "resolved_compute_dtype": model.compute_dtype,
         "data": str(args.data),
         "data_sha256": sha256(args.data),
+        "baseline_adapter_path": str(baseline_path),
+        "baseline_adapter_config": baseline_saved["adapter"],
+        "baseline_adapter_sha256": sha256(baseline_path / "adapter.safetensors"),
         "provenance": capture(
             args.output.with_suffix(".provenance"), args.model, str(args.adapter)
         ),
@@ -64,6 +80,7 @@ def main():
         args.repeats,
         args.seed,
         metadata,
+        baseline_model,
     )
     print(json.dumps(result, indent=2))
 

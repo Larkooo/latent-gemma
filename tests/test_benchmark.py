@@ -25,10 +25,16 @@ def fake_generate(model, tokenizer, example, mode, **kwargs):
     }
 
 
-def test_repeats_reduce_timing_noise_without_multiplying_accuracy_samples(tmp_path, monkeypatch):
+@pytest.mark.parametrize("separate_models", [False, True])
+def test_repeats_reduce_timing_noise_without_multiplying_accuracy_samples(
+    tmp_path, monkeypatch, separate_models
+):
     calls = []
+    candidate_model = object()
+    baseline_model = object() if separate_models else candidate_model
 
     def generate(*args, **kwargs):
+        assert args[0] is (baseline_model if kwargs["mode"] == "cot" else candidate_model)
         row = fake_generate(*args, **kwargs)
         calls.append(row["id"])
         return row
@@ -37,18 +43,20 @@ def test_repeats_reduce_timing_noise_without_multiplying_accuracy_samples(tmp_pa
     monkeypatch.setattr("latent_gemma.benchmark.mx.reset_peak_memory", lambda: None)
     examples = [Example(str(i), "links", "Question", "", "A", "validation") for i in range(2)]
     result = benchmark_pair(
-        None,
+        candidate_model,
         None,
         examples,
         tmp_path / "run",
         DecodeCondition("cot"),
         DecodeCondition("hybrid", 2),
         repeats=4,
+        baseline_model=baseline_model,
     )
     assert calls.count("warmup") == 2
     assert len(calls) == 18
     assert result["comparison"]["overall"]["n"] == 2
     assert result["comparison"]["overall"]["ratio_of_median_latencies"] == 2
+    assert result["shared_model"] is (not separate_models)
     rows = [
         json.loads(line) for line in (tmp_path / "run/measurements.jsonl").read_text().splitlines()
     ]

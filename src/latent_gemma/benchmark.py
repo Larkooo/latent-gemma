@@ -1,4 +1,4 @@
-"""Interleaved, repeated comparison of two decoding paths on one checkpoint."""
+"""Interleaved, repeated comparison of two loaded decoding conditions."""
 
 import json
 import random
@@ -33,6 +33,7 @@ def benchmark_pair(
     repeats: int = 3,
     seed: int = 42,
     metadata: dict | None = None,
+    baseline_model=None,
 ) -> dict:
     if repeats < 2:
         raise ValueError("Repeated benchmarking requires at least two repeats")
@@ -40,11 +41,12 @@ def benchmark_pair(
         raise ValueError("Benchmark examples must be nonempty with unique IDs")
     output.mkdir(parents=True, exist_ok=False)
     conditions = {"baseline": baseline, "candidate": candidate}
+    models = {"baseline": model if baseline_model is None else baseline_model, "candidate": model}
     warmup = Example("warmup", "arithmetic", "Compute (2 + 3) * 4.", "", "20", "warmup")
-    for condition in conditions.values():
+    for side, condition in conditions.items():
         settings = asdict(condition)
         settings["max_tokens"] = min(condition.max_tokens, 8)
-        generate(model, tokenizer, warmup, **settings)
+        generate(models[side], tokenizer, warmup, **settings)
     mx.reset_peak_memory()
     # Counterbalance which condition runs first, then randomize the schedule.
     first_sides = [
@@ -70,7 +72,7 @@ def benchmark_pair(
                 first = first_sides[index * repeats + repeat]
                 order = [first, "candidate" if first == "baseline" else "baseline"]
                 for position, side in enumerate(order):
-                    row = generate(model, tokenizer, example, **asdict(conditions[side]))
+                    row = generate(models[side], tokenizer, example, **asdict(conditions[side]))
                     trace.write(
                         json.dumps({"repeat": repeat, "order": position, "condition": side, **row})
                         + "\n"
@@ -102,7 +104,8 @@ def benchmark_pair(
         "seed": seed,
         "repeats": repeats,
         "conditions": {side: asdict(condition) for side, condition in conditions.items()},
-        "aggregation": "Median latency per example and condition; each question counts once for accuracy. Both paths use the same loaded checkpoint.",
+        "aggregation": "Median latency per example and condition; each question counts once for accuracy.",
+        "shared_model": models["baseline"] is models["candidate"],
         "timing_scope": "Warm request from prompt formatting through final decoding and answer extraction; excludes model loading, warmup, and external serving overhead.",
         "predictions_sha256": hashes,
         "measurements_sha256": sha256(output / "measurements.jsonl"),

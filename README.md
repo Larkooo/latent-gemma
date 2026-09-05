@@ -107,6 +107,10 @@ The baseline defaults to text CoT. Each condition starts from a fresh attention
 cache. Raw measurements are retained, and each question contributes once to the
 accuracy comparison, using its median timing across repeats. Unexpected output
 changes between repeats stop aggregation for investigation.
+Use `--baseline-adapter PATH --baseline-mode hybrid` to compare against a
+separately trained zero-latent shortened-text control. Both adapters must use the
+same base checkpoint and computation dtype. They are loaded before measurement;
+this option requires memory for both model instances.
 
 ## Staged compression
 
