@@ -55,8 +55,9 @@ explicit differences from the original Coconut implementation.
 
 - All arms and seeds use the same fixed 128-question validation subset, selected
   by a hash of question ID. Validation runs after each epoch. Accuracy selects
-  checkpoints, with validation loss breaking ties. Training curves remain in
-  the report; the epoch budget does not establish convergence.
+  checkpoints, with validation loss breaking ties. Raw validation predictions
+  and per-question losses are saved and hashed for every epoch. Training curves
+  remain in the report; the epoch budget does not establish convergence.
 - Stage transitions use the last checkpoint. Compressed arms select within
   their final stage. CoT can select its best checkpoint across the warmup and
   all continuation stages, so extra training cannot erase its best validation

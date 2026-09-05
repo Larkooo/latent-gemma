@@ -172,28 +172,47 @@ def recover_metrics(output: Path, step: int):
         os.replace(temporary, path)
 
 
-def validate_stage(model, tokenizer, examples, records, config):
+def validate_stage(model, tokenizer, examples, records, config, output: Path):
     model.eval()
     losses = []
     correct = truncated = 0
-    for example, record in zip(examples, records, strict=True):
-        batch = make_batch([record], tokenizer.pad_token_id or 0)
-        losses.append(token_loss(model, *batch, config.latent_steps).item())
-        row = generate(
-            model,
-            tokenizer,
-            example,
-            "hybrid",
-            config.latent_steps,
-            max_tokens=config.validation_max_tokens,
-            hybrid_boundary=config.hybrid_boundary,
-        )
-        correct += int(row["correct"])
-        truncated += int(not row["terminated"])
+    output.parent.mkdir(parents=True, exist_ok=True)
+    temporary = output.with_suffix(".tmp")
+    for previous in (output, temporary):
+        if previous.exists():
+            os.replace(
+                previous, previous.with_name(f"interrupted-{time.time_ns()}-{previous.name}")
+            )
+    with temporary.open("x") as stream:
+        for example, record in zip(examples, records, strict=True):
+            batch = make_batch([record], tokenizer.pad_token_id or 0)
+            loss = token_loss(model, *batch, config.latent_steps).item()
+            if not math.isfinite(loss):
+                raise FloatingPointError("Nonfinite validation loss")
+            losses.append(loss)
+            row = generate(
+                model,
+                tokenizer,
+                example,
+                "hybrid",
+                config.latent_steps,
+                max_tokens=config.validation_max_tokens,
+                hybrid_boundary=config.hybrid_boundary,
+            )
+            stream.write(json.dumps({**row, "teacher_forced_loss": loss}, allow_nan=False) + "\n")
+            stream.flush()
+            correct += int(row["correct"])
+            truncated += int(not row["terminated"])
     loss = sum(losses) / len(losses)
-    if not math.isfinite(loss):
-        raise FloatingPointError("Nonfinite validation loss")
-    return {"n": len(examples), "correct": correct, "loss": loss, "truncated": truncated}
+    os.replace(temporary, output)
+    return {
+        "n": len(examples),
+        "correct": correct,
+        "loss": loss,
+        "truncated": truncated,
+        "predictions_file": output.name,
+        "predictions_sha256": sha256(output),
+    }
 
 
 def train_stage(
@@ -356,7 +375,12 @@ def train_stage(
                 improved = False
                 if end_epoch:
                     validation_result = validate_stage(
-                        model, tokenizer, validation, val_records, config
+                        model,
+                        tokenizer,
+                        validation,
+                        val_records,
+                        config,
+                        output / "validation" / f"epoch-{epoch + 1:03d}.jsonl",
                     )
                     score = [
                         validation_result["correct"] / validation_result["n"],

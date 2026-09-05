@@ -106,7 +106,7 @@ def test_complete_report_audits_repeats_training_and_scores(report, campaign, tm
     data = tmp_path / "data"
     data.mkdir()
     questions = [{"id": identifier, "task": "gsm8k", "answer": "5"} for identifier in ("a", "b")]
-    for split in ("test", "timing"):
+    for split in ("test", "timing", "validation"):
         (data / f"{split}.jsonl").write_text("".join(json.dumps(row) + "\n" for row in questions))
     selections = {}
     for seed in map(str, plan["seeds"]):
@@ -119,7 +119,7 @@ def test_complete_report_audits_repeats_training_and_scores(report, campaign, tm
         for name in names:
             stage = root / name
             stage.mkdir(parents=True)
-            campaign.write_json(stage / "run.json", {"epochs": 1})
+            campaign.write_json(stage / "run.json", {"epochs": 1, "validation_ids": ["a", "b"]})
             campaign.write_json(
                 stage / "result.json",
                 {
@@ -130,7 +130,43 @@ def test_complete_report_audits_repeats_training_and_scores(report, campaign, tm
                     "supervised_tokens": 6,
                 },
             )
-            (stage / "metrics.jsonl").write_text('{"step":1,"validation":{"correct":2}}\n')
+            validation_path = stage / "validation/epoch-001.jsonl"
+            validation_path.parent.mkdir()
+            validation_path.write_text(
+                "".join(
+                    json.dumps(
+                        {
+                            **question,
+                            "mode": "hybrid",
+                            "prediction": "5",
+                            "text": "Answer: 5",
+                            "correct": True,
+                            "terminated": True,
+                            "scoring_policy": SCORING_POLICY,
+                            "teacher_forced_loss": 1.0,
+                        }
+                    )
+                    + "\n"
+                    for question in questions
+                )
+            )
+            (stage / "metrics.jsonl").write_text(
+                json.dumps(
+                    {
+                        "step": 1,
+                        "epoch": 1,
+                        "validation": {
+                            "correct": 2,
+                            "n": 2,
+                            "loss": 1.0,
+                            "truncated": 0,
+                            "predictions_file": validation_path.name,
+                            "predictions_sha256": campaign.digest(validation_path),
+                        },
+                    }
+                )
+                + "\n"
+            )
         predictions = {}
         for arm in campaign.ARMS:
             checkpoint = root / f"{arm}-stage-4"

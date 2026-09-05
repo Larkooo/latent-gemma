@@ -178,11 +178,48 @@ def accuracy_comparison(baseline, candidate, seed=20260905, draws=10000):
     }
 
 
+def audit_validation(stage, configuration, questions):
+    metrics = [row for row in read_rows(stage / "metrics.jsonl") if "validation" in row]
+    if [row["epoch"] for row in metrics] != list(range(1, configuration["epochs"] + 1)):
+        raise ValueError(f"Missing or repeated validation epoch: {stage}")
+    identifiers = set(configuration["validation_ids"])
+    for epoch in metrics:
+        result = epoch["validation"]
+        path = stage / "validation" / result["predictions_file"]
+        if digest(path) != result["predictions_sha256"]:
+            raise ValueError(f"Validation prediction hash mismatch: {path}")
+        rows = index_rows(read_rows(path))
+        if set(rows) != identifiers or not identifiers <= set(questions):
+            raise ValueError(f"Validation prediction coverage mismatch: {path}")
+        for identifier, row in rows.items():
+            question = questions[identifier]
+            prediction = extract_answer(row["text"], question["task"], row["mode"])
+            if (
+                row["prediction"] != prediction
+                or row["answer"] != question["answer"]
+                or row["correct"]
+                != answer_matches(prediction, question["answer"], question["task"])
+                or row["scoring_policy"] != SCORING_POLICY
+            ):
+                raise ValueError(f"Validation score cannot be reproduced: {identifier}")
+        loss = sum(row["teacher_forced_loss"] for row in rows.values()) / len(rows)
+        if (
+            result["n"] != len(rows)
+            or result["correct"] != sum(row["correct"] for row in rows.values())
+            or result["truncated"] != sum(not row["terminated"] for row in rows.values())
+            or not np.isfinite(loss)
+            or abs(result["loss"] - loss) > 1e-12
+        ):
+            raise ValueError(f"Validation summary does not reconcile: {path}")
+    return metrics
+
+
 def summarize(output):
     plan = json.loads((output / "plan.json").read_text())
     verify_plan(output, plan)
     selections = json.loads((output / "selected-checkpoints.json").read_text())
     questions = index_rows(read_rows(output / "data/test.jsonl"))
+    validation_questions = index_rows(read_rows(output / "data/validation.jsonl"))
     timing_ids = set(index_rows(read_rows(output / "data/timing.jsonl")))
     seeds = list(map(str, plan["seeds"]))
     if set(selections) != set(seeds):
@@ -226,9 +263,7 @@ def summarize(output):
                 "examples_seen": expected,
                 "elapsed_s": result["elapsed_s"],
                 "supervised_tokens": result["supervised_tokens"],
-                "epoch_validation": [
-                    row for row in read_rows(stage / "metrics.jsonl") if "validation" in row
-                ],
+                "epoch_validation": audit_validation(stage, configuration, validation_questions),
             }
         for baseline in ("pause", "short_text", "cot"):
             directory = output / "timing" / f"seed-{seed}" / f"feedback-vs-{baseline}"

@@ -17,6 +17,7 @@ from latent_gemma.curriculum import (
     recover_metrics,
     restore_checkpoint,
     save_checkpoint,
+    validate_stage,
 )
 from latent_gemma.data import Example, remaining_reasoning
 from latent_gemma.model import AdapterConfig, LatentModel, token_loss
@@ -125,3 +126,29 @@ def test_recovery_preserves_interrupted_metrics_without_duplicating_steps(tmp_pa
     assert len(archives) == 1 and archives[0].read_text() == original
     recover_metrics(tmp_path, 10)
     assert len(list((tmp_path / "interrupted-metrics").glob("*.jsonl"))) == 1
+
+
+def test_validation_saves_predictions_and_preserves_previous_attempt(tiny, tmp_path, monkeypatch):
+    example = Example("a", "gsm8k", "question", "reasoning", "5", "validation")
+    tokenizer = SimpleNamespace(pad_token_id=0)
+    records = [([2, 3], [4, 5], [1.0, 1.0])]
+    monkeypatch.setattr(
+        "latent_gemma.curriculum.generate",
+        lambda *args, **kwargs: {
+            "id": "a",
+            "prediction": "5",
+            "text": "Answer: 5",
+            "correct": True,
+            "terminated": True,
+        },
+    )
+    output = tmp_path / "validation/epoch-001.jsonl"
+    result = validate_stage(tiny, tokenizer, [example], records, StageConfig(), output)
+    row = json.loads(output.read_text())
+    assert result["n"] == result["correct"] == 1 and result["truncated"] == 0
+    assert row["teacher_forced_loss"] == result["loss"]
+    assert result["predictions_file"] == output.name
+    previous = output.read_bytes()
+    validate_stage(tiny, tokenizer, [example], records, StageConfig(), output)
+    archived = list(output.parent.glob("interrupted-*.jsonl"))
+    assert len(archived) == 1 and archived[0].read_bytes() == previous
