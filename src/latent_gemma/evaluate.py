@@ -22,12 +22,13 @@ def generate(
     max_tokens: int = 96,
     ablation: str = "none",
 ) -> dict:
-    if mode not in {"direct", "cot", "latent", "native", "hybrid"}:
+    if mode not in {"direct", "cot", "latent", "native", "hybrid", "plain"}:
         raise ValueError(f"Unknown mode: {mode}")
     prompt = mx.array(
         [
             tokenizer.encode(
-                prompt_text(tokenizer, example, mode == "native"), add_special_tokens=False
+                prompt_text(tokenizer, example, mode == "native", reasoning_prefix=mode != "plain"),
+                add_special_tokens=False,
             )
         ]
     )
@@ -37,7 +38,7 @@ def generate(
     started = time.perf_counter()
     state, cache = model.prefill(prompt, latent_steps, ablation)
     forced_count = 0
-    if mode not in {"cot", "native", "hybrid"}:
+    if mode not in {"cot", "native", "hybrid", "plain"}:
         suffix = tokenizer.encode("\nAnswer: ", add_special_tokens=False)
         forced_count = len(suffix)
         state = model.hidden(mx.array([suffix]), cache=cache)[:, -1:, :]
@@ -154,6 +155,7 @@ def evaluate(
         "metadata": metadata or {},
         "mode": mode,
         "steps": steps,
+        "max_tokens": max_tokens,
         "ablation": ablation,
         "predictions_sha256": hashlib.sha256(output.read_bytes()).hexdigest(),
         **summarize(rows),

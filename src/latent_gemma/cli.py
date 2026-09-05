@@ -43,7 +43,9 @@ def main():
         else:
             cmd.add_argument("--data", type=Path, required=True)
             cmd.add_argument(
-                "--mode", choices=["direct", "cot", "latent", "native", "hybrid"], required=True
+                "--mode",
+                choices=["direct", "cot", "latent", "native", "hybrid", "plain"],
+                required=True,
             )
             cmd.add_argument("--limit", type=int)
             cmd.add_argument("--max-tokens", type=int, default=96)
@@ -100,6 +102,7 @@ def main():
             "model": args.model,
             "adapter_path": str(args.adapter),
             "adapter_config": asdict(config),
+            "resolved_compute_dtype": model.compute_dtype,
             "data": str(args.data),
             "data_sha256": hashlib.sha256(args.data.read_bytes()).hexdigest(),
         }

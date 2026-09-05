@@ -105,14 +105,16 @@ def read_examples(path: Path) -> list[Example]:
     return [Example(**json.loads(line)) for line in path.read_text().splitlines() if line]
 
 
-def prompt_text(tokenizer, example: Example, native_thinking: bool = False) -> str:
+def prompt_text(
+    tokenizer, example: Example, native_thinking: bool = False, reasoning_prefix: bool = True
+) -> str:
     text = tokenizer.apply_chat_template(
         [{"role": "user", "content": example.question + "\nGive the final result after Answer:."}],
         tokenize=False,
         add_generation_prompt=True,
         enable_thinking=native_thinking,
     )
-    return text if native_thinking else text + "Reasoning: "
+    return text if native_thinking or not reasoning_prefix else text + "Reasoning: "
 
 
 def remaining_reasoning(example: Example, steps_to_drop: int) -> str:
@@ -165,7 +167,7 @@ def extract_answer(text: str, task: str, mode: str) -> str | None:
         if "<channel|>" not in text:
             return None
         text = text.rsplit("<channel|>", 1)[-1]
-    if mode in {"cot", "native", "hybrid"}:
+    if mode in {"cot", "native", "hybrid", "plain"}:
         parts = re.split(r"Answer:\s*", text, flags=re.IGNORECASE)
         if len(parts) < 2 or not parts[-1].strip():
             return None

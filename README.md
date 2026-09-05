@@ -62,7 +62,11 @@ Use a directory outside this checkout for model weights and experiment runs.
 Evaluate `--mode direct` and `--mode cot` as matched controls. Use
 `--ablation zero`, `--ablation shuffle`, and `--ablation repeat` with latent mode.
 Use `--mode native --max-tokens 512` without an adapter for Gemma 4's native
-thinking baseline. `auto` computation uses float32 for Gemma 4 because recurrent
+thinking baseline. `--mode plain --max-tokens 512` uses the ordinary chat prompt
+with native thinking disabled and no forced assistant prefix. This distinguishes
+released-model behavior from the explicit formats used for fine-tuning. Report
+truncation counts and decoding budgets for every comparison.
+`auto` computation uses float32 for Gemma 4 because recurrent
 training exposed nonfinite gradients with the original bfloat16 computation;
 the integer weight storage remains quantized. Use the same computation dtype
 for latency comparisons. See the [experiment log](docs/experiment-log.md) for
