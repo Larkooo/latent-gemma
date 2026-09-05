@@ -53,7 +53,7 @@ editable `.pth` file with `ls -lO` and clear that flag with `chflags nohidden` o
 that file, or launch with `PYTHONPATH=/absolute/path/to/this/repo/src`. This issue
 interrupted an experiment queue; setting its source path explicitly fixed it.
 
-## Reproduce a diagnostic experiment
+## Reproduce the fixed-boundary pilot
 
 Use a directory outside this checkout for model weights and experiment runs.
 
@@ -68,17 +68,36 @@ Use a directory outside this checkout for model weights and experiment runs.
   --lora-layers 6 --rank 16 --batch-size 4 --learning-rate 0.00002
 .venv/bin/latent-gemma train \
   --model ../work/models/gemma4 --data ../work/data/diagnostics \
-  --adapter ../work/runs/warmup/best --output ../work/runs/latent \
-  --modes direct cot latent --latent-steps 4 --steps 600 --batch-size 4 \
+  --adapter ../work/runs/warmup/best --output ../work/runs/stage1 \
+  --modes cot hybrid --latent-steps 2 --reasoning-steps-to-drop 1 \
+  --hybrid-boundary reasoning --steps 400 --batch-size 4 \
   --learning-rate 0.00002
 .venv/bin/latent-gemma evaluate \
-  --model ../work/models/gemma4 --adapter ../work/runs/latent/best \
-  --data ../work/data/diagnostics/validation.jsonl --mode latent \
-  --latent-steps 4 --max-tokens 16 --output ../work/runs/latent-validation.jsonl
+  --model ../work/models/gemma4 --adapter ../work/runs/stage1/best \
+  --data ../work/data/diagnostics/validation.jsonl --mode hybrid \
+  --latent-steps 2 --max-tokens 96 --limit 100 \
+  --output ../work/runs/stage1-validation.jsonl
 ```
 
-Evaluate `--mode direct` and `--mode cot` as matched controls. Use
-`--ablation zero`, `--ablation shuffle`, and `--ablation repeat` with latent mode.
+The defaults use seed 42 and select a checkpoint every 100 updates. The recorded
+run selected stage-one step 300. Exact results can vary with hardware and library
+versions; the report records the environment and source hashes.
+Evaluate `--mode cot` and `--mode hybrid --latent-steps 0` as inference controls.
+Use `--ablation zero`, `--ablation shuffle`, and `--ablation repeat` with hybrid mode.
+To test whether shortened text training works without latent positions, train
+a separate control from the same warmup checkpoint:
+
+```sh
+.venv/bin/latent-gemma train \
+  --model ../work/models/gemma4 --data ../work/data/diagnostics \
+  --adapter ../work/runs/warmup/best --output ../work/runs/short-text-control \
+  --modes cot hybrid --latent-steps 0 --reasoning-steps-to-drop 1 \
+  --hybrid-boundary reasoning --steps 400 --batch-size 4 \
+  --learning-rate 0.00002
+```
+
+This matches the candidate's data, maximum updates, and shortened text targets;
+training FLOPs are not equal because latent positions add computation.
 Use `--mode native --max-tokens 512` without an adapter for Gemma 4's native
 thinking baseline. `--mode plain --max-tokens 512` uses the ordinary chat prompt
 with native thinking disabled and no forced assistant prefix. This distinguishes
@@ -98,11 +117,12 @@ files must contain it. Historical `latency_s` excludes prompt preparation and fi
 decoding. Neither measurement includes model loading or external serving overhead.
 
 For timing claims, use repeated measurements with randomized, counterbalanced
-condition order on the same loaded checkpoint:
+condition order, loading both checkpoints before measurement:
 
 ```sh
 .venv/bin/python scripts/benchmark_pair.py \
   --model ../work/models/gemma4 --adapter ../work/runs/stage1/best \
+  --baseline-adapter ../work/runs/warmup/best \
   --data ../work/data/diagnostics/validation.jsonl \
   --output ../work/runs/paired-timing --candidate-mode hybrid \
   --latent-steps 2 --limit 100 --repeats 3 --max-tokens 96
@@ -133,6 +153,7 @@ two latent positions:
   --model ../work/models/gemma4 --data ../work/data/diagnostics \
   --adapter ../work/runs/warmup/best --output ../work/runs/stage1 \
   --modes cot hybrid --latent-steps 2 --reasoning-steps-to-drop 1 \
+  --hybrid-boundary reasoning \
   --steps 400 --batch-size 4 --learning-rate 0.00002
 .venv/bin/latent-gemma evaluate \
   --model ../work/models/gemma4 --adapter ../work/runs/stage1/best \
@@ -146,8 +167,8 @@ GSM8K steps are nonempty lines in its worked solution. When every step is remove
 the hybrid target contains only the answer delimiter and answer. Inference always
 uses only the question, with a fixed latent count; no gold reasoning is supplied.
 This follows the staged-compression idea in [Coconut](https://arxiv.org/html/2412.06769v2),
-with different model adaptation and boundary handling. Its accuracy benefits in
-this implementation still require measurement.
+with different model adaptation and boundary handling. The pilot's useful accuracy
+does not yet establish an advantage over matched shortened-text training.
 
 An optional `--hybrid-boundary reasoning` forces a fixed `\nReasoning: ` prefix
 after the latent loop, before generating the remaining reasoning. Its training
