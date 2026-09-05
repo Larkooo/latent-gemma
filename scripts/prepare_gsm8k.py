@@ -17,11 +17,12 @@ def main():
     parser.add_argument("output", type=Path)
     parser.add_argument("--seed", type=int, default=20260905)
     parser.add_argument("--validation-size", type=int, default=500)
+    parser.add_argument("--revision", default="3101c7d5072418e28b9008a6636bde82a006892c")
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
-    api = "https://api.github.com/repos/openai/grade-school-math/commits/master"
-    request = urllib.request.Request(api, headers={"User-Agent": "latent-gemma-research"})
-    revision = json.load(urllib.request.urlopen(request))["sha"]
+    revision = args.revision
+    if not re.fullmatch(r"[0-9a-f]{40}", revision):
+        raise ValueError("Supply an immutable 40-character repository commit SHA")
     manifest = {
         "source": "https://github.com/openai/grade-school-math",
         "revision": revision,

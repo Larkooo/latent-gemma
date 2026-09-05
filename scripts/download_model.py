@@ -13,7 +13,7 @@ def main():
     parser.add_argument("output", type=Path)
     parser.add_argument("--revision", help="Commit SHA; resolved and recorded when omitted")
     args = parser.parse_args()
-    revision = args.revision or HfApi().model_info(args.repo).sha
+    revision = HfApi().model_info(args.repo, revision=args.revision or "main").sha
     snapshot_download(
         args.repo,
         revision=revision,

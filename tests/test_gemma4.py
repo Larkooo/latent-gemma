@@ -78,3 +78,46 @@ def test_feedback_is_trainable_on_gemma4(model):
     loss, grads = nn.value_and_grad(model, token_loss)(model, prompt, target, mx.ones((1, 2)), 2)
     assert np.isfinite(loss.item())
     assert mx.sum(mx.abs(grads["bridge"]["up"]["weight"])).item() > 0
+
+
+def test_target_alignment_and_no_future_leakage_with_shared_kv(model):
+    prompt = mx.array([[2, 3, 4]])
+    target_a = mx.array([[5, 6, 7, 8]])
+    target_b = mx.array([[5, 6, 9, 10]])
+    a = model.answer_logits(prompt, target_a, 3)
+    b = model.answer_logits(prompt, target_b, 3)
+    close(a[:, :3], b[:, :3])
+    assert not np.allclose(np.array(a[:, 3]), np.array(b[:, 3]))
+    full = model.backbone(mx.concatenate([prompt, target_a[:, :-1]], axis=1))
+    close(model.answer_logits(prompt, target_a, 0), full[:, 2:])
+
+
+def test_cached_feedback_gradients_match_full_recomputation(model):
+    ids = mx.array([[2, 3, 4, 5, 6, 7, 8]])
+
+    def objective(candidate, cached):
+        if cached:
+            hidden, _ = candidate.prefill(ids, 3)
+        else:
+            core = candidate.language_model.model
+            embeddings = core.embed_tokens(ids)
+            ple = core._get_per_layer_inputs(ids)
+            hidden = core(None, input_embeddings=embeddings, per_layer_inputs=ple)[:, -1:]
+            for _ in range(3):
+                embeddings = mx.concatenate([embeddings, candidate.bridge(hidden)], axis=1)
+                ple = mx.concatenate([ple, mx.zeros((1, 1, 4, 8))], axis=1)
+                hidden = core(None, input_embeddings=embeddings, per_layer_inputs=ple)[:, -1:]
+        return nn.losses.cross_entropy(candidate.logits(hidden), mx.array([[9]])).mean()
+
+    grad = nn.value_and_grad(model, objective)
+    cached_loss, cached = grad(model, True)
+    full_loss, full = grad(model, False)
+    close(cached_loss, full_loss)
+    # Gradients amplify float32 rounding across repeated recomputation. Bound
+    # relative vector error rather than relative error at near-zero components.
+    for a, b in [
+        (cached["bridge"]["up"]["weight"], full["bridge"]["up"]["weight"]),
+        (cached["bridge"]["gain"], full["bridge"]["gain"]),
+    ]:
+        a, b = np.array(a), np.array(b)
+        assert np.linalg.norm(a - b) / max(np.linalg.norm(b), 1e-8) < 1e-4
