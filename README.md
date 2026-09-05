@@ -6,6 +6,8 @@ trace. The model then generates the remaining reasoning and answer.
 
 Author and maintainer: [Larkooo](https://github.com/Larkooo).
 
+Gemma discussion: [Gemma 4 hybrid continuous-state reasoning](https://github.com/google-deepmind/gemma/discussions/795).
+
 ## Results
 
 The current Gemma 4 E2B experiment uses two latent positions followed by a fixed
