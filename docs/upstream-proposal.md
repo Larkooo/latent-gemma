@@ -99,6 +99,27 @@ their current behavior.
 The repository welcomes contributions and requires review and a Google CLA.
 An accepted library change does not change the official released model weights.
 
+## Contribution history checked on 2026-09-05
+
+External contributions have been merged. The community
+[batched-streaming feature, PR #446](https://github.com/google-deepmind/gemma/pull/446),
+opened November 1, 2025 and merged January 8, 2026. A maintainer explicitly
+attributed the delay to internal workload. The
+[Gemma3n KV-cache fix, PR #392](https://github.com/google-deepmind/gemma/pull/392),
+opened August 27 and merged October 17, 2025. Both had a concrete, limited
+behavioral purpose. Conversely,
+[multimodal embedding tests, PR #545](https://github.com/google-deepmind/gemma/pull/545),
+opened February 10, 2026 and remained open when checked.
+
+These examples establish that community code can land and review may take time;
+they are not an acceptance-rate estimate. Our research recipe is a larger and
+less established proposition than those merged fixes/features. The practical
+first ask is feedback on the reproducible experiment and agreement about whether
+an example or supported continuous-input interface fits the library. Possible
+maintainer questions include independent benchmark performance, prior-work
+comparison, backend compatibility, API stability, and maintenance cost. These
+are our expectations, not statements received from the Gemma team.
+
 References:
 - https://github.com/google-deepmind/gemma/blob/main/CONTRIBUTING.md
 - https://github.com/google-deepmind/gemma/blob/7b785991bd78626c73b317eb43fdbb6c292f7b9c/gemma/gm/nn/gemma4/_transformer.py
