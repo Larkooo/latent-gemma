@@ -1,0 +1,287 @@
+{
+  "metadata": {
+    "model": "$EXPERIMENT_ROOT/work/models/gemma-4-e2b-it-4bit",
+    "adapter_path": "$EXPERIMENT_ROOT/work/runs/gemma4-curriculum-boundary-stage1/best",
+    "adapter_config": {
+      "rank": 16,
+      "scale": 16.0,
+      "num_layers": 6,
+      "bridge_rank": 64,
+      "seed": 42,
+      "compute_dtype": "auto"
+    },
+    "resolved_compute_dtype": "float32",
+    "data": "$EXPERIMENT_ROOT/work/data/diagnostics/ood.jsonl",
+    "data_sha256": "b6f08287237c5d6203166e02ac530ba90e93f2bcf9ebae845fe81a2bea03888c",
+    "baseline_adapter_path": "$EXPERIMENT_ROOT/work/runs/gemma4-warmup-v2/best",
+    "baseline_adapter_config": {
+      "rank": 16,
+      "scale": 16.0,
+      "num_layers": 6,
+      "bridge_rank": 64,
+      "seed": 42,
+      "compute_dtype": "auto"
+    },
+    "baseline_adapter_sha256": "9b7b42239d965a1a4759523f4e4663edfe4c12613a03996873cfa87f3ddee68f",
+    "provenance": {
+      "python": "3.12.13 (main, Apr  7 2026, 21:09:58) [Clang 22.1.1 ]",
+      "platform": "macOS-26.4.1-arm64-arm-64bit",
+      "machine": "arm64",
+      "packages": {
+        "mlx": "0.32.2",
+        "mlx-lm": "0.31.3",
+        "numpy": "2.5.2",
+        "transformers": "5.16.1"
+      },
+      "source_sha256": {
+        "__init__.py": "b9acdadbad7a99f06ebfdbd37f407a09fe362d8cd9696c260bd206b1b53db78e",
+        "benchmark.py": "a5d011441db34b77e5399c2f66a4a888bee62865c4e0aebc91f84f7f73e13559",
+        "cli.py": "076241989898ad82dcea7723debe1ff87cd214ffdea2141212f0e649492885ca",
+        "compare.py": "96dcf52cdad30ce1fb922496f8c53819da1be6430de333f6c1b914d86c03186f",
+        "data.py": "9d1eab5d7d5e2f24b7f3c7edd3e598f240424d4dee4d0eb39c694175b4353c0a",
+        "evaluate.py": "ad55c5570e686e758b2bfb62e741c7a073f88a5f38f7243bd1d6c63124cc31fc",
+        "model.py": "d5190552816e7f3cb3ee3846bb6e943b341c13e5119da728ecf610738ee75b3a",
+        "provenance.py": "d22c50c3dc170f7cd4534019960d2f866f05da6d31b0ce43df8676cd4a744e02",
+        "train.py": "86b7b8144242a669fffcfed84cd1d0710a9835be1dd822347e3bd649f73e0a52"
+      },
+      "model_config_sha256": "6397cb6eca41b911d1dcab74e17941351057bd759284052a2331918ff6f9246c",
+      "model_source": {
+        "repo": "mlx-community/gemma-4-e2b-it-4bit",
+        "revision": "238767527555cb75a05732a84dff5d6ba0dd6809"
+      },
+      "adapter_sha256": "f536394e182aafdf357025c535329ba82d0a59ab60b2a5b433949ff742dd9dc9"
+    }
+  },
+  "seed": 42,
+  "repeats": 2,
+  "conditions": {
+    "baseline": {
+      "mode": "cot",
+      "steps": 0,
+      "max_tokens": 96,
+      "ablation": "none",
+      "hybrid_boundary": "none",
+      "decode_strategy": "serial"
+    },
+    "candidate": {
+      "mode": "hybrid",
+      "steps": 2,
+      "max_tokens": 96,
+      "ablation": "none",
+      "hybrid_boundary": "reasoning",
+      "decode_strategy": "serial"
+    }
+  },
+  "aggregation": "Median latency per example and condition; each question counts once for accuracy.",
+  "shared_model": false,
+  "timing_scope": "Warm request from prompt formatting through final decoding and answer extraction; excludes model loading, warmup, and external serving overhead.",
+  "predictions_sha256": {
+    "baseline": "cddbffd698742f435df808cace1dcb4d66cb6cfe03ce9bc377af2aaeffa0e548",
+    "candidate": "9d5c6dccc7cecea128b5f5e6dc368806be86f34ac56a5b7543b5a2e6fdbcf258"
+  },
+  "measurements_sha256": "2d3f92d6cfd3a1040a0154cd74a3c49c49ce4b76842a96fac03bba65e79c91e9",
+  "results": {
+    "baseline": {
+      "overall": {
+        "n": 400,
+        "correct": 389,
+        "accuracy": 0.9725,
+        "accuracy_ci95": [
+          0.951434030711826,
+          0.984576523921476
+        ],
+        "median_latency_s": 0.7744898124947213,
+        "p95_latency_s": 1.5339383251353862,
+        "mean_generated_tokens": 26.75,
+        "mean_transformer_positions": 73.28,
+        "truncated": 0,
+        "median_end_to_end_latency_s": 0.7748467920173425,
+        "p95_end_to_end_latency_s": 1.5342424051690609,
+        "mean_prefetched_text_positions": 0,
+        "mean_vocabulary_projections": 26.75
+      },
+      "tasks": {
+        "arithmetic": {
+          "n": 200,
+          "correct": 190,
+          "accuracy": 0.95,
+          "accuracy_ci95": [
+            0.9104209437021562,
+            0.9726176509713551
+          ],
+          "median_latency_s": 0.9823216767399572,
+          "p95_latency_s": 1.598311106741312,
+          "mean_generated_tokens": 35.73,
+          "mean_transformer_positions": 69.23,
+          "truncated": 0,
+          "median_end_to_end_latency_s": 0.9827434372564312,
+          "p95_end_to_end_latency_s": 1.5995069905940906,
+          "mean_prefetched_text_positions": 0,
+          "mean_vocabulary_projections": 35.73
+        },
+        "links": {
+          "n": 200,
+          "correct": 199,
+          "accuracy": 0.995,
+          "accuracy_ci95": [
+            0.9722256001302286,
+            0.999116854010634
+          ],
+          "median_latency_s": 0.4984492814983241,
+          "p95_latency_s": 0.8941309005924266,
+          "mean_generated_tokens": 17.77,
+          "mean_transformer_positions": 77.33,
+          "truncated": 0,
+          "median_end_to_end_latency_s": 0.498743072967045,
+          "p95_end_to_end_latency_s": 0.8944270789826986,
+          "mean_prefetched_text_positions": 0,
+          "mean_vocabulary_projections": 17.77
+        }
+      }
+    },
+    "candidate": {
+      "overall": {
+        "n": 400,
+        "correct": 360,
+        "accuracy": 0.9,
+        "accuracy_ci95": [
+          0.8666887392099005,
+          0.925701148310355
+        ],
+        "median_latency_s": 0.6237654582655523,
+        "p95_latency_s": 1.1541877100593398,
+        "mean_generated_tokens": 21.505,
+        "mean_transformer_positions": 75.035,
+        "truncated": 11,
+        "median_end_to_end_latency_s": 0.6242143022245727,
+        "p95_end_to_end_latency_s": 1.1546341770706918,
+        "mean_prefetched_text_positions": 0,
+        "mean_vocabulary_projections": 21.505
+      },
+      "tasks": {
+        "arithmetic": {
+          "n": 200,
+          "correct": 161,
+          "accuracy": 0.805,
+          "accuracy_ci95": [
+            0.744558352034882,
+            0.8539455843549424
+          ],
+          "median_latency_s": 0.7606030727620237,
+          "p95_latency_s": 1.809719258008408,
+          "mean_generated_tokens": 27.21,
+          "mean_transformer_positions": 67.71,
+          "truncated": 11,
+          "median_end_to_end_latency_s": 0.7610372915223707,
+          "p95_end_to_end_latency_s": 1.8100466055388094,
+          "mean_prefetched_text_positions": 0,
+          "mean_vocabulary_projections": 27.21
+        },
+        "links": {
+          "n": 200,
+          "correct": 199,
+          "accuracy": 0.995,
+          "accuracy_ci95": [
+            0.9722256001302286,
+            0.999116854010634
+          ],
+          "median_latency_s": 0.5044121147366241,
+          "p95_latency_s": 0.9061866458330768,
+          "mean_generated_tokens": 15.8,
+          "mean_transformer_positions": 82.36,
+          "truncated": 0,
+          "median_end_to_end_latency_s": 0.5046890310186427,
+          "p95_end_to_end_latency_s": 0.9065933043399127,
+          "mean_prefetched_text_positions": 0,
+          "mean_vocabulary_projections": 15.8
+        }
+      }
+    }
+  },
+  "comparison": {
+    "overall": {
+      "scoring_policy": "numeric-equivalence-v1",
+      "latency_field": "end_to_end_latency_s",
+      "n": 400,
+      "baseline_accuracy": 0.9725,
+      "candidate_accuracy": 0.9,
+      "accuracy_delta": -0.0725,
+      "paired_delta_ci95": [
+        -0.1025,
+        -0.0425
+      ],
+      "candidate_only_correct": 6,
+      "baseline_only_correct": 35,
+      "baseline_median_latency_s": 0.7748467920173425,
+      "candidate_median_latency_s": 0.6242143022245727,
+      "ratio_of_median_latencies": 1.2413153451562167,
+      "ratio_of_median_latencies_ci95": [
+        1.1855173778459223,
+        1.2887537248253005
+      ],
+      "median_paired_speedup": 1.1093623335498108,
+      "median_paired_speedup_ci95": [
+        1.057146863892774,
+        1.216951211293274
+      ],
+      "fraction_questions_faster": 0.7075
+    },
+    "arithmetic": {
+      "scoring_policy": "numeric-equivalence-v1",
+      "latency_field": "end_to_end_latency_s",
+      "n": 200,
+      "baseline_accuracy": 0.95,
+      "candidate_accuracy": 0.805,
+      "accuracy_delta": -0.145,
+      "paired_delta_ci95": [
+        -0.205,
+        -0.09
+      ],
+      "candidate_only_correct": 5,
+      "baseline_only_correct": 34,
+      "baseline_median_latency_s": 0.9827434372564312,
+      "candidate_median_latency_s": 0.7610372915223707,
+      "ratio_of_median_latencies": 1.2913210012226366,
+      "ratio_of_median_latencies_ci95": [
+        1.2251940563453638,
+        1.4018449300436255
+      ],
+      "median_paired_speedup": 1.3767289591815886,
+      "median_paired_speedup_ci95": [
+        1.359598493669655,
+        1.390469655729702
+      ],
+      "fraction_questions_faster": 0.92
+    },
+    "links": {
+      "scoring_policy": "numeric-equivalence-v1",
+      "latency_field": "end_to_end_latency_s",
+      "n": 200,
+      "baseline_accuracy": 0.995,
+      "candidate_accuracy": 0.995,
+      "accuracy_delta": 0.0,
+      "paired_delta_ci95": [
+        -0.015,
+        0.015
+      ],
+      "candidate_only_correct": 1,
+      "baseline_only_correct": 1,
+      "baseline_median_latency_s": 0.498743072967045,
+      "candidate_median_latency_s": 0.5046890310186427,
+      "ratio_of_median_latencies": 0.9882185708700729,
+      "ratio_of_median_latencies_ci95": [
+        0.9505326400850075,
+        1.0206969655960745
+      ],
+      "median_paired_speedup": 0.9989145697553046,
+      "median_paired_speedup_ci95": [
+        0.9867365349760786,
+        1.00891292544418
+      ],
+      "fraction_questions_faster": 0.495
+    }
+  },
+  "report_export": {
+    "original_result_sha256": "b7d548d66ac1b7a9b43083deefee29f2635e66f5f8a7c8ff9625000d772d44b1"
+  }
+}

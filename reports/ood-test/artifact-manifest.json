@@ -1,0 +1,13 @@
+{
+  "files": {
+    "README.md": "5f243bbd2d36e3567a3b84387d83ed6feccd7f0674c55b435772097caa5dcd90",
+    "baseline-adapter-config.json": "22511d623833090a1387dbdf1b612e79575cad327149c78ecb7d24b2669a30d4",
+    "baseline.jsonl": "cddbffd698742f435df808cace1dcb4d66cb6cfe03ce9bc377af2aaeffa0e548",
+    "candidate-adapter-config.json": "aa7d9751d68dc8afd5ed7ab29433dbe305d59367e28e278ad215828790338a1a",
+    "candidate.jsonl": "9d5c6dccc7cecea128b5f5e6dc368806be86f34ac56a5b7543b5a2e6fdbcf258",
+    "measurements.jsonl": "2d3f92d6cfd3a1040a0154cd74a3c49c49ce4b76842a96fac03bba65e79c91e9",
+    "ood.jsonl": "b6f08287237c5d6203166e02ac530ba90e93f2bcf9ebae845fe81a2bea03888c",
+    "plan.json": "33f3fa9f4efbcd7488ca9df21eb6c820e9bfa715880fc47485ad6ceb8bf659b2",
+    "result.json": "616d915fa6bdf85472ed58fed3cc4f00311fdc05aea24a02e22e893cf418b1aa"
+  }
+}
