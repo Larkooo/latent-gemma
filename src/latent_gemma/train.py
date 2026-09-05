@@ -59,6 +59,7 @@ def train(
     source_adapter: str | None = None,
     reasoning_steps_to_drop: int = 0,
     hybrid_boundary: str = "none",
+    train_ablation: str = "none",
 ) -> dict:
     if output.exists():
         raise FileExistsError(f"Refusing to overwrite training run: {output}")
@@ -66,6 +67,8 @@ def train(
         raise ValueError("Choose direct, cot, latent, and/or hybrid training modes")
     if reasoning_steps_to_drop < 0:
         raise ValueError("reasoning_steps_to_drop must be nonnegative")
+    if train_ablation not in {"none", "zero", "repeat", "shuffle"}:
+        raise ValueError(f"Unknown training ablation: {train_ablation}")
     hybrid_boundary_text(hybrid_boundary)
     if steps <= 0 or batch_size <= 0 or eval_every <= 0 or log_every <= 0:
         raise ValueError("Training counts must be positive")
@@ -84,6 +87,7 @@ def train(
         "latent_steps": latent_steps,
         "reasoning_steps_to_drop": reasoning_steps_to_drop,
         "hybrid_boundary": hybrid_boundary,
+        "train_ablation": train_ablation,
         "modes": modes,
         "seed": seed,
         "eval_every": eval_every,
@@ -123,7 +127,7 @@ def train(
             batch = make_batch(records, tokenizer.pad_token_id or 0)
             k = latent_steps if mode in {"latent", "hybrid"} else 0
             model.train()
-            loss, grads = loss_and_grad(model, *batch, k)
+            loss, grads = loss_and_grad(model, *batch, k, train_ablation)
             grads, norm = optim.clip_grad_norm(grads, max_norm=1.0)
             mx.eval(loss, norm)
             value, gradient_norm = loss.item(), norm.item()
@@ -158,7 +162,10 @@ def train(
                     k_val = latent_steps if val_mode in {"latent", "hybrid"} else 0
                     losses = [
                         token_loss(
-                            model, *make_batch([r], tokenizer.pad_token_id or 0), k_val
+                            model,
+                            *make_batch([r], tokenizer.pad_token_id or 0),
+                            k_val,
+                            train_ablation,
                         ).item()
                         for r in items
                     ]

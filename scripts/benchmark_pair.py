@@ -24,7 +24,9 @@ def main():
     parser.add_argument("--candidate-decode", choices=["serial", "pipelined"], default="serial")
     parser.add_argument("--latent-steps", type=int, default=2)
     parser.add_argument(
-        "--candidate-ablation", choices=["none", "zero", "shuffle", "repeat"], default="none"
+        "--candidate-ablation",
+        choices=["none", "zero", "shuffle", "repeat"],
+        help="Feedback ablation at inference; defaults to the adapter's training ablation",
     )
     parser.add_argument("--max-tokens", type=int, default=96)
     parser.add_argument("--limit", type=int, default=100)
@@ -40,6 +42,9 @@ def main():
     validate_adapter_model(saved, args.model)
     model, tokenizer = load_model(args.model, config, args.adapter)
     boundary = saved.get("run", {}).get("hybrid_boundary", "none")
+    ablation = saved.get("run", {}).get("train_ablation", "none")
+    if args.candidate_ablation is not None:
+        ablation = args.candidate_ablation
     baseline_model = model
     baseline_saved = saved
     baseline_path = args.baseline_adapter or args.adapter
@@ -62,7 +67,7 @@ def main():
         args.candidate_mode,
         args.latent_steps,
         args.max_tokens,
-        args.candidate_ablation,
+        ablation,
         boundary,
         args.candidate_decode,
     )

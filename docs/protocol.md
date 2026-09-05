@@ -70,6 +70,17 @@ its median time across repeats. Paired bootstrap intervals describe variation
 across questions, not drift between hardware sessions. Report all questions,
 token budgets, truncations, median/p95 latency, and work counters.
 
+### Session calibration
+
+Absolute latencies drift with concurrent load, thermal state, and power
+settings. The published test and OOD runs were measured while other work ran on
+the same machine; the identical code and adapters measured in a quiet session
+completed requests roughly 2.5 times faster. Paired ratios within a run are
+robust to that constant, absolute numbers are not. `benchmark_pair` now records
+a fixed matmul probe and the load average before and after each run so an
+inflated session is detectable. Compare absolute latencies only between runs
+with similar probes.
+
 Numeric answers use exact finite decimal equality. Link labels use exact string
 matching. Scoring corrections retain original records and apply the same named
 policy to every compared condition.

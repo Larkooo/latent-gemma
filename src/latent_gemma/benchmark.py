@@ -1,8 +1,10 @@
 """Interleaved, repeated comparison of two loaded decoding conditions."""
 
 import json
+import os
 import random
 import statistics
+import time
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
@@ -22,6 +24,36 @@ class DecodeCondition:
     ablation: str = "none"
     hybrid_boundary: str = "none"
     decode_strategy: str = "serial"
+
+
+def session_calibration(size: int = 1024, repeats: int = 10) -> dict:
+    """Record a fixed, model-independent workload so sessions can be compared.
+
+    Absolute latencies drift with concurrent load, thermal state, and power
+    settings. Paired ratios within a run are robust to a constant slowdown; the
+    absolute numbers are not. This probe does not make sessions equivalent, it
+    makes an inflated session detectable.
+    """
+    a = mx.random.normal((size, size))
+    b = mx.random.normal((size, size))
+    mx.eval(a, b)
+    mx.synchronize()
+    started = time.perf_counter()
+    for _ in range(repeats):
+        c = a @ b
+    mx.eval(c)
+    mx.synchronize()
+    result = {
+        "matmul_size": size,
+        "matmul_repeats": repeats,
+        "matmul_s": time.perf_counter() - started,
+        "unix_time_s": time.time(),
+    }
+    try:
+        result["load_average"] = list(os.getloadavg())
+    except OSError:
+        result["load_average"] = None
+    return result
 
 
 def benchmark_pair(
@@ -48,6 +80,7 @@ def benchmark_pair(
         settings = asdict(condition)
         settings["max_tokens"] = min(condition.max_tokens, 8)
         generate(models[side], tokenizer, warmup, **settings)
+    calibration = {"before": session_calibration()}
     mx.reset_peak_memory()
     # Counterbalance which condition runs first, then randomize the schedule.
     first_sides = [
@@ -96,6 +129,7 @@ def benchmark_pair(
                 print(
                     json.dumps({"benchmarked_examples": index + 1, "repeats": repeats}), flush=True
                 )
+    calibration["after"] = session_calibration()
     hashes = {}
     for side, rows in aggregates.items():
         path = output / f"{side}.jsonl"
@@ -105,6 +139,7 @@ def benchmark_pair(
         "metadata": metadata or {},
         "seed": seed,
         "repeats": repeats,
+        "session_calibration": calibration,
         "conditions": {side: asdict(condition) for side, condition in conditions.items()},
         "aggregation": "Median latency per example and condition; each question counts once for accuracy.",
         "shared_model": models["baseline"] is models["candidate"],

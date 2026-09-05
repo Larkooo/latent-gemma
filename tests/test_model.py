@@ -122,3 +122,20 @@ def test_adapter_round_trip(model, tmp_path):
 def test_invalid_steps_fail(model):
     with pytest.raises(ValueError, match="nonnegative"):
         model.prefill(mx.array([[2]]), -1)
+
+
+def test_training_ablation_matches_inference_ablation(model):
+    prompt = mx.array([[2, 3, 4]])
+    target = mx.array([[5, 6, 7]])
+    mask = mx.ones(target.shape)
+    trained_pause = token_loss(model, prompt, target, mask, 2, "zero")
+    state, cache = model.prefill(prompt, 2, "zero")
+    rest = model.hidden(target[:, :-1], cache=cache)
+    logits = model.logits(mx.concatenate([state, rest], axis=1)).astype(mx.float32)
+    expected = nn.losses.cross_entropy(logits, target, reduction="none").mean()
+    assert_close(trained_pause, expected)
+    assert not np.allclose(
+        np.array(trained_pause), np.array(token_loss(model, prompt, target, mask, 2))
+    )
+    with pytest.raises(ValueError, match="Unknown ablation"):
+        token_loss(model, prompt, target, mask, 2, "pause")

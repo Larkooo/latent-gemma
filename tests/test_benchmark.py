@@ -90,3 +90,21 @@ def test_different_outputs_across_repeats_are_not_silently_aggregated(tmp_path, 
         )
     assert (tmp_path / "run/measurements.jsonl").exists()
     assert not (tmp_path / "run/result.json").exists()
+
+
+def test_session_calibration_is_recorded_before_and_after(tmp_path, monkeypatch):
+    monkeypatch.setattr("latent_gemma.benchmark.generate", fake_generate)
+    monkeypatch.setattr("latent_gemma.benchmark.mx.reset_peak_memory", lambda: None)
+    examples = [Example("test", "links", "Question", "", "A", "validation")]
+    result = benchmark_pair(
+        None, None, examples, tmp_path / "run", DecodeCondition("cot"), DecodeCondition("hybrid", 2)
+    )
+    for phase in ("before", "after"):
+        probe = result["session_calibration"][phase]
+        assert probe["matmul_s"] > 0
+        assert probe["matmul_size"] == 1024 and probe["matmul_repeats"] == 10
+        assert probe["unix_time_s"] > 0
+    assert (
+        result["session_calibration"]["after"]["unix_time_s"]
+        >= (result["session_calibration"]["before"]["unix_time_s"])
+    )

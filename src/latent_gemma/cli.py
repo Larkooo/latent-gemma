@@ -41,6 +41,12 @@ def main():
             cmd.add_argument("--eval-every", type=int, default=100)
             cmd.add_argument("--log-every", type=int, default=10)
             cmd.add_argument("--reasoning-steps-to-drop", type=int, default=0)
+            cmd.add_argument(
+                "--train-ablation",
+                choices=["none", "zero", "shuffle", "repeat"],
+                default="none",
+                help="Apply a feedback ablation during training (zero trains pause positions)",
+            )
         else:
             cmd.add_argument("--data", type=Path, required=True)
             cmd.add_argument("--decode-strategy", choices=["serial", "pipelined"], default="serial")
@@ -52,7 +58,9 @@ def main():
             cmd.add_argument("--limit", type=int)
             cmd.add_argument("--max-tokens", type=int, default=96)
             cmd.add_argument(
-                "--ablation", choices=["none", "zero", "shuffle", "repeat"], default="none"
+                "--ablation",
+                choices=["none", "zero", "shuffle", "repeat"],
+                help="Feedback ablation at inference; defaults to the adapter's training ablation",
             )
     args = parser.parse_args()
     if args.command == "data":
@@ -72,12 +80,14 @@ def main():
         compute_dtype=args.compute_dtype,
     )
     hybrid_boundary = args.hybrid_boundary or "none"
+    trained_ablation = "none"
     if args.adapter:
         saved = json.loads((args.adapter / "config.json").read_text())
         config = AdapterConfig(**saved["adapter"])
         validate_adapter_model(saved, args.model)
         if args.hybrid_boundary is None:
             hybrid_boundary = saved.get("run", {}).get("hybrid_boundary", "none")
+        trained_ablation = saved.get("run", {}).get("train_ablation", "none")
     model, tokenizer = load_model(args.model, config, args.adapter)
     if args.command == "train":
         result = train(
@@ -98,12 +108,14 @@ def main():
             str(args.adapter) if args.adapter else None,
             args.reasoning_steps_to_drop,
             hybrid_boundary,
+            args.train_ablation,
         )
         print(json.dumps(result))
     else:
         examples = read_examples(args.data)
         if args.limit is not None:
             examples = examples[: args.limit]
+        ablation = trained_ablation if args.ablation is None else args.ablation
         metadata = {
             "model": args.model,
             "adapter_path": str(args.adapter),
@@ -125,7 +137,7 @@ def main():
             args.mode,
             args.latent_steps,
             args.max_tokens,
-            args.ablation,
+            ablation,
             metadata,
             hybrid_boundary,
             args.decode_strategy,

@@ -185,9 +185,11 @@ class LatentModel(nn.Module):
             state = self.hidden(None, cache=cache, embeddings=feedback)
         return state, cache
 
-    def answer_logits(self, prompt: mx.array, continuation: mx.array, steps: int) -> mx.array:
+    def answer_logits(
+        self, prompt: mx.array, continuation: mx.array, steps: int, ablation: str = "none"
+    ) -> mx.array:
         """Predict every continuation token; inputs never contain the target at its position."""
-        state, cache = self.prefill(prompt, steps)
+        state, cache = self.prefill(prompt, steps, ablation)
         if continuation.shape[1] > 1:
             rest = self.hidden(continuation[:, :-1], cache=cache)
             state = mx.concatenate([state, rest], axis=1)
@@ -230,7 +232,9 @@ def parameter_counts(model: LatentModel) -> dict[str, int]:
     }
 
 
-def token_loss(model: LatentModel, prompt, continuation, mask, steps: int):
-    logits = model.answer_logits(prompt, continuation, steps).astype(mx.float32)
+def token_loss(model: LatentModel, prompt, continuation, mask, steps: int, ablation: str = "none"):
+    # A training-time ablation turns latent positions into trained pause
+    # positions: the same count and cache writes, without state feedback.
+    logits = model.answer_logits(prompt, continuation, steps, ablation).astype(mx.float32)
     loss = nn.losses.cross_entropy(logits, continuation, reduction="none")
     return mx.sum(loss * mask) / mx.maximum(mx.sum(mask), 1)
