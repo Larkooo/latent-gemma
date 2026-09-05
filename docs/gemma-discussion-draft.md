@@ -8,10 +8,7 @@ per-layer embedding branch, and zeros the token-indexed contribution at latent
 positions!
 
 I used two latent steps as a starting point. The count is configurable, but this
-checkpoint was trained with two. I also tried three at inference on the earlier
-100-question validation sample: both scored 96/100, and three steps took 5.3%
-longer by median latency. The timing interval still includes equal speed, so
-there wasn't a clear benefit from simply adding another step.
+checkpoint was trained with two. I also have experimented with one additional latent step with inference taking 5.3% longer by median latency but no apparent gain in accuracy.
 
 Here are some benchmarks I ran on 600 held-out diagnostic arithmetic and
 link-traversal test questions:
@@ -21,7 +18,7 @@ link-traversal test questions:
 | Text-CoT reference | 598/600 (99.67%) | 1.031 s | 1.195 s |
 | Two-step hybrid | 583/600 (97.17%) | 0.922 s | 0.994 s |
 
-The hybrid answered 583 out of 600 questions correctly and reduced median
+Hybrid approach answered 583 out of 600 questions correctly and reduced median
 completed-answer latency by 10.6%! Mean latency fell by 16.8%. That's a
 2.5 percentage-point accuracy loss for a faster final answer.
 
@@ -39,11 +36,11 @@ The most promising part for me about this is the gain in performance, which is e
 
 Benchmark came from my Macbook Pro M5 laptop with 32 GB of memory. I haven't tested bigger Gemma models yet but I'd be curious to see how it holds up, especially by properly tuning the number of latent steps. I'd expect around the same gain in saved latency.
 
-I've included [code and reproduction instructions](../README.md),
-[full test results and raw timing measurements](../reports/independent-test/README.md),
-[the two-versus-three-step comparison](../reports/latent-step-count/README.md),
-[matched training controls](../reports/matched-short-text-control/README.md),
-and [earlier experiments that didn't work as well](experiment-log.md) in the
+I've included [code and reproduction instructions](https://github.com/Larkooo/latent-gemma/blob/main/README.md),
+[full test results and raw timing measurements](https://github.com/Larkooo/latent-gemma/blob/main/reports/independent-test/README.md),
+[the two-versus-three-step comparison](https://github.com/Larkooo/latent-gemma/blob/main/reports/latent-step-count/README.md),
+[matched training controls](https://github.com/Larkooo/latent-gemma/blob/main/reports/matched-short-text-control/README.md),
+and [earlier experiments that didn't work as well](https://github.com/Larkooo/latent-gemma/blob/main/docs/experiment-log.md) in the
 repository.
 
 I'd love to hear what you guys think!
