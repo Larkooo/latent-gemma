@@ -174,3 +174,13 @@ Two follow-up constraints were identified from the implementation and sampler:
   arithmetic exposure was 396 draws/379 unique examples. The selected direct-
   compression checkpoint saw 664 latent draws/632 unique examples. These are
   short pilot training budgets, not evidence that the overall method cannot work.
+
+An interleaved benchmark is implemented for two decoding paths on the same loaded
+checkpoint. Trial order is counterbalanced and shuffled; per-question median
+timings feed the paired comparison. Repetitions do not inflate the accuracy sample
+count. Differing outputs between repeats halt aggregation and retain the raw
+trace. These checks pass in the 58-test CPU suite. Real equivalent-path timing and
+adapter-expansion checks are queued after the current boundary experiment. A
+full paired timing run for that candidate is conditional on its validation score
+reaching at least 98/100 while its CoT mode retains 99/100; this screening threshold
+does not replace the final accuracy-matching target.

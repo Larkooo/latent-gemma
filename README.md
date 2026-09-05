@@ -88,6 +88,22 @@ final decoding and answer extraction on a warm model. Compare that field with
 files must contain it. Historical `latency_s` excludes prompt preparation and final
 decoding. Neither measurement includes model loading or external serving overhead.
 
+For timing claims, use repeated measurements with randomized, counterbalanced
+condition order on the same loaded checkpoint:
+
+```sh
+.venv/bin/python scripts/benchmark_pair.py \
+  --model ../work/models/gemma4 --adapter ../work/runs/stage1/best \
+  --data ../work/data/diagnostics/validation.jsonl \
+  --output ../work/runs/paired-timing --candidate-mode hybrid \
+  --latent-steps 2 --limit 100 --repeats 3 --max-tokens 96
+```
+
+The baseline defaults to text CoT. Each condition starts from a fresh attention
+cache. Raw measurements are retained, and each question contributes once to the
+accuracy comparison, using its median timing across repeats. Unexpected output
+changes between repeats stop aggregation for investigation.
+
 ## Staged compression
 
 `hybrid` mode runs the latent loop, then generates the remaining text reasoning

@@ -35,6 +35,10 @@ reproduce its exact training curriculum or results.
   cap, detokenization, and answer extraction. Model loading, warmup, and external
   serving/network overhead are excluded. Never substitute model latency when an
   old run lacks the end-to-end field; rerun both sides for that comparison.
+- For speed claims, interleave conditions on the same questions with randomized,
+  counterbalanced order and repeated measurements. Count each question once for
+  accuracy, and retain raw trials. Check equivalent decoding paths as a timing
+  control; single sequential runs can drift with machine load and thermal state.
 - Compare accuracy versus measured latency, not just token counts. CoT has more
   text positions; latent positions still consume transformer computation.
 - Ablate latent states (zero, corrupted features, repeated first state). This
