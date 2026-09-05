@@ -120,10 +120,18 @@ def encode_example(tokenizer, example: Example, mode: str):
         raise ValueError(f"Unknown mode: {mode}")
     prompt = tokenizer.encode(prompt_text(tokenizer, example), add_special_tokens=False)
     suffix = "\nAnswer: "
-    target = (example.reasoning + suffix if mode == "cot" else suffix) + example.answer
-    ids = tokenizer.encode(target, add_special_tokens=False)
-    # The answer delimiter is supplied to both direct and latent decoders.
-    prefix_len = 0 if mode == "cot" else len(tokenizer.encode(suffix, add_special_tokens=False))
+    if mode == "cot":
+        ids = tokenizer.encode(
+            example.reasoning + suffix + example.answer, add_special_tokens=False
+        )
+        prefix_len = 0
+    else:
+        # Match the decoder's forced prefix exactly. Encoding the concatenated
+        # string can merge its trailing space with the first answer token and
+        # would incorrectly mask that token (notably for Gemma letter answers).
+        prefix = tokenizer.encode(suffix, add_special_tokens=False)
+        ids = prefix + tokenizer.encode(example.answer, add_special_tokens=False)
+        prefix_len = len(prefix)
     ids.append(tokenizer.eos_token_id)
     mask = [0.0] * prefix_len + [1.0] * (len(ids) - prefix_len)
     return prompt, ids, mask

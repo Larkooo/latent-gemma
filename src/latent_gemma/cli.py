@@ -7,7 +7,7 @@ from pathlib import Path
 from .data import generate_dataset, read_examples
 from .evaluate import evaluate
 from .model import AdapterConfig, load_model
-from .provenance import capture
+from .provenance import capture, validate_adapter_model
 from .train import train
 
 
@@ -67,8 +67,7 @@ def main():
     if args.adapter:
         saved = json.loads((args.adapter / "config.json").read_text())
         config = AdapterConfig(**saved["adapter"])
-        if Path(saved["model_path"]).resolve() != Path(args.model).resolve():
-            raise ValueError("Adapter backbone path differs from the requested model")
+        validate_adapter_model(saved, args.model)
     model, tokenizer = load_model(args.model, config, args.adapter)
     if args.command == "train":
         result = train(

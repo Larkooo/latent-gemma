@@ -26,8 +26,9 @@ been evaluated. Failed experiments remain part of the record.
    These results include format failures and are evidence that this checkpoint
    is not a sufficient demonstration of useful reasoning in this setup.
 2. Gemma 3 270M, 600 supervised steps on direct/CoT examples: completed, best
-   mean validation token loss 1.1304. Generation accuracy still requires evaluation.
-   This early pilot predates automatic source snapshots.
+   mean validation token loss 1.1304. This loss is invalid for comparing modes
+   because of the answer-prefix masking bug described below. This early pilot
+   predates automatic source snapshots and is excluded from final results.
 3. Gemma 4 E2B, native thinking, original quantized checkpoint computation dtype,
    40 validation problems: **40/40**, median latency 5.512 seconds, mean 186.125
    generated tokens, no truncation at the 512-token limit. This is a small,
@@ -54,6 +55,18 @@ been evaluated. Failed experiments remain part of the record.
   the difference or include an additional matched float32 baseline.
 - The trainer now checks loss and gradient norm before every optimizer update and
   records a failure rather than applying a nonfinite gradient.
+- A real-tokenizer audit exposed another issue: concatenating `Answer: ` with a
+  letter lets the tokenizer merge the space and letter. Computing the loss-mask
+  length from the separately encoded delimiter therefore masked the first answer
+  token. This affected all 3,000 link-training examples, and 3 GSM8K answers would
+  also have been affected. Direct/latent training now concatenates the exact
+  decoder prefix token IDs with the answer token IDs, supervising every answer
+  token. CoT targets and all generation scoring are unchanged. A regression test
+  covers this boundary for both direct and latent modes.
+- The original Gemma 4 warmup and the subsequent K=4 run are excluded from valid
+  training results because of this masking bug. The K=4 run was interrupted after
+  its step-100 validation. Clean `gemma4-warmup-v2` and `gemma4-latent-k4-v2` runs
+  restart from the base checkpoint with corrected labels and source snapshots.
 
 ## Running next
 

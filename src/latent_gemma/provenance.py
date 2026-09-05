@@ -17,6 +17,24 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def validate_adapter_model(saved: dict, model_path: str) -> None:
+    """Allow relocated pinned checkpoints while rejecting a different backbone."""
+    model = Path(model_path)
+    recorded = saved.get("run", {}).get("provenance", {})
+    expected_source = recorded.get("model_source")
+    source_path = model / "source.json"
+    if expected_source and expected_source.get("revision") and source_path.exists():
+        actual_source = json.loads(source_path.read_text())
+        if any(actual_source.get(key) != expected_source.get(key) for key in ("repo", "revision")):
+            raise ValueError(
+                "Adapter backbone repository/revision differs from the requested model"
+            )
+        if sha256(model / "config.json") != recorded.get("model_config_sha256"):
+            raise ValueError("Adapter backbone configuration differs from the requested model")
+    elif Path(saved["model_path"]).resolve() != model.resolve():
+        raise ValueError("Unpinned adapter backbone path differs from the requested model")
+
+
 def capture(directory: Path, model_path: str, adapter_path: str | None = None) -> dict:
     source = Path(__file__).parent
     snapshot = directory / "source"

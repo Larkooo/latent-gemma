@@ -1,6 +1,12 @@
 import pytest
 
-from latent_gemma.data import extract_answer, generate_dataset, read_examples
+from latent_gemma.data import (
+    Example,
+    encode_example,
+    extract_answer,
+    generate_dataset,
+    read_examples,
+)
 from latent_gemma.train import make_batch
 
 
@@ -37,3 +43,25 @@ def test_answer_extraction(text, task, mode, expected):
 def test_ragged_prompt_batch_rejected():
     with pytest.raises(ValueError, match="equal unpadded"):
         make_batch([([1, 2], [3], [1.0]), ([1], [3], [1.0])], 0)
+
+
+@pytest.mark.parametrize("mode", ["direct", "latent"])
+def test_first_answer_token_is_supervised_despite_whitespace_merging(mode):
+    class MergingTokenizer:
+        eos_token_id = 99
+
+        def apply_chat_template(self, *args, **kwargs):
+            return "prompt"
+
+        def encode(self, text, **kwargs):
+            return {
+                "promptReasoning: ": [1, 2],
+                "\nAnswer: ": [3, 4, 5],
+                "\nAnswer: B": [3, 4, 6],
+                "B": [7],
+            }[text]
+
+    example = Example("example", "links", "Follow links", "A -> B.", "B", "train")
+    _, target, mask = encode_example(MergingTokenizer(), example, mode)
+    assert target == [3, 4, 5, 7, 99]
+    assert mask == [0.0, 0.0, 0.0, 1.0, 1.0]
