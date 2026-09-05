@@ -1,0 +1,44 @@
+{
+  "baseline": "hybrid.jsonl",
+  "baseline_sha256": "7586d9855d768aae523360e363eb9204a089083cdda066e5dec28db96212c4df",
+  "candidate": "../curriculum-boundary-stage1/hybrid.jsonl",
+  "candidate_sha256": "7fb5c343851355fffa3a3e2333f25849b0019345ebd04d89090ba27da028b20e",
+  "accuracy": {
+    "overall": {
+      "n": 100,
+      "baseline_accuracy": 0.66,
+      "candidate_accuracy": 0.96,
+      "accuracy_delta": 0.3,
+      "paired_delta_ci95": [
+        0.21,
+        0.39
+      ],
+      "candidate_only_correct": 30,
+      "baseline_only_correct": 0
+    },
+    "arithmetic": {
+      "n": 53,
+      "baseline_accuracy": 0.3584905660377358,
+      "candidate_accuracy": 0.9245283018867925,
+      "accuracy_delta": 0.5660377358490566,
+      "paired_delta_ci95": [
+        0.4339622641509434,
+        0.6981132075471698
+      ],
+      "candidate_only_correct": 30,
+      "baseline_only_correct": 0
+    },
+    "links": {
+      "n": 47,
+      "baseline_accuracy": 1.0,
+      "candidate_accuracy": 1.0,
+      "accuracy_delta": 0.0,
+      "paired_delta_ci95": [
+        0.0,
+        0.0
+      ],
+      "candidate_only_correct": 0,
+      "baseline_only_correct": 0
+    }
+  }
+}

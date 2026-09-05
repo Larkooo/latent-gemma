@@ -1,0 +1,110 @@
+{
+  "metadata": {
+    "model": "$EXPERIMENT_ROOT/work/models/gemma-4-e2b-it-4bit",
+    "adapter_path": "$EXPERIMENT_ROOT/work/runs/gemma4-short-text-control/best",
+    "adapter_config": {
+      "rank": 16,
+      "scale": 16.0,
+      "num_layers": 6,
+      "bridge_rank": 64,
+      "seed": 42,
+      "compute_dtype": "auto"
+    },
+    "resolved_compute_dtype": "float32",
+    "data": "$EXPERIMENT_ROOT/work/data/diagnostics/validation.jsonl",
+    "data_sha256": "672eec8aa54778f765b2476f7a62c2ebab1e1321f2f394f3a4463f7a3fa39c6f",
+    "provenance": {
+      "python": "3.12.13 (main, Apr  7 2026, 21:09:58) [Clang 22.1.1 ]",
+      "platform": "macOS-26.4.1-arm64-arm-64bit",
+      "machine": "arm64",
+      "packages": {
+        "mlx": "0.32.2",
+        "mlx-lm": "0.31.3",
+        "numpy": "2.5.2",
+        "transformers": "5.16.1"
+      },
+      "source_sha256": {
+        "__init__.py": "b9acdadbad7a99f06ebfdbd37f407a09fe362d8cd9696c260bd206b1b53db78e",
+        "benchmark.py": "9bdd8ccaf6b429ba0d2f05d61f66b1c597144faab223815f739ba0e06980e9bf",
+        "cli.py": "19abbc0fb77412d6559dfc5b8169911ef788613b23e846aa5f7716fc5d1d4320",
+        "compare.py": "6a30ab5c9475d0212f469475628339951c4fd39b19e24b2fb2e3f985736e70da",
+        "data.py": "2f2c5a7ec543aede7bad3df5a8301054ade8d2a12b3844b494cac46332754840",
+        "evaluate.py": "84f43a2aa1e527f9918dd2fb9b50a7e1ade253dcd3f88bed06ecd266d08f04d4",
+        "model.py": "d5190552816e7f3cb3ee3846bb6e943b341c13e5119da728ecf610738ee75b3a",
+        "provenance.py": "d22c50c3dc170f7cd4534019960d2f866f05da6d31b0ce43df8676cd4a744e02",
+        "train.py": "86b7b8144242a669fffcfed84cd1d0710a9835be1dd822347e3bd649f73e0a52"
+      },
+      "model_config_sha256": "6397cb6eca41b911d1dcab74e17941351057bd759284052a2331918ff6f9246c",
+      "model_source": {
+        "repo": "mlx-community/gemma-4-e2b-it-4bit",
+        "revision": "238767527555cb75a05732a84dff5d6ba0dd6809"
+      },
+      "adapter_sha256": "d1113920ddd12541b2a4828848bdaf96925fbcd6b96df4724732e6bdaf3e6004"
+    }
+  },
+  "mode": "cot",
+  "steps": 0,
+  "max_tokens": 96,
+  "ablation": "none",
+  "hybrid_boundary": "none",
+  "timing_scope": {
+    "latency_s": "Prompt prefill, latent computation, forced prefix, and generation through stop or token cap; excludes prompt formatting and final decoding.",
+    "end_to_end_latency_s": "Warm model request, from prompt formatting/tokenization through final decoding and answer extraction; excludes model loading, warmup, and external serving/network overhead."
+  },
+  "predictions_sha256": "30bbbeca7826f5b408d041cdb4122cd4711eac4c0ef4ccbb68ec88754b847501",
+  "overall": {
+    "n": 100,
+    "correct": 99,
+    "accuracy": 0.99,
+    "accuracy_ci95": [
+      0.9455124752390653,
+      0.9982326134344526
+    ],
+    "median_latency_s": 1.4806998955318704,
+    "p95_latency_s": 1.8723907732288354,
+    "mean_generated_tokens": 22.07,
+    "mean_transformer_positions": 62.85,
+    "truncated": 0,
+    "median_end_to_end_latency_s": 1.481053270981647,
+    "p95_end_to_end_latency_s": 1.87283280181
+  },
+  "tasks": {
+    "arithmetic": {
+      "n": 53,
+      "correct": 52,
+      "accuracy": 0.9811320754716981,
+      "accuracy_ci95": [
+        0.9005685649885059,
+        0.9966616326132506
+      ],
+      "median_latency_s": 1.7514298330061138,
+      "p95_latency_s": 1.8803842081455513,
+      "mean_generated_tokens": 29.88679245283019,
+      "mean_transformer_positions": 62.0377358490566,
+      "truncated": 0,
+      "median_end_to_end_latency_s": 1.7517628750065342,
+      "p95_end_to_end_latency_s": 1.8807586753973737
+    },
+    "links": {
+      "n": 47,
+      "correct": 47,
+      "accuracy": 1.0,
+      "accuracy_ci95": [
+        0.9244398288016114,
+        1.0
+      ],
+      "median_latency_s": 0.8270238330587745,
+      "p95_latency_s": 0.9415058839484117,
+      "mean_generated_tokens": 13.25531914893617,
+      "mean_transformer_positions": 63.765957446808514,
+      "truncated": 0,
+      "median_end_to_end_latency_s": 0.8274360409704968,
+      "p95_end_to_end_latency_s": 0.9418929795501754
+    }
+  },
+  "report_export": {
+    "original_summary_sha256": "aa2190a4fa061aa3cb584bd153bb767dac092c6be0396afc8641029aa8bea789",
+    "absolute_workspace_prefix_replaced": true,
+    "source_directory": "sources/b9bf16d7ee6ece8c"
+  }
+}

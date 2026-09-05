@@ -263,3 +263,22 @@ other commands, and queue readers ignore parsed scalars. The candidate's primary
 timing comparison was deferred and requeued after the already-started matched
 control/public-validation worker. Training was not interrupted. Sixteen focused
 comparison and benchmark tests passed; formatting and lint checks passed.
+
+The matched shortened-text training control completed 400 updates and selected
+step 400 by hybrid validation loss. It scored 66/100 in shortened-text mode
+(19/53 arithmetic, 47/47 links), while retaining 99/100 in full CoT mode. The
+two-latent candidate scored 96/100: 30 additional correct answers, with no lost
+answers, for a paired accuracy difference of 30 percentage points and a bootstrap
+95% interval of [21, 39] points. Both shortened-text runs terminated without
+truncation. The control's failures are wrong arithmetic values, not absent answer
+delimiters. The [matched-control report](../reports/matched-short-text-control/README.md)
+records the predictions, source snapshots, and verified configuration equality.
+
+This supports a useful role for latent computation under this diagnostic recipe.
+It does not establish a universal advantage over shorter-text training: only one
+seed and a short training budget were tested, and training FLOPs are not matched.
+The candidate selected step 300 and the control step 400. Test/OOD and public
+generalization remain unresolved. The initial 40-question GSM8K transfer matrix
+has begun. After it and the repeated timing comparisons finish, a queued
+one-latent-step inference check will test whether the accepted accuracy can be
+retained with less recurrence; timing proceeds only if its quality screen passes.

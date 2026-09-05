@@ -1,0 +1,32 @@
+{
+  "verified_equal_fields": {
+    "model_path": "$EXPERIMENT_ROOT/work/models/gemma-4-e2b-it-4bit",
+    "source_adapter": "$EXPERIMENT_ROOT/work/runs/gemma4-warmup-v2/best",
+    "train_sha256": "10c2357b3c0d630c1049cbab47984a93efb7620a8be68bad854b42ea60cf9a1f",
+    "validation_sha256": "672eec8aa54778f765b2476f7a62c2ebab1e1321f2f394f3a4463f7a3fa39c6f",
+    "steps": 400,
+    "batch_size": 4,
+    "learning_rate": 2e-05,
+    "modes": [
+      "cot",
+      "hybrid"
+    ],
+    "seed": 42,
+    "reasoning_steps_to_drop": 1,
+    "hybrid_boundary": "reasoning",
+    "adapter": {
+      "rank": 16,
+      "scale": 16.0,
+      "num_layers": 6,
+      "bridge_rank": 64,
+      "seed": 42,
+      "compute_dtype": "auto"
+    },
+    "eval_every": 100
+  },
+  "control_latent_steps": 0,
+  "candidate_latent_steps": 2,
+  "control_selected_step": 400,
+  "candidate_selected_step": 300,
+  "training_flops_matched": false
+}

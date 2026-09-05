@@ -9,8 +9,10 @@ tokens or project states into vocabulary logits.
 On 100 diagnostic validation examples, two continuous feedback steps followed by
 a fixed text boundary and remaining text reasoning scored 96/100, versus 99/100
 for the warmup text-reasoning reference. This is a hybrid of latent and text
-reasoning. Repeated latency measurements, matched shortened-text controls, and
-public-benchmark checks remain necessary before claiming a useful performance gain.
+reasoning. A separately trained shortened-text control scored 66/100, while
+retaining 99/100 in full text mode. The [matched-training comparison](reports/matched-short-text-control/README.md)
+supports useful latent computation on this pilot. Repeated latency measurements
+and public-benchmark checks remain necessary before claiming a broader performance gain.
 See the [fixed-boundary report](reports/curriculum-boundary-stage1/README.md) for
 the complete accuracy matrix, raw predictions, and limitations.
 
@@ -167,8 +169,8 @@ GSM8K steps are nonempty lines in its worked solution. When every step is remove
 the hybrid target contains only the answer delimiter and answer. Inference always
 uses only the question, with a fixed latent count; no gold reasoning is supplied.
 This follows the staged-compression idea in [Coconut](https://arxiv.org/html/2412.06769v2),
-with different model adaptation and boundary handling. The pilot's useful accuracy
-does not yet establish an advantage over matched shortened-text training.
+with different model adaptation and boundary handling. The pilot outperformed the
+tested shortened-text training control; broader transfer remains unestablished.
 
 An optional `--hybrid-boundary reasoning` forces a fixed `\nReasoning: ` prefix
 after the latent loop, before generating the remaining reasoning. Its training

@@ -68,9 +68,9 @@ Start with Gemma 3 270M on Apple Silicon to debug training and caching, then mov
 to a larger checkpoint when the pipeline works. MLX supplies the existing model
 implementation and LoRA; custom code supplies only feedback, data, and experiments.
 The initial pilot used a two-percentage-point accuracy tolerance against the
-matched text-CoT baseline. The subsequently clarified objective above targets
-matching accuracy and improving latency; the earlier tolerance remains recorded
-for interpreting that historical pilot. Report uncertainty and failures even if
+matched text-CoT baseline. The target was subsequently clarified to matching
+accuracy and improving latency; the later 96/100 acceptance is recorded above.
+Earlier targets remain recorded for interpreting historical pilots. Report uncertainty and failures even if
 the target is not reached. An implementation that works but does not retain
 useful accuracy is not a successful end state.
 

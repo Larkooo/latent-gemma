@@ -1,0 +1,25 @@
+{
+  "files": {
+    "README.md": "1c9222dab705ed4ea3ab95358360799feeff4cd1820c4629b7a9e2d3d932b1fe",
+    "cot.jsonl": "30bbbeca7826f5b408d041cdb4122cd4711eac4c0ef4ccbb68ec88754b847501",
+    "cot.summary.json": "4e2a5cae3d4564eccc3ae3310111d9626f96e721e11c8189e9938fdfdb57769b",
+    "hybrid.jsonl": "7586d9855d768aae523360e363eb9204a089083cdda066e5dec28db96212c4df",
+    "hybrid.summary.json": "3cb80c1c55405b1adc07b9a97b4358ec26cf8449a4e83180437c2f8b41854ca1",
+    "matched-training.json": "c76725352833591440bd8028f150e71ad1ebe3c42b2a6898cd236d928b12df29",
+    "paired-accuracy.json": "ad4896fba3a56635e6c66ebf90400eff57ef9d01a51536e1f9fe20cf828c1019",
+    "sources/b9bf16d7ee6ece8c/__init__.py": "b9acdadbad7a99f06ebfdbd37f407a09fe362d8cd9696c260bd206b1b53db78e",
+    "sources/b9bf16d7ee6ece8c/benchmark.py": "9bdd8ccaf6b429ba0d2f05d61f66b1c597144faab223815f739ba0e06980e9bf",
+    "sources/b9bf16d7ee6ece8c/cli.py": "19abbc0fb77412d6559dfc5b8169911ef788613b23e846aa5f7716fc5d1d4320",
+    "sources/b9bf16d7ee6ece8c/compare.py": "6a30ab5c9475d0212f469475628339951c4fd39b19e24b2fb2e3f985736e70da",
+    "sources/b9bf16d7ee6ece8c/data.py": "2f2c5a7ec543aede7bad3df5a8301054ade8d2a12b3844b494cac46332754840",
+    "sources/b9bf16d7ee6ece8c/evaluate.py": "84f43a2aa1e527f9918dd2fb9b50a7e1ade253dcd3f88bed06ecd266d08f04d4",
+    "sources/b9bf16d7ee6ece8c/model.py": "d5190552816e7f3cb3ee3846bb6e943b341c13e5119da728ecf610738ee75b3a",
+    "sources/b9bf16d7ee6ece8c/provenance.py": "d22c50c3dc170f7cd4534019960d2f866f05da6d31b0ce43df8676cd4a744e02",
+    "sources/b9bf16d7ee6ece8c/train.py": "86b7b8144242a669fffcfed84cd1d0710a9835be1dd822347e3bd649f73e0a52",
+    "training/metrics.jsonl": "79d9bc912dbe90ab7122e9d9c705a1757d1ed0e11d44a5ae652feb4419f174aa",
+    "training/provenance.json": "f1cbeee5c51613c96bb69a81c1b0ae040b38b1cf9b7ec81944325b8992ab49bb",
+    "training/result.json": "f40cd02b34fa0a9b0044c9d9890bcee55869d9579d54925d0e24c012e4d71d70",
+    "training/run.json": "e4ee882315f7aa13d0e947cd11ee1a18d22b1aa9bbf611805443be78f42f447f",
+    "training/selected-checkpoint.json": "8cdc5237f9b7c3be14f19926ebe7d1e0a7323301cf4c146f3b21be89fd7f9243"
+  }
+}
