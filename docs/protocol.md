@@ -36,6 +36,10 @@ reproduce its exact training curriculum or results.
 - Select settings/checkpoints using validation only. Freeze settings before test.
 - Measure exact-answer accuracy, per-task counts, uncertainty, median/p95 latency,
   generated text tokens, latent positions, and peak memory. Synchronize GPU timing.
+  Numeric scoring uses exact finite decimal-value equality, without binary-float
+  rounding; labels remain exact matches. After discovering a scoring defect,
+  preserve original records and rescore every condition with the same recorded
+  policy. Do not compare literal-string scores against numeric-equivalence scores.
 - New runs measure both model latency (`latency_s`) and warm request latency
   (`end_to_end_latency_s`). The latter includes prompt formatting/tokenization,
   prompt prefill, latent computation, forced prefixes, generation through stop or

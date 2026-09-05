@@ -25,6 +25,10 @@ def compare(
     b = {x["id"]: x for x in candidate}
     if not a or len(a) != len(baseline) or len(b) != len(candidate) or a.keys() != b.keys():
         raise ValueError("Paired evaluation requires identical, nonempty, unique example IDs")
+    policies = {row.get("scoring_policy", "literal-match-v1") for row in [*baseline, *candidate]}
+    if len(policies) != 1:
+        raise ValueError("Scoring policies differ; rescore both files with the same policy")
+    scoring_policy = policies.pop()
     for key in a:
         if a[key]["answer"] != b[key]["answer"] or a[key]["task"] != b[key]["task"]:
             raise ValueError(f"Different targets for example {key}")
@@ -57,6 +61,7 @@ def compare(
             timing_samples.append(np.column_stack((ratio, paired)))
         timing_intervals = np.percentile(np.concatenate(timing_samples), [2.5, 97.5], axis=0)
         result[task] = {
+            "scoring_policy": scoring_policy,
             "latency_field": latency_field,
             "n": len(keys),
             "baseline_accuracy": float(np.mean([a[k]["correct"] for k in keys])),

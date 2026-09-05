@@ -297,3 +297,22 @@ checkpoint verification is queued after the existing experiments: a ten-question
 serial/pipelined comparison, followed by a 100-question latent-versus-CoT timing
 comparison with both sides pipelined. Its emitted tokens must match the serial
 reference. No pipeline speed benefit is assumed before those measurements finish.
+
+The initial GSM8K native run exposed a scoring defect: six numerically correct
+currency answers such as `4.00` versus `4` failed literal string comparison.
+Numeric tasks now use exact finite `Decimal` equality; link labels remain exact
+matches. No floating-point tolerance is used. The scoring policy is recorded on
+every new row, and comparisons reject mixed policies. The rescoring utility
+preserves original generations and evaluation settings, reports changed scores,
+and saves the exact scoring source.
+
+All public conditions are being rescored under that one policy. Native Gemma's
+corrected result is 29/40 (six corrections), with eight truncated responses at
+1,024 tokens. Warmup CoT is 24/40 (three corrections), with three truncations at
+768 tokens. These are different inference formats and neither is an unconstrained
+capability estimate. The remaining public conditions are still running. The
+diagnostic candidate, retained CoT, and trained shortened-text control remain at
+96/100, 99/100, and 66/100 respectively under numeric-equivalence scoring. The
+frozen historical reports are unchanged. All 84 tests passed after the scoring
+fix, including exact decimal comparisons, source preservation, metadata retention,
+and rejection of mixed-policy comparisons.

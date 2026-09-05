@@ -9,7 +9,14 @@ from pathlib import Path
 import mlx.core as mx
 import numpy as np
 
-from .data import Example, extract_answer, hybrid_boundary_text, prompt_text
+from .data import (
+    SCORING_POLICY,
+    Example,
+    answer_matches,
+    extract_answer,
+    hybrid_boundary_text,
+    prompt_text,
+)
 from .model import LatentModel
 
 
@@ -111,7 +118,8 @@ def generate(
         "decode_strategy": decode_strategy,
         "prediction": prediction,
         "answer": example.answer,
-        "correct": prediction == example.answer,
+        "correct": answer_matches(prediction, example.answer, example.task),
+        "scoring_policy": SCORING_POLICY,
         "text": text,
         "latency_s": latency,
         "end_to_end_latency_s": end_to_end_latency,
@@ -230,6 +238,7 @@ def evaluate(
                 )
     result = {
         "metadata": metadata or {},
+        "scoring_policy": SCORING_POLICY,
         "mode": mode,
         "steps": steps,
         "max_tokens": max_tokens,

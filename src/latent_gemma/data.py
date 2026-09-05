@@ -5,7 +5,10 @@ import json
 import random
 import re
 from dataclasses import asdict, dataclass
+from decimal import Decimal, InvalidOperation
 from pathlib import Path
+
+SCORING_POLICY = "numeric-equivalence-v1"
 
 
 @dataclass(frozen=True)
@@ -200,3 +203,19 @@ def extract_answer(text: str, task: str, mode: str) -> str | None:
         match = re.fullmatch(r"([A-P])[.!]?", text)
         return match.group(1) if match else None
     raise ValueError(f"Unknown task: {task}")
+
+
+def answer_matches(prediction: str | None, expected: str, task: str) -> bool:
+    """Compare extracted numeric values exactly, without floating-point rounding."""
+    if prediction is None:
+        return False
+    if task == "links":
+        return prediction == expected
+    if task not in {"arithmetic", "gsm8k"}:
+        raise ValueError(f"Unknown task: {task}")
+    try:
+        actual = Decimal(prediction.replace(",", ""))
+        target = Decimal(expected.replace(",", ""))
+    except InvalidOperation:
+        return False
+    return actual.is_finite() and target.is_finite() and actual == target

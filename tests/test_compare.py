@@ -83,3 +83,10 @@ def test_latency_intervals_cover_variability_and_are_reproducible():
     lower, upper = result["overall"]["median_paired_speedup_ci95"]
     assert lower < 1.0 < upper
     assert result["overall"]["fraction_questions_faster"] == 0.5
+
+
+def test_different_scoring_policies_require_rescoring():
+    a = row("a", False)
+    b = {**row("a", True), "scoring_policy": "numeric-equivalence-v1"}
+    with pytest.raises(ValueError, match="Scoring policies differ"):
+        compare([a], [b])

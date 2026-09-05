@@ -221,6 +221,13 @@ GSM8K validation examples come only from the original training split. Original
 test examples remain test examples. Neither synthetic training nor small GSM8K
 samples establish general-purpose model quality.
 
+Numeric answers use exact decimal-value comparison: `4.00` and `4` are equal,
+while `4.000000000000001` and `4` are different. Link answers remain exact labels.
+Rows record their scoring policy. To compare historical literal-string scores
+with current results, rescore both files using `scripts/rescore.py SOURCE OUTPUT`.
+It preserves the originals, records changed scores and source hashes, and saves
+the scoring code with the new records. Comparisons reject mixed scoring policies.
+
 ## Artifacts and licensing
 
 Runs store adapter-only checkpoints, configuration, losses, and (for new runs)
