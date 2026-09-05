@@ -248,3 +248,18 @@ increasing trainable parameters from 2,342,913 to 11,378,689. Fixed-prompt probe
 with zero and two latent steps had exactly unchanged logits (maximum difference
 0.0) after adding the zero-output branches. This prepares training in earlier
 attention-cache writers; it does not establish an accuracy or latency improvement.
+
+The equivalent-path timing control completed ten questions with four repeats per
+condition. Both paths produced identical text and scored 10/10. Their ratio of
+median warm-request times was 1.0003, with a paired bootstrap 95% interval of
+[0.9733, 1.0101]. This supports the interleaved measurement procedure; it does not
+show a latent-reasoning speedup. The [timing-control report](../reports/timing-equivalent-paths/README.md)
+preserves all 80 requests and source hashes.
+
+After that result was written, the outer log reader failed when pretty-printed
+JSON yielded a scalar numeric line. The saved result and raw trial hashes were
+verified. The benchmark now prints one JSON object per console line, matching the
+other commands, and queue readers ignore parsed scalars. The candidate's primary
+timing comparison was deferred and requeued after the already-started matched
+control/public-validation worker. Training was not interrupted. Sixteen focused
+comparison and benchmark tests passed; formatting and lint checks passed.

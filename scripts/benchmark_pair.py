@@ -82,7 +82,7 @@ def main():
         metadata,
         baseline_model,
     )
-    print(json.dumps(result, indent=2))
+    print(json.dumps(result))
 
 
 if __name__ == "__main__":
