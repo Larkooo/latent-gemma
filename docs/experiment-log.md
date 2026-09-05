@@ -1,384 +1,99 @@
-# Experiment log
+# Experiment results
 
-All entries below are exploratory validation work. Final test sets have not yet
-been evaluated. Failed experiments remain part of the record.
+All completed results below are exploratory validation. The fixed-recipe test
+and OOD comparison is running separately. Reports retain predictions, settings,
+source snapshots, and hashes, including unsuccessful experiments.
 
-## Baseline and implementation checks
+## Accuracy and latency
 
-- Hardware: Apple M5, 32 GB unified memory, macOS 26.4.1.
+The current pilot uses Gemma 4 E2B with two latent positions, a fixed
+`\nReasoning: ` transition, and remaining text reasoning.
+
+| Method | Accuracy | Median completed-answer latency |
+|---|---:|---:|
+| Warmup text-CoT reference | 99/100 | 1.3391 s |
+| Two-step hybrid | 96/100 | 1.1033 s |
+
+Three repeats per method and question produced 600 timed requests. All repeated
+token sequences agreed and no output hit the 96-token cap. The hybrid's median
+latency was 17.6% lower; the speed ratio was 1.2137 with a paired-question 95%
+interval of [1.1053, 1.3764]. It answered faster on 74% of questions.
+
+Arithmetic accounted for most of the benefit: its ratio of median latencies was
+1.3455. The link-task ratio was 1.0229, with an interval spanning equal speed.
+Accuracy differed by −3 percentage points, with a paired interval of [−8, +1].
+These intervals cover question sampling within one hardware session.
+
+[Full comparison and raw trials](../reports/boundary-accuracy-latency/README.md)
+
+## Training variants
+
+| Recipe | Latent steps | Accuracy | Evidence |
+|---|---:|---:|---|
+| Direct compression | 4 | 80/100 | [Report](../reports/pilot-v2/README.md) |
+| Hybrid without a text transition | 2 | 62/100 | [Report](../reports/curriculum-stage1/README.md) |
+| Hybrid with a fixed transition | 2 | 96/100 | [Report](../reports/curriculum-boundary-stage1/README.md) |
+| Separately trained shortened-text control | 0 | 66/100 | [Report](../reports/matched-short-text-control/README.md) |
+
+The fixed-transition candidate and shortened-text control started from the same
+warmup checkpoint, used the same targets, data, seed, and maximum 400 updates,
+and selected steps 300 and 400 respectively. Both retained 99/100 in full-text
+mode. The hybrid solved 30 additional questions and lost none, with a paired
+accuracy-difference interval of [21, 39] percentage points. Training FLOPs were
+not matched.
+
+For the fixed-transition candidate, zeroed feedback scored 93/100, reversed
+features 90/100, repeated initial feedback 86/100, and zero latent positions
+90/100. These controls retain the attention cache, so they do not erase every
+problem-dependent latent state.
+
+## Compression and work
+
+On 53 arithmetic questions, the hybrid produced a correct answer with exactly
+the intended shortened equation on 46, versus 16 for the trained control. Each
+had three additional correct but noncanonical continuations.
+[Continuation audit](../reports/arithmetic-compression-audit/README.md)
+
+Against the same adapter's full-text mode, the hybrid emitted 29.1% fewer tokens.
+Mean nominal transformer positions increased from 62.85 to 63.42 because of the
+latent steps and transition. Vocabulary projections decreased, but these logical
+counters do not measure total FLOPs or energy.
+[Work audit](../reports/inference-work-audit/README.md)
+
+## Initial GSM8K transfer
+
+None of these adapters was trained on GSM8K. Forty validation questions were
+scored with exact numeric equivalence:
+
+| Condition | Correct | Output cap | Truncated |
+|---|---:|---:|---:|
+| Native pretrained thinking | 29/40 | 1,024 | 8 |
+| Warmup text CoT | 24/40 | 768 | 3 |
+| Candidate adapter, full text | 28/40 | 768 | 1 |
+| Candidate adapter, hybrid | 24/40 | 768 | 3 |
+
+Different inference formats and caps limit comparisons with native thinking.
+This sample does not show a broad reasoning improvement. The separate
+shortened-text control stopped after 32 questions; its incomplete run is excluded.
+
+## Reproducibility
+
+- Hardware: Apple M5, 32 GB memory, macOS 26.4.1.
 - Runtime: Python 3.12.13, MLX 0.32.2, MLX LM 0.31.3.
-- Initial Gemma 3 270M checkpoint:
-  `mlx-community/gemma-3-270m-it-bf16`, revision
-  `c806ef3a4ed971bd75aaee3346e0fef808512f03`.
-- Gemma 4 checkpoint: `mlx-community/gemma-4-e2b-it-4bit`, revision
+- Base: `mlx-community/gemma-4-e2b-it-4bit`, revision
   `238767527555cb75a05732a84dff5d6ba0dd6809`.
-- Synthetic dataset: 6,000 train, 400 validation, 600 test, 400 longer/larger-input
-  OOD examples. Arithmetic and link traversal are balanced within each split.
-  Exact semantic IDs do not overlap across any split.
-- GSM8K was fetched at repository revision
-  `3101c7d5072418e28b9008a6636bde82a006892c`. Its original training data supplies
-  6,973 training and 500 validation examples; original test contains 1,319.
-  No exact question-ID overlap was found across the resulting splits.
+- Diagnostics: 6,000 train / 400 validation / 600 test / 400 OOD; disjoint semantic IDs.
+- GSM8K: revision `3101c7d5072418e28b9008a6636bde82a006892c`;
+  6,973 train / 500 validation / 1,319 test.
 
-## Pilot results
+Earlier runs affected by an answer-prefix loss-mask bug were excluded and
+retrained. Numeric scoring was corrected to accept equivalent decimal forms;
+original records remain preserved. Sequential timing drift motivated the
+[repeated equivalent-path check](../reports/timing-equivalent-paths/README.md)
+and the current interleaved comparison.
 
-1. Gemma 3 270M, 100 validation problems: direct answer 1/100, explicit CoT 9/100.
-   These results include format failures and are evidence that this checkpoint
-   is not a sufficient demonstration of useful reasoning in this setup.
-2. Gemma 3 270M, 600 supervised steps on direct/CoT examples: completed, best
-   mean validation token loss 1.1304. This loss is invalid for comparing modes
-   because of the answer-prefix masking bug described below. This early pilot
-   predates automatic source snapshots and is excluded from final results.
-3. Gemma 4 E2B, native thinking, original quantized checkpoint computation dtype,
-   40 validation problems: **40/40**, median latency 5.512 seconds, mean 186.125
-   generated tokens, no truncation at the 512-token limit. This is a small,
-   deliberately simple diagnostic sample, not evidence of general accuracy.
-   Original predictions were re-scored after fixing an answer-parser bug: an
-   occurrence of the string `Answer:` inside a quoted thought could consume the
-   actual final answer on the same line. Generation text and timing are unchanged;
-   originals and rescored files both remain in the run directory.
-
-## Numerical failures and corrections
-
-- An embeddings-only full-sequence test exposed in-place input scaling in the
-  Gemma 3 implementation. The wrapper now preserves caller-owned embeddings.
-- Float32 CPU comparisons isolate semantic cache equivalence from Metal's
-  shape-dependent rounding. Real checkpoint inference is measured on the GPU.
-- The first quantized Gemma 4 training smoke run failed at its first latent batch:
-  loss was finite but gradients were NaN. A controlled replay of the same batches
-  reproduced this with the checkpoint's bfloat16 computation. Float32 computation
-  produced finite gradients on all six replayed updates. This establishes a
-  precision-sensitive failure; it does not establish the specific kernel cause.
-- `auto` computation now selects float32 for Gemma 4, leaving integer quantized
-  weight storage intact. New evaluations record this setting. The native baseline
-  above used original bfloat16 computation, so runtime comparisons must disclose
-  the difference or include an additional matched float32 baseline.
-- The trainer now checks loss and gradient norm before every optimizer update and
-  records a failure rather than applying a nonfinite gradient.
-- A real-tokenizer audit exposed another issue: concatenating `Answer: ` with a
-  letter lets the tokenizer merge the space and letter. Computing the loss-mask
-  length from the separately encoded delimiter therefore masked the first answer
-  token. This affected all 3,000 link-training examples, and 3 GSM8K answers would
-  also have been affected. Direct/latent training now concatenates the exact
-  decoder prefix token IDs with the answer token IDs, supervising every answer
-  token. CoT targets and all generation scoring are unchanged. A regression test
-  covers this boundary for both direct and latent modes.
-- The original Gemma 4 warmup and the subsequent K=4 run are excluded from valid
-  training results because of this masking bug. The K=4 run was interrupted after
-  its step-100 validation. Clean `gemma4-warmup-v2` and `gemma4-latent-k4-v2` runs
-  restart from the base checkpoint with corrected labels and source snapshots.
-
-## Corrected training and additional checks
-
-- The real-tokenizer alignment audit passed for all 6,000 diagnostic and 6,973
-  GSM8K training examples in both direct and latent modes: forced prefixes match
-  inference, all answer tokens are supervised, and answer tokens round-trip.
-- Re-running pinned GSM8K preparation reproduced every manifest field and split
-  hash exactly.
-- Gemma 4 cached feedback gradients agree with full-sequence recomputation to
-  relative vector error below 1e-4 on the small float32 test architecture. Causal
-  target alignment also passes with shared KV layers. The suite now has 43 tests.
-- `gemma4-warmup-v2` completed 400 updates, batch size 4, learning rate 2e-5,
-  alternating direct/CoT modes. Its selected checkpoint is step 400, with mean
-  validation token losses 0.22037 (direct) and 0.00166 (CoT). Elapsed training plus
-  periodic validation was 356.90 seconds. These are losses, not accuracy results.
-- `gemma4-latent-k4-v2` completed 600 updates from that checkpoint, alternating
-  direct/CoT/latent modes. Selected checkpoint: step 500, latent validation token
-  loss 0.19307. Elapsed training plus periodic validation: 783.08 seconds. Gradients
-  remained finite but reached very large norms before clipping. Accuracy and
-  activation ablations are running; those results determine usefulness.
-- A separate staged-compression path is implemented: `hybrid` decoding runs
-  continuous steps and then generates remaining text reasoning. Training can
-  remove initial annotated reasoning steps while retaining the rest as targets.
-  This enables a curriculum; it does not establish a performance improvement.
-- The float32 pretrained direct-format pilot scored 22/100, with 69 truncated
-  generations at its 16-token cap. Many link examples produced an empty answer or
-  ignored the forced format. This is not an estimate of released-model capability.
-  An ordinary chat baseline with thinking disabled (`plain`) and a 512-token cap
-  is queued alongside native thinking. Pretrained explicit-CoT results at the
-  initial 96-token cap also need truncation-aware interpretation.
-
-## Remaining experiments
-
-The completed 100-example matrix rejects the direct-compression recipe. Text
-reasoning scored 99/100 in both fine-tuned checkpoints; latent K=4 scored 80/100,
-compared with 77/100 in the same checkpoint's direct mode, 81/100 with zeroed
-feedback, 78/100 with reversed features, and 80/100 with repeated initial feedback.
-See [the pilot report](../reports/pilot-v2/README.md) for timings, paired intervals,
-raw predictions, source snapshots, and limitations. Test and OOD remain untouched.
-
-The additional float32 native-thinking baseline scored 39/40 at a 512-token cap,
-with one truncation, versus 40/40 for the earlier original-bfloat16 pilot. These
-are different numerical computations and should not be merged into one result.
-
-The ordinary-chat baseline (thinking disabled, no forced assistant prefix)
-completed at 38/40, with one truncation at 512 tokens and median latency 3.559
-seconds. It used the same float32 computation as the new native-thinking baseline.
-
-Staged compression is now running: start from the corrected warmup checkpoint,
-use two latent positions to replace the first annotated reasoning step, and train
-400 updates alternating CoT/hybrid modes.
-Public-benchmark evaluation is deferred until this next candidate is evaluated;
-it remains required, along with matched training controls and frozen final tests.
-
-An environment issue interrupted the queue before the ordinary-chat model loaded:
-Python skipped the editable-package `.pth` file because it carried macOS's hidden
-flag. Clearing that flag restored imports. Queued workers now set an explicit
-source path, so later flag changes do not break their child processes. No model
-update or inference result was produced by that failed invocation.
-
-## Transition and measurement follow-up
-
-An intermediate stage-1 checkpoint (step 200) was audited on ten validation
-examples. Four answers were correct, and one generation hit its 96-token cap.
-Failures included unrelated dates and repeated digit strings. This small audit
-ran alongside training; its timings are excluded from benchmark comparisons.
-The saved checkpoint and audit predictions remain in the local run directory.
-
-A controlled follow-up can add a fixed `Reasoning:` boundary between latent
-positions and generated text. Training masks the fixed prefix, concatenates its
-tokens separately to preserve the generation boundary, and supervises all
-remaining content. The original stage-1 run retains its no-boundary behavior.
-Tests check prefix alignment, masking, and absence of removed reasoning in the
-prompt. Old checkpoints default to the original behavior.
-
-New evaluations record warm end-to-end request time as well as model latency.
-Paired comparisons can select either field and reject missing, nonfinite, or
-nonpositive measurements. Old runs are not assigned invented end-to-end times.
-The updated CPU test suite passes 52 tests; formatting and lint checks pass.
-A real-tokenizer audit also passed on all 6,000 diagnostic and 6,973 GSM8K training
-examples: the fixed boundary matches inference, all remaining text tokens are
-supervised, content round-trips, and prompts are identical to the CoT prompts.
-
-The original stage-1 validation matrix completed: hybrid K=2 scored 62/100,
-zero feedback 60/100, reversed feedback 59/100, repeated initial feedback 68/100,
-text CoT 99/100, and hybrid K=0 99/100. The last two paths produced equivalent
-answers and token counts but different sequential-run median request times
-(0.639 versus 0.908 seconds). Timings need interleaved repeated measurement before
-a speed claim; this failed candidate is already rejected on accuracy.
-
-The fixed-boundary run is now training with the same initial checkpoint, data
-sampling seed, 400-update budget, and other hyperparameters. Teacher-forced loss
-alone does not determine whether the change succeeds.
-
-Two follow-up constraints were identified from the implementation and sampler:
-
-- All six currently adapted Gemma 4 layers are shared-KV readers. No trainable
-  value projection writes new attention memory. An expansion utility now adds
-  zero-output adapters to earlier layers without discarding the existing
-  checkpoint. CPU tests verify preserved nonzero learned weights and outputs,
-  newly trainable cache-writer gradients, frozen base weights, and saved parameter
-  coverage. The suite passes 56 tests.
-- Replaying the trainer's seeded sampler shows the original staged checkpoint
-  saw only 800 hybrid example draws, covering 761 unique examples of 6,000. Its
-  arithmetic exposure was 396 draws/379 unique examples. The selected direct-
-  compression checkpoint saw 664 latent draws/632 unique examples. These are
-  short pilot training budgets, not evidence that the overall method cannot work.
-
-An interleaved benchmark is implemented for two decoding paths on the same loaded
-checkpoint. Trial order is counterbalanced and shuffled; per-question median
-timings feed the paired comparison. Repetitions do not inflate the accuracy sample
-count. Differing outputs between repeats halt aggregation and retain the raw
-trace. These checks pass in the 58-test CPU suite. Real equivalent-path timing and
-adapter-expansion checks are queued after the current boundary experiment. A
-full paired timing run for that candidate is conditional on its validation score
-reaching at least 98/100 while its CoT mode retains 99/100; this screening threshold
-does not replace the final accuracy-matching target.
-
-The next queued control starts from the same warmup checkpoint and uses the same
-400-update budget, data sampling, shortened targets, and fixed boundary, with
-zero latent steps. Its run configuration will be checked against the candidate
-before evaluation. This matches examples and updates, not training FLOPs. A first
-GSM8K transfer evaluation is queued afterward: 40 validation examples for native
-Gemma, warmup CoT, boundary-checkpoint CoT/hybrid, and the shortened-text control.
-These adapters have not been trained on GSM8K; this measures transfer rather than
-a completed benchmark-specific training recipe.
-
-Paired timing can now compare separately trained adapters while preserving each
-checkpoint's boundary policy and requiring the same backbone and computation
-dtype. Both models are resident before timing. The CPU suite passes 59 tests.
-
-The fixed-boundary training run completed 400 updates and selected step 300 by
-hybrid validation loss (0.01113). Initial generated-answer validation scored
-96/100: 49/53 arithmetic and all 47 link problems, with no truncations and mean
-15.64 generated tokens. The four errors concern incorrect intermediate arithmetic
-or repetition of an operation, rather than an empty output or unparseable date.
-Against the earlier warmup CoT result (99/100), the paired difference is -3 points
-with a 95% bootstrap interval of [-8, +1] points. This does not establish matched
-accuracy. The same-checkpoint CoT and feedback controls are still running.
-Sequential-run timing is not used to claim a speedup. Because 96/100 is below the
-predeclared timing screen, its full repeated speed comparison will be skipped;
-the equivalent-path timing check, matched training control, and GSM8K checks remain
-queued.
-
-The 96/100 result was subsequently accepted as sufficient quality to advance this
-pilot, with an explicit request to continue improving and establishing confidence.
-The timing screen is therefore updated to 96/100 for this candidate. This is a
-post-result change, not a claim that the earlier accuracy-matching target was met.
-The primary repeated comparison will use the 99/100 warmup CoT checkpoint as its
-reference. The two waiting queue processes were replaced to apply this decision;
-the active model evaluation continued uninterrupted. Future queue decisions read
-the recorded criterion rather than retaining a hard-coded earlier threshold.
-
-The mechanism is continuous activation feedback followed by remaining generated
-text. It should be described as hybrid latent/text reasoning. The code removes
-vocabulary projection and token sampling from the latent loop, and bypasses
-Gemma's nearest-token fallback. That verifies the implemented data path, not a
-claim that the activations constitute an independently established language of
-thought or that they reproduce Astra. Feedback ablations and the matched
-zero-latent training control test the method's practical contribution.
-
-The fixed-boundary feedback controls finished at 93/100 for zeroed feedback,
-90/100 for reversed features, and 86/100 for a repeated initial state, compared
-with 96/100 for normal feedback. The retained CoT mode scored 99/100. These
-observations motivate the matched training comparison; they do not yet establish
-a general reasoning improvement. The timing comparison now also reports paired
-bootstrap intervals for speed ratios and the fraction of questions answered
-faster. Repeated measurements remain necessary because bootstrap intervals alone
-cannot remove hardware-session drift.
-
-The completed fixed-boundary matrix adds 90/100 for hybrid inference with zero
-latent positions. The normal path's six-point advantage has a paired bootstrap
-interval reported in the [frozen report](../reports/curriculum-boundary-stage1/README.md),
-along with every prediction and the other controls. This inference ablation is
-distinct from independently training a zero-latent model.
-
-The real warmup checkpoint was successfully expanded from six to 35 LoRA layers,
-increasing trainable parameters from 2,342,913 to 11,378,689. Fixed-prompt probes
-with zero and two latent steps had exactly unchanged logits (maximum difference
-0.0) after adding the zero-output branches. This prepares training in earlier
-attention-cache writers; it does not establish an accuracy or latency improvement.
-
-The equivalent-path timing control completed ten questions with four repeats per
-condition. Both paths produced identical text and scored 10/10. Their ratio of
-median warm-request times was 1.0003, with a paired bootstrap 95% interval of
-[0.9733, 1.0101]. This supports the interleaved measurement procedure; it does not
-show a latent-reasoning speedup. The [timing-control report](../reports/timing-equivalent-paths/README.md)
-preserves all 80 requests and source hashes.
-
-After that result was written, the outer log reader failed when pretty-printed
-JSON yielded a scalar numeric line. The saved result and raw trial hashes were
-verified. The benchmark now prints one JSON object per console line, matching the
-other commands, and queue readers ignore parsed scalars. The candidate's primary
-timing comparison was deferred and requeued after the already-started matched
-control/public-validation worker. Training was not interrupted. Sixteen focused
-comparison and benchmark tests passed; formatting and lint checks passed.
-
-The matched shortened-text training control completed 400 updates and selected
-step 400 by hybrid validation loss. It scored 66/100 in shortened-text mode
-(19/53 arithmetic, 47/47 links), while retaining 99/100 in full CoT mode. The
-two-latent candidate scored 96/100: 30 additional correct answers, with no lost
-answers, for a paired accuracy difference of 30 percentage points and a bootstrap
-95% interval of [21, 39] points. Both shortened-text runs terminated without
-truncation. The control's failures are wrong arithmetic values, not absent answer
-delimiters. The [matched-control report](../reports/matched-short-text-control/README.md)
-records the predictions, source snapshots, and verified configuration equality.
-
-This supports a useful role for latent computation under this diagnostic recipe.
-It does not establish a universal advantage over shorter-text training: only one
-seed and a short training budget were tested, and training FLOPs are not matched.
-The candidate selected step 300 and the control step 400. Test/OOD and public
-generalization remain unresolved. The initial 40-question GSM8K transfer matrix
-has begun. After it and the repeated timing comparisons finish, a queued
-one-latent-step inference check will test whether the accepted accuracy can be
-retained with less recurrence; timing proceeds only if its quality screen passes.
-
-An optional pipelined text decoder now schedules one token ahead so CPU graph
-construction can overlap GPU execution. Serial decoding remains the default for
-the already-planned comparisons. Requests ending before the cap perform one
-unused continuation; synchronization includes it in measured time, and new rows
-record its position and vocabulary-projection cost. Emitted token IDs are retained
-to verify exact decoder equivalence rather than relying only on decoded text.
-
-The full 72-test suite passed, including small Gemma 4 comparisons with shared
-attention caches, continuous latent positions, forced prefixes, and capped output,
-plus EOS accounting and CLI routing checks. These tests use CPU execution. Real
-checkpoint verification is queued after the existing experiments: a ten-question
-serial/pipelined comparison, followed by a 100-question latent-versus-CoT timing
-comparison with both sides pipelined. Its emitted tokens must match the serial
-reference. No pipeline speed benefit is assumed before those measurements finish.
-
-The initial GSM8K native run exposed a scoring defect: six numerically correct
-currency answers such as `4.00` versus `4` failed literal string comparison.
-Numeric tasks now use exact finite `Decimal` equality; link labels remain exact
-matches. No floating-point tolerance is used. The scoring policy is recorded on
-every new row, and comparisons reject mixed policies. The rescoring utility
-preserves original generations and evaluation settings, reports changed scores,
-and saves the exact scoring source.
-
-All public conditions are being rescored under that one policy. Native Gemma's
-corrected result is 29/40 (six corrections), with eight truncated responses at
-1,024 tokens. Warmup CoT is 24/40 (three corrections), with three truncations at
-768 tokens. These are different inference formats and neither is an unconstrained
-capability estimate. The remaining public conditions are still running. The
-diagnostic candidate, retained CoT, and trained shortened-text control remain at
-96/100, 99/100, and 66/100 respectively under numeric-equivalence scoring. The
-frozen historical reports are unchanged. All 84 tests passed after the scoring
-fix, including exact decimal comparisons, source preservation, metadata retention,
-and rejection of mixed-policy comparisons.
-
-A visible-continuation audit checks whether the arithmetic improvement depends
-on regenerating removed text. Correct answers with exactly the intended shortened
-equation occur on 46/53 questions for the latent candidate and 16/53 for the
-trained control. Each model has three additional correct but noncanonical
-continuations. Thus the 30-question gain also appears under this stricter metric,
-while the 96/100 answer score does not imply universal compliance with the short
-target. The [compression audit](../reports/arithmetic-compression-audit/README.md)
-preserves every continuation and a standalone reproduction script. It does not
-decode or interpret latent activations.
-
-An [inference work audit](../reports/inference-work-audit/README.md) distinguishes
-shorter output from lower total computation. The fixed-boundary hybrid emits
-29.1% fewer tokens than the same adapter's full-text mode, but mean nominal
-transformer positions rise from 62.85 to 63.42 because of the two latent positions
-and five-token transition. Arithmetic positions decrease; link-task positions
-increase. The transition is processed as one block, and the archived decoder
-uses fewer vocabulary projections. These counters do not establish actual FLOPs,
-energy, or latency savings.
-
-The boundary hybrid completed its initial GSM8K transfer check at 24/40, with
-three truncations at 768 tokens. The same adapter's full-text mode scored 28/40
-with one truncation, and the warmup full-text reference scored 24/40 with three.
-All three are graded with the same numeric-equivalence policy. This small,
-untrained transfer sample does not establish broad reasoning improvement; the
-matched shortened-text control is still running.
-
-A fixed two-step candidate versus warmup-CoT evaluation is queued on all 600
-untouched diagnostic test questions and all 400 OOD questions. The plan pins
-adapters, sources, data hashes, the 96-token cap, and serial decoding before any
-predictions from those splits are read. It does not choose among step counts or
-checkpoints on test results. Its sequential timings will not be used as speed
-evidence, and the accepted 96/100 pilot result is not treated as a prespecified
-equivalence margin for the new samples.
-
-The user requested that the main accuracy and latency comparison take precedence
-over secondary checks. The remaining public shortened-text control was interrupted
-after 32 of 40 questions, with its partial output retained and excluded from the
-complete transfer comparison. Waiting jobs for the one-step variant, pipelined
-decoder, and larger frozen evaluation were stopped before they launched GPU work.
-Those checks are deferred; the frozen evaluation plan remains available but has
-no results. The two-step candidate versus warmup-CoT benchmark is now running
-directly, collecting accuracy and repeated completed-answer timings together on
-100 questions. The documented default workflow now runs this combined comparison
-immediately after training.
-
-The primary combined comparison completed all 600 requests: 100 questions, two
-conditions, and three repeats. Accuracy reproduced at 99/100 for warmup text CoT
-and 96/100 for the fixed two-step hybrid. Median warm completed-answer latency
-was 1.339100 seconds versus 1.103280 seconds, a 1.2137 baseline/candidate ratio
-and 17.6% lower candidate latency. The paired-question bootstrap speed-ratio
-interval was [1.1053, 1.3764]; the hybrid answered faster on 74% of questions.
-Arithmetic showed a 1.3455 ratio of median latencies; links showed 1.0229 with an
-interval spanning equal speed. All repeated token sequences and correctness
-values were identical, both conditions had zero truncations, and the exporter
-verified every question median against its raw trials. The
-[frozen combined report](../reports/boundary-accuracy-latency/README.md) retains
-all 600 measurements and the 100 input questions.
-
-This positive pilot result triggered the independent check. The stopped
-sequential holdout plan was superseded before it produced any predictions by
-one combined comparison job on all 600 test and 400 OOD questions. It retains
-the already pinned two-step candidate, warmup baseline, source/data hashes,
-serial decoding, and 96-token cap, with two interleaved repeats per method.
-Accuracy and latency are measured together on every question (4,000 requests).
-The independent results remain pending; the other deferred variants stay stopped.
+The independent run freezes the two-step candidate, reference, data, source,
+serial decoder, and 96-token cap. It measures accuracy and latency together on all
+600 test and 400 OOD questions, with two repeats per method. Its results are not
+yet included here. The [protocol](protocol.md) describes selection and scope;
+[reproduction instructions](reproduce.md) provide the commands.

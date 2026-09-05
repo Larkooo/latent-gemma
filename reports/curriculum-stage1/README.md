@@ -45,22 +45,21 @@ It excludes model loading, warmup, and external serving or network overhead.
 - Sampler replay shows 800 hybrid draws covering 761 unique training examples.
   These are short pilot budgets. The failure does not establish that longer or
   differently parameterized training cannot work.
-- First 100 validation examples only, one training seed. Test and OOD remain
-  unexamined; public-benchmark and matched extra-training controls remain required.
+- First 100 validation examples only, one training seed. Test/OOD, public-benchmark,
+  and matched extra-training evaluations were not performed for this recipe.
 - A ten-example intermediate audit ran alongside training. Its inference timings
   are excluded, and training wall time should not be treated as an isolated cost
   benchmark. The final validation matrix ran serially after training.
 
 ## Follow-up and artifacts
 
-A controlled follow-up adds a fixed `Reasoning:` prefix between latent states and
-generated text, preserving the warmup checkpoint and other training settings.
-Its results are not included here. An adapter expansion utility prepares a separate
-test of training earlier cache-writing layers. Neither change is assumed to work.
+The [fixed-transition experiment](../curriculum-boundary-stage1/README.md) added
+a `Reasoning:` prefix between latent states and generated text while preserving
+the warmup checkpoint and other training settings.
 
 Original predictions, exported summaries, paired comparisons, selected questions,
 training logs/configuration, and verified source snapshots accompany this report.
 Exported metadata replaces the absolute workspace prefix and retains original
 summary hashes. The frozen warmup source and earlier training details are in
 [the preceding pilot](../pilot-v2/README.md). Base and adapter weights are not
-included. No upstream proposal has been submitted.
+included.

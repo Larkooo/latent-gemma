@@ -38,8 +38,8 @@ they do not measure between-session hardware variation.
 
 This is one training seed, exploratory validation that overlaps checkpoint
 selection, and simple arithmetic/link tasks. It is not an independent test or a
-broad reasoning benchmark. The user accepted 96/100 as a pilot milestone after
-observing the accuracy results; that does not establish statistical equivalence.
+broad reasoning benchmark. The 96/100 development target was adopted after
+observing the results; it was not a prespecified equivalence margin.
 The hybrid still generates some text reasoning. This timing experiment does not
 measure FLOPs or energy; see the separate
 [logical-work audit](../inference-work-audit/README.md).

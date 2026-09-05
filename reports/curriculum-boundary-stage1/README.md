@@ -35,23 +35,25 @@ for examining multiple exploratory controls.
 Zeroing or corrupting explicit feedback retains the attention caches. A zero
 input can still attend to the prompt and write problem-dependent activations.
 The zero-latent inference control instead removes positions from a checkpoint
-trained with two positions. A separately trained zero-latent model with the same
-shortened text targets remains necessary to assess the latent method's contribution.
+trained with two positions. The subsequent
+[matched-training comparison](../matched-short-text-control/README.md) evaluates
+a separately trained zero-latent model with the same shortened targets.
 
 ## Mechanism and timing
 
 The feedback loop passes continuous hidden activations through a learned bridge
 into transformer input embeddings. It performs no vocabulary projection, token
 sampling, or nearest-token lookup inside that loop. The model then generates
-the remaining text reasoning and answer. This is hybrid latent/text reasoning,
-not a fully language-free system or a reproduction of Astra's architecture.
+the remaining text reasoning and answer. The method combines continuous feedback
+with visible text reasoning.
 
 The fixed boundary adds five forced text tokens after the two latent positions.
 These tokens are included in measured time and position counts, although they
 are excluded from generated-token counts. Fewer generated tokens alone do not
 prove lower latency or computation. Raw sequential timing is retained in the
-predictions for audit, but is not interpreted as a speedup. A separate repeated,
-interleaved comparison against the 99/100 warmup CoT checkpoint is pending.
+predictions for audit. The separate
+[interleaved comparison](../boundary-accuracy-latency/README.md) measures latency
+against the 99/100 warmup CoT reference.
 
 ## Training and limitations
 
@@ -67,11 +69,11 @@ interleaved comparison against the 99/100 warmup CoT checkpoint is pending.
   exploratory validation evidence, not an independent test estimate.
 - Last-six-layer LoRA plus bridge: 2,342,913 trainable parameters. Those layers
   reuse earlier attention keys/values, leaving cache-writing projections frozen.
-- The 96/100 quality screen was accepted after observing this result. It replaces
-  the earlier screen for advancing this pilot to timing, and is not a claim that
-  the initial accuracy-matching objective was met.
-- One training seed, short generated diagnostic tasks. Test and OOD remain
-  unexamined. Public benchmark transfer and matched training controls are pending.
+- The 96/100 development target was adopted after observing the result; it is
+  not a prespecified accuracy-equivalence margin.
+- One training seed and short diagnostic tasks. This report contains validation
+  results only. Subsequent checks are listed in the
+  [results summary](../../docs/experiment-log.md).
 
 ## Artifacts
 
@@ -80,4 +82,4 @@ questions, training logs/configuration, and verified source snapshots accompany
 this report. Exported metadata replaces the absolute workspace prefix and retains
 original summary hashes. The earlier warmup details are in
 [the preceding pilot](../pilot-v2/README.md). Base and adapter weights are not
-included in this report. No upstream proposal has been submitted.
+included in this report.

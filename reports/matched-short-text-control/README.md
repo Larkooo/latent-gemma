@@ -41,10 +41,10 @@ latent/text reasoning and does not establish a new semantic language of thought.
 
 These are the first 100 validation questions, including the 32 questions used
 for checkpoint selection. One training seed and simple diagnostic tasks do not
-establish broad reasoning quality. Independent test/OOD results and public
-benchmark transfer remain pending. No speedup is claimed from the sequential
-timings preserved in the raw predictions; repeated interleaved comparisons remain
-necessary.
+establish broad reasoning quality. The sequential timings in these predictions
+are not used to claim a speedup. See the separate
+[interleaved timing report](../boundary-accuracy-latency/README.md) and
+[results summary](../../docs/experiment-log.md) for subsequent evaluations.
 
 ## Artifacts
 
@@ -53,6 +53,6 @@ configuration, selected checkpoint metadata, logs, and source snapshots are
 included. The candidate predictions and shared validation questions are in the
 [fixed-boundary report](../curriculum-boundary-stage1/README.md); their hashes are
 recorded here. Exported metadata replaces absolute workspace prefixes and retains
-original summary hashes. Reproduction commands are in the [README](../../README.md).
-Base and adapter weights are not included in this report. No upstream proposal
-has been submitted.
+original summary hashes. Commands are in the
+[reproduction guide](../../docs/reproduce.md). Base and adapter weights are not
+included in this report.

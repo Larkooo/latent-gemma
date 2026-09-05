@@ -1,126 +1,61 @@
-# Proposed contribution: continuous embedding inputs for Gemma research
+# Proposal: continuous embedding inputs for Gemma
 
-Status: local working draft. No issue or pull request has been submitted. The
-first combined validation accuracy/latency result is included. Independent test
-results and final scope remain outstanding.
+## Motivation
 
-## Current evidence
+Continuous-state reasoning experiments need to read hidden states and feed them
+back as embeddings with correct positions, masks, and caches. A token-only public
+interface requires researchers to copy model internals. Gemma 4 adds a second
+concern: part of its per-layer input normally depends on discrete token IDs.
 
-The standalone MLX implementation passes continuous activations through a learned
-bridge into new transformer positions, then generates remaining text reasoning.
-On 100 diagnostic validation questions, the fixed-boundary hybrid scored 96/100
-versus 99/100 for text CoT. A separately trained control with the same shortened
-text targets and maximum update budget scored 66/100, while retaining 99/100 in
-full text mode. The hybrid solved 30 additional questions and lost none, with a
-paired bootstrap accuracy-difference interval of [21, 39] percentage points.
-See the [matched-training report](../reports/matched-short-text-control/README.md).
+The proposed contribution is a supported continuous-input path and a small
+research example using it.
 
-The combined accuracy/latency comparison retained 96/100 versus 99/100 while
-measuring median warm completed-answer latency of 1.103 seconds versus 1.339
-seconds: 17.6% lower median latency, or a 1.214 speed ratio. Both methods answered
-the same 100 questions three times, with randomized, counterbalanced order, fresh
-caches, and the same serial decoder. The speed-ratio 95% paired-question interval
-was [1.105, 1.376]. The benefit was concentrated in arithmetic; link-question
-latencies were approximately equal. See the
-[combined report](../reports/boundary-accuracy-latency/README.md).
+## Prototype evidence
 
-This supports useful latent computation and a measured pilot latency benefit
-under the tested recipe. It is one seed, one Apple Silicon session, simple
-diagnostic tasks, and exploratory validation that overlaps checkpoint selection.
-Training FLOPs are not matched, and lower inference FLOPs have not been measured.
-Initial GSM8K transfer scored 24/40 for the hybrid, 24/40 for warmup text CoT, and
-28/40 for the candidate adapter in full-text mode; no adapter was trained on
-GSM8K. Independent diagnostic test/OOD evaluation is in progress. An upstream
-submission must not generalize the pilot speedup into a broad model-quality claim.
+An MLX/LoRA prototype on Gemma 4 E2B scored 96/100 versus 99/100 for its text-CoT
+reference, with median completed-answer latency of 1.103 versus 1.339 seconds.
+The comparison used 600 interleaved requests. The speed ratio was 1.214 with a
+paired-question 95% interval of [1.105, 1.376]. A separately trained shortened-text
+control without latent positions scored 66/100.
 
-## Problem
+These are single-seed diagnostic validation results. The prototype retains text
+reasoning, its public-benchmark transfer result is mixed, and independent test
+and OOD evaluation is in progress. Lower total inference FLOPs have not been
+measured. See the [results](experiment-log.md) and
+[raw timing report](../reports/boundary-accuracy-latency/README.md).
 
-Researchers exploring continuous-state reasoning need to read hidden states and
-feed continuous embeddings back through the transformer with correct positions,
-attention masks, and caches. A token-only forward API forces them to copy model
-internals. Gemma 4 E2B/E4B add a second concern: per-layer embeddings normally
-depend on discrete token IDs, which continuous latent positions do not have.
+## Interface
 
-## Intended behavior
+At inspected commit `7b785991bd78626c73b317eb43fdbb6c292f7b9c`, Gemma 4's
+token-based `Transformer.__call__` already supports hidden-state returns. Its
+private `_Inputs` structure and `_apply_attention` method provide the machinery
+to reuse for an embedding-input path.
 
-An explicitly experimental input path accepts embeddings and the corresponding
-position/mask metadata. Normal token inputs preserve existing behavior. The
-per-layer embedding policy is explicit rather than silently recovering the
-nearest vocabulary token. Hidden-state outputs support a separately implemented
-experimental sampler and training recipe.
+The public contract should specify:
 
-At inspected Gemma commit `7b785991bd78626c73b317eb43fdbb6c292f7b9c`, Gemma 4
-already exposes `return_hidden_states` on its token-based `Transformer.__call__`.
-The internal `_Inputs` structure carries embeddings, positions, global/sliding
-masks, input masks, and per-layer inputs into `_apply_attention`. The concrete
-extension to discuss is a supported continuous-input path reusing that machinery,
-rather than another transformer implementation. Whether it is a separate method
-or a general input option should follow the maintainers' API preference.
+- Whether embeddings are scaled, and where native input scaling occurs.
+- How per-layer inputs are constructed when token IDs are absent.
+- Position, global/sliding-mask, and cache-update behavior.
+- Hidden-state output without requiring vocabulary logits.
 
-The contract must specify embedding scaling, per-layer input construction when
-token IDs are absent, cache updates, and hidden-state versus vocabulary outputs.
-The existing method constructs vocabulary logits even when hidden states are
-requested; actual execution can depend on compiler elimination of unused results.
-A research-facing hidden-only path should make that intent explicit without
-relying on a caller's compilation context.
+The MLX prototype uses unscaled continuous embeddings, preserves the projected
+per-layer branch, and zeros the token-table contribution at latent positions.
+It retains the native mixing scale. This is an explicit experimental policy;
+released weights were not trained specifically for this input path.
 
-Our MLX prototype retains the projected, continuous per-layer input branch and
-sets the token-indexed contribution to zero at latent positions. It keeps the
-native mixing scale. That is a research design decision to evaluate, not a
-claim that released weights were trained for such inputs.
+## Implementation and review
 
-## Evidence required before submission
+The official implementation would follow the repository's JAX/Flax conventions
+and reuse its transformer internals. Normal token and multimodal behavior must
+remain compatible. Validation should cover token/embedding equivalence, shared
+KV, sliding masks, multiple cached positions, and gradients through feedback.
+The current MLX tests do not validate a JAX/Flax port.
 
-- Published, pinned base checkpoint and adapter configuration.
-- Train/validation/test hashes and independent evaluation of final settings.
-- Accuracy and measured latency compared with explicit CoT and native Gemma
-  thinking, plus matched direct-answer and training-budget controls.
-- Evidence from activation ablations; positive and negative results.
-- Tests for normal-path equivalence, cache/position correctness, causal masking,
-  gradients across latent steps, and per-layer embedding handling.
-- Clear scope: experiments on text inputs; no claim about multimodal reasoning
-  unless separately evaluated. No claim to reproduce another lab's architecture.
+The first discussion should establish whether a community example, experimental
+utility, or general input interface fits the library. An agreed interface can
+then be implemented and submitted as a focused PR. A library contribution does
+not modify official Gemma weights.
 
-The MLX tests establish prototype behavior; they do not validate a JAX/Flax port.
-Any proposed Gemma implementation needs its own token-versus-embedding equivalence
-tests, shared-cache and sliding-mask checks, and differentiation through multiple
-continuous positions. Existing token and multimodal entry points should preserve
-their current behavior.
-
-## Contribution sequence
-
-1. Share the standalone experiment and evidence in a maintainer discussion.
-2. Agree whether an example, experimental utility, or general embedding-input
-   interface belongs in the library.
-3. Port the agreed interface to the repository's JAX/Flax conventions, keeping
-   the main sampling path unchanged and adding focused tests.
-4. Submit a regular PR with the measured behavior, motivation, and validation.
-
-The repository welcomes contributions and requires review and a Google CLA.
-An accepted library change does not change the official released model weights.
-
-## Contribution history checked on 2026-09-05
-
-External contributions have been merged. The community
-[batched-streaming feature, PR #446](https://github.com/google-deepmind/gemma/pull/446),
-opened November 1, 2025 and merged January 8, 2026. A maintainer explicitly
-attributed the delay to internal workload. The
-[Gemma3n KV-cache fix, PR #392](https://github.com/google-deepmind/gemma/pull/392),
-opened August 27 and merged October 17, 2025. Both had a concrete, limited
-behavioral purpose. Conversely,
-[multimodal embedding tests, PR #545](https://github.com/google-deepmind/gemma/pull/545),
-opened February 10, 2026 and remained open when checked.
-
-These examples establish that community code can land and review may take time;
-they are not an acceptance-rate estimate. Our research recipe is a larger and
-less established proposition than those merged fixes/features. The practical
-first ask is feedback on the reproducible experiment and agreement about whether
-an example or supported continuous-input interface fits the library. Possible
-maintainer questions include independent benchmark performance, prior-work
-comparison, backend compatibility, API stability, and maintenance cost. These
-are our expectations, not statements received from the Gemma team.
-
-References:
-- https://github.com/google-deepmind/gemma/blob/main/CONTRIBUTING.md
-- https://github.com/google-deepmind/gemma/blob/7b785991bd78626c73b317eb43fdbb6c292f7b9c/gemma/gm/nn/gemma4/_transformer.py
-- https://developers.googleblog.com/en/unlock-global-communication-gemma-projects/
+[Gemma contribution requirements](https://github.com/google-deepmind/gemma/blob/main/CONTRIBUTING.md)
+require review and a Google CLA. The underlying continuous-thought approach is
+established prior work; see [Coconut](https://arxiv.org/abs/2412.06769).

@@ -50,17 +50,16 @@ product-then-sum. Thus these tasks do not yet support a broad reasoning claim.
   repeated inputs remove value dependencies that MLX's lazy evaluation may prune.
   Their shorter latency is not proof of equal computation at higher speed.
 - All observations are exploratory validation results from one training seed.
-  The final test split and longer/larger-input OOD split remain unexamined.
-- A matched additional-training control and public-benchmark evaluation remain
-  necessary for any later positive claim. The current accuracy gap is already
-  large enough to reject this recipe against the quality target.
+  Test and OOD splits were not evaluated for this recipe.
+- The accuracy gap was sufficient to reject the recipe. It was not advanced to
+  matched additional-training controls or public-benchmark evaluation.
 - The pretrained forced-format pilots are included in the raw files for
   transparency: direct scored 22/100 with 69 truncations at 16 tokens; explicit
   CoT scored 14/100 with 83 truncations at 96 tokens. These are format/budget
   failures and must not be presented as released-model capability estimates.
   Native thinking and ordinary chat are evaluated separately at larger budgets.
 
-## Artifacts and next experiment
+## Artifacts and subsequent work
 
 `results.csv` contains exact summary values. The JSONL files contain the original
 predictions and timing measurements. Their SHA-256 values match the original
@@ -69,9 +68,7 @@ record the original summary hash. Source snapshots, training configurations,
 loss logs, dataset manifest, and the selected 100 examples accompany the results.
 No base weights or adapter weights are included in this report.
 
-The next experiment gradually replaces initial text reasoning steps with latent
-positions, retaining the remaining text as a training target. This is motivated
-by [Coconut's training curriculum](https://arxiv.org/html/2412.06769v2), but uses
-Gemma, LoRA, and a different feedback bridge. It is a new hypothesis to test;
-this pilot is not evidence that it will succeed. No upstream proposal has been
-submitted.
+The [subsequent hybrid experiment](../curriculum-stage1/README.md) replaced
+initial text reasoning steps with latent positions while retaining the remaining
+text as a target. It adapted [Coconut's curriculum](https://arxiv.org/html/2412.06769v2)
+to Gemma, LoRA, and this feedback bridge.

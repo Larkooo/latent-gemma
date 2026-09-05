@@ -23,13 +23,12 @@ question sampling, not uncertainty from different hardware sessions.
 
 The previous sequential evaluation of these paths produced substantially different
 timings despite identical outputs. This small repeated check addresses that concern
-for the present session; larger candidate comparisons remain necessary.
+for this session. The subsequent
+[primary comparison](../boundary-accuracy-latency/README.md) uses the same
+measurement procedure.
 
-After all measurements and the result file were saved, the outer queue's log reader
-failed on a numeric line of pretty-printed JSON. All raw hashes and question/repeat
-counts were verified. The logger and benchmark console output were corrected, and
-the deferred primary candidate comparison was queued after the current serial jobs.
-No timed requests from this check were rerun or discarded.
+All raw hashes and question/repeat counts were verified. No timed requests were
+rerun or discarded.
 
 Pinned model, adapter hash, dependency versions, decoding conditions, source
 snapshots, raw trials, and question aggregates accompany this report. Absolute
