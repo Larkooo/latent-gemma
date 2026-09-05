@@ -41,25 +41,32 @@ Use a directory outside this checkout for model weights and experiment runs.
 
 ```sh
 .venv/bin/python scripts/download_model.py \
-  mlx-community/gemma-3-270m-it-bf16 ../work/models/gemma270m \
-  --revision c806ef3a4ed971bd75aaee3346e0fef808512f03
+  mlx-community/gemma-4-e2b-it-4bit ../work/models/gemma4 \
+  --revision 238767527555cb75a05732a84dff5d6ba0dd6809
 .venv/bin/latent-gemma data --output ../work/data/diagnostics
 .venv/bin/latent-gemma train \
-  --model ../work/models/gemma270m --data ../work/data/diagnostics \
-  --output ../work/runs/warmup --modes direct cot --steps 600 \
-  --lora-layers 18 --rank 32 --batch-size 8
+  --model ../work/models/gemma4 --data ../work/data/diagnostics \
+  --output ../work/runs/warmup --modes direct cot --steps 400 \
+  --lora-layers 6 --rank 16 --batch-size 4 --learning-rate 0.00002
 .venv/bin/latent-gemma train \
-  --model ../work/models/gemma270m --data ../work/data/diagnostics \
+  --model ../work/models/gemma4 --data ../work/data/diagnostics \
   --adapter ../work/runs/warmup/best --output ../work/runs/latent \
-  --modes direct cot latent --latent-steps 4 --steps 600 --batch-size 8
+  --modes direct cot latent --latent-steps 4 --steps 600 --batch-size 4 \
+  --learning-rate 0.00002
 .venv/bin/latent-gemma evaluate \
-  --model ../work/models/gemma270m --adapter ../work/runs/latent/best \
+  --model ../work/models/gemma4 --adapter ../work/runs/latent/best \
   --data ../work/data/diagnostics/validation.jsonl --mode latent \
   --latent-steps 4 --max-tokens 16 --output ../work/runs/latent-validation.jsonl
 ```
 
 Evaluate `--mode direct` and `--mode cot` as matched controls. Use
 `--ablation zero`, `--ablation shuffle`, and `--ablation repeat` with latent mode.
+Use `--mode native --max-tokens 512` without an adapter for Gemma 4's native
+thinking baseline. `auto` computation uses float32 for Gemma 4 because recurrent
+training exposed nonfinite gradients with the original bfloat16 computation;
+the integer weight storage remains quantized. Use the same computation dtype
+for latency comparisons. See the [experiment log](docs/experiment-log.md) for
+the numerical and token-alignment failures that were corrected during development.
 Fix configuration choices on validation data before evaluating the test set.
 An increase in output token efficiency alone is not evidence of lower latency.
 
@@ -81,4 +88,3 @@ license below does not relicense model weights or datasets.
 Method references: [Coconut](https://github.com/facebookresearch/coconut),
 [recurrent-depth research](https://arxiv.org/abs/2502.05171), and
 [MLX LM](https://github.com/ml-explore/mlx-lm).
-
