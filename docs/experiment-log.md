@@ -149,3 +149,28 @@ The updated CPU test suite passes 52 tests; formatting and lint checks pass.
 A real-tokenizer audit also passed on all 6,000 diagnostic and 6,973 GSM8K training
 examples: the fixed boundary matches inference, all remaining text tokens are
 supervised, content round-trips, and prompts are identical to the CoT prompts.
+
+The original stage-1 validation matrix completed: hybrid K=2 scored 62/100,
+zero feedback 60/100, reversed feedback 59/100, repeated initial feedback 68/100,
+text CoT 99/100, and hybrid K=0 99/100. The last two paths produced equivalent
+answers and token counts but different sequential-run median request times
+(0.639 versus 0.908 seconds). Timings need interleaved repeated measurement before
+a speed claim; this failed candidate is already rejected on accuracy.
+
+The fixed-boundary run is now training with the same initial checkpoint, data
+sampling seed, 400-update budget, and other hyperparameters. Teacher-forced loss
+alone does not determine whether the change succeeds.
+
+Two follow-up constraints were identified from the implementation and sampler:
+
+- All six currently adapted Gemma 4 layers are shared-KV readers. No trainable
+  value projection writes new attention memory. An expansion utility now adds
+  zero-output adapters to earlier layers without discarding the existing
+  checkpoint. CPU tests verify preserved nonzero learned weights and outputs,
+  newly trainable cache-writer gradients, frozen base weights, and saved parameter
+  coverage. The suite passes 56 tests.
+- Replaying the trainer's seeded sampler shows the original staged checkpoint
+  saw only 800 hybrid example draws, covering 761 unique examples of 6,000. Its
+  arithmetic exposure was 396 draws/379 unique examples. The selected direct-
+  compression checkpoint saw 664 latent draws/632 unique examples. These are
+  short pilot training budgets, not evidence that the overall method cannot work.

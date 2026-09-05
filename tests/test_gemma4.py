@@ -2,6 +2,7 @@ import mlx.core as mx
 import mlx.nn as nn
 import numpy as np
 import pytest
+from mlx.utils import tree_flatten
 from mlx_lm.models.gemma4_text import Model, ModelArgs
 
 from latent_gemma.model import AdapterConfig, LatentModel, token_loss
@@ -121,3 +122,43 @@ def test_cached_feedback_gradients_match_full_recomputation(model):
     ]:
         a, b = np.array(a), np.array(b)
         assert np.linalg.norm(a - b) / max(np.linalg.norm(b), 1e-8) < 1e-4
+
+
+def test_expansion_preserves_trained_outputs_and_enables_cache_writer_gradients(model, tmp_path):
+    # Existing nonzero updates must survive expansion, not just initial adapters.
+    projection = model.backbone.layers[-1].self_attn.q_proj
+    projection.lora_b = mx.full_like(projection.lora_b, 0.01)
+    old_parameters = {k: np.array(v) for k, v in tree_flatten(model.trainable_parameters())}
+    assert not any("v_proj" in k for k in old_parameters)
+    prompt = mx.array([[2, 3, 4]])
+    before = {steps: np.array(model.logits(model.prefill(prompt, steps)[0])) for steps in (0, 2)}
+    model.expand_lora(4)
+    assert model.config.num_layers == 4
+    after_parameters = dict(tree_flatten(model.trainable_parameters()))
+    for key, value in old_parameters.items():
+        np.testing.assert_array_equal(value, np.array(after_parameters[key]))
+    added = after_parameters.keys() - old_parameters.keys()
+    assert any("v_proj.lora_b" in key for key in added)
+    assert all(key.endswith(("lora_a", "lora_b")) for key in added)
+    for key in added:
+        if key.endswith("lora_b"):
+            assert mx.all(after_parameters[key] == 0).item()
+    for steps, expected in before.items():
+        close(model.logits(model.prefill(prompt, steps)[0]), expected)
+    target = mx.array([[5, 6]])
+    loss, grads = nn.value_and_grad(model, token_loss)(model, prompt, target, mx.ones((1, 2)), 2)
+    assert np.isfinite(loss.item())
+    cache_writer_grad = grads["backbone"]["model"]["layers"][0]["self_attn"]["v_proj"]["lora_b"]
+    assert mx.sum(mx.abs(cache_writer_grad)).item() > 0
+    model.save_adapter(tmp_path, {"model_path": "tiny"})
+    saved_weights = mx.load(str(tmp_path / "adapter.safetensors"))
+    assert saved_weights.keys() == after_parameters.keys()
+
+
+@pytest.mark.parametrize("layers", [1, 2, 5])
+def test_invalid_expansion_leaves_existing_model_intact(model, layers):
+    names = {key for key, _ in tree_flatten(model.trainable_parameters())}
+    with pytest.raises(ValueError, match="increase and fit"):
+        model.expand_lora(layers)
+    assert model.config.num_layers == 2
+    assert names == {key for key, _ in tree_flatten(model.trainable_parameters())}

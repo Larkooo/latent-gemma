@@ -125,6 +125,26 @@ supply an intermediate answer. The default is `none`. Evaluation inherits the
 checkpoint's recorded boundary unless explicitly overridden. Boundary tokens
 are included in timing and position counts. This option is experimental.
 
+## Expanding the trainable layers
+
+Gemma 4 E2B's last 20 layers reuse attention keys/values from earlier layers.
+Adapting only the last six layers therefore leaves every key/value writer frozen.
+To test whether adapting earlier layers helps, expand a saved adapter before
+continuing training:
+
+```sh
+.venv/bin/python scripts/expand_adapter.py \
+  --model ../work/models/gemma4 --adapter ../work/runs/warmup/best \
+  --output ../work/runs/warmup-all-layers --lora-layers 35
+```
+
+This preserves existing weights and adds zero-output LoRA branches to earlier
+layers. It verifies text and latent logits on a fixed probe before saving. The
+same projection targets are used, including value projections where present;
+key projections remain frozen. It increases training capacity and adapter cost,
+and does not reduce the number of executed transformer layers. Any accuracy
+benefit must be established through further training and evaluation.
+
 ## Public benchmark data
 
 ```sh

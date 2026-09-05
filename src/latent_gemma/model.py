@@ -7,15 +7,23 @@ not recurrent reuse of a subset of layers within a token's forward pass.
 """
 
 import json
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from pathlib import Path
 
 import mlx.core as mx
 import mlx.nn as nn
-from mlx.utils import tree_flatten
+from mlx.utils import tree_flatten, tree_unflatten
 from mlx_lm.models.cache import KVCache
+from mlx_lm.tuner.lora import LoRALinear
 from mlx_lm.tuner.utils import linear_to_lora_layers
 from mlx_lm.utils import get_total_parameters, load
+
+LORA_KEYS = (
+    "self_attn.q_proj",
+    "self_attn.v_proj",
+    "self_attn.o_proj",
+    "mlp.down_proj",
+)
 
 
 @dataclass(frozen=True)
@@ -52,6 +60,8 @@ class LatentModel(nn.Module):
             raise ValueError(f"Unsupported backbone: {backbone.model_type}")
         self.backbone = backbone
         self.config = config
+        if not 0 <= config.num_layers <= len(backbone.layers):
+            raise ValueError("Adapter layer count must be between zero and the backbone depth")
         dtype = config.compute_dtype
         if dtype == "auto":
             dtype = "float32" if backbone.model_type.startswith("gemma4") else "original"
@@ -80,15 +90,37 @@ class LatentModel(nn.Module):
                     "rank": config.rank,
                     "scale": config.scale,
                     "dropout": 0.0,
-                    "keys": [
-                        "self_attn.q_proj",
-                        "self_attn.v_proj",
-                        "self_attn.o_proj",
-                        "mlp.down_proj",
-                    ],
+                    "keys": LORA_KEYS,
                 },
             )
         self.bridge = FeedbackBridge(self.hidden_size, config.bridge_rank, embedding_rms)
+
+    def expand_lora(self, num_layers: int) -> None:
+        """Add zero-output adapters to earlier layers, preserving trained weights."""
+        depth = len(self.backbone.layers)
+        if not self.config.num_layers < num_layers <= depth:
+            raise ValueError("Expanded adapter layer count must increase and fit the backbone")
+        pending = []
+        for layer in self.backbone.layers[depth - num_layers : depth - self.config.num_layers]:
+            replacements = []
+            for name, module in layer.named_modules():
+                if name not in LORA_KEYS:
+                    continue
+                if not isinstance(module, (nn.Linear, nn.QuantizedLinear)):
+                    raise ValueError(f"Cannot expand dense LoRA over {type(module).__name__}")
+                replacements.append(
+                    (
+                        name,
+                        LoRALinear.from_base(
+                            module, r=self.config.rank, scale=self.config.scale, dropout=0.0
+                        ),
+                    )
+                )
+            pending.append((layer, replacements))
+        # Validate and construct every replacement before mutating the model.
+        for layer, replacements in pending:
+            layer.update_modules(tree_unflatten(replacements))
+        self.config = replace(self.config, num_layers=num_layers)
 
     @property
     def language_model(self):
