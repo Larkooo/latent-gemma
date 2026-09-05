@@ -326,3 +326,38 @@ while the 96/100 answer score does not imply universal compliance with the short
 target. The [compression audit](../reports/arithmetic-compression-audit/README.md)
 preserves every continuation and a standalone reproduction script. It does not
 decode or interpret latent activations.
+
+An [inference work audit](../reports/inference-work-audit/README.md) distinguishes
+shorter output from lower total computation. The fixed-boundary hybrid emits
+29.1% fewer tokens than the same adapter's full-text mode, but mean nominal
+transformer positions rise from 62.85 to 63.42 because of the two latent positions
+and five-token transition. Arithmetic positions decrease; link-task positions
+increase. The transition is processed as one block, and the archived decoder
+uses fewer vocabulary projections. These counters do not establish actual FLOPs,
+energy, or latency savings.
+
+The boundary hybrid completed its initial GSM8K transfer check at 24/40, with
+three truncations at 768 tokens. The same adapter's full-text mode scored 28/40
+with one truncation, and the warmup full-text reference scored 24/40 with three.
+All three are graded with the same numeric-equivalence policy. This small,
+untrained transfer sample does not establish broad reasoning improvement; the
+matched shortened-text control is still running.
+
+A fixed two-step candidate versus warmup-CoT evaluation is queued on all 600
+untouched diagnostic test questions and all 400 OOD questions. The plan pins
+adapters, sources, data hashes, the 96-token cap, and serial decoding before any
+predictions from those splits are read. It does not choose among step counts or
+checkpoints on test results. Its sequential timings will not be used as speed
+evidence, and the accepted 96/100 pilot result is not treated as a prespecified
+equivalence margin for the new samples.
+
+The user requested that the main accuracy and latency comparison take precedence
+over secondary checks. The remaining public shortened-text control was interrupted
+after 32 of 40 questions, with its partial output retained and excluded from the
+complete transfer comparison. Waiting jobs for the one-step variant, pipelined
+decoder, and larger frozen evaluation were stopped before they launched GPU work.
+Those checks are deferred; the frozen evaluation plan remains available but has
+no results. The two-step candidate versus warmup-CoT benchmark is now running
+directly, collecting accuracy and repeated completed-answer timings together on
+100 questions. The documented default workflow now runs this combined comparison
+immediately after training.

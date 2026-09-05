@@ -30,6 +30,11 @@ reproduce its exact training curriculum or results.
 
 ## Measurements and controls
 
+- After training a candidate, run the main text-versus-latent comparison first.
+  Collect answer accuracy and completed-answer latency together with
+  `scripts/benchmark_pair.py`; do not put separate accuracy passes or secondary
+  controls ahead of this combined result. Larger evaluations and extra variants
+  should answer specific uncertainties exposed by the main comparison.
 - Establish pretrained, direct-answer SFT, text-CoT SFT, and latent-answer models.
 - Use identical base weights and disjoint train/validation/test data.
 - Report all experiment configurations, including failed experiments.

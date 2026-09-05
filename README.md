@@ -74,12 +74,18 @@ Use a directory outside this checkout for model weights and experiment runs.
   --modes cot hybrid --latent-steps 2 --reasoning-steps-to-drop 1 \
   --hybrid-boundary reasoning --steps 400 --batch-size 4 \
   --learning-rate 0.00002
-.venv/bin/latent-gemma evaluate \
+.venv/bin/python scripts/benchmark_pair.py \
   --model ../work/models/gemma4 --adapter ../work/runs/stage1/best \
-  --data ../work/data/diagnostics/validation.jsonl --mode hybrid \
-  --latent-steps 2 --max-tokens 96 --limit 100 \
-  --output ../work/runs/stage1-validation.jsonl
+  --baseline-adapter ../work/runs/warmup/best \
+  --data ../work/data/diagnostics/validation.jsonl --candidate-mode hybrid \
+  --latent-steps 2 --max-tokens 96 --limit 100 --repeats 3 \
+  --output ../work/runs/stage1-comparison
 ```
+
+The final command measures answer accuracy and completed-answer latency together,
+alternating both methods on the same questions. Run this main comparison directly
+after training. Additional ablations, decoder variants, and larger evaluations
+follow when they address a question raised by that result.
 
 The defaults use seed 42 and select a checkpoint every 100 updates. The recorded
 run selected stage-one step 300. Exact results can vary with hardware and library
@@ -118,17 +124,8 @@ final decoding and answer extraction on a warm model. Compare that field with
 files must contain it. Historical `latency_s` excludes prompt preparation and final
 decoding. Neither measurement includes model loading or external serving overhead.
 
-For timing claims, use repeated measurements with randomized, counterbalanced
-condition order, loading both checkpoints before measurement:
-
-```sh
-.venv/bin/python scripts/benchmark_pair.py \
-  --model ../work/models/gemma4 --adapter ../work/runs/stage1/best \
-  --baseline-adapter ../work/runs/warmup/best \
-  --data ../work/data/diagnostics/validation.jsonl \
-  --output ../work/runs/paired-timing --candidate-mode hybrid \
-  --latent-steps 2 --limit 100 --repeats 3 --max-tokens 96
-```
+The combined comparison above uses repeated measurements with randomized,
+counterbalanced condition order, loading both checkpoints before measurement.
 
 The baseline defaults to text CoT. Each condition starts from a fresh attention
 cache. Raw measurements are retained, and each question contributes once to the
@@ -168,10 +165,12 @@ two latent positions:
   --modes cot hybrid --latent-steps 2 --reasoning-steps-to-drop 1 \
   --hybrid-boundary reasoning \
   --steps 400 --batch-size 4 --learning-rate 0.00002
-.venv/bin/latent-gemma evaluate \
+.venv/bin/python scripts/benchmark_pair.py \
   --model ../work/models/gemma4 --adapter ../work/runs/stage1/best \
-  --data ../work/data/diagnostics/validation.jsonl --mode hybrid \
-  --latent-steps 2 --max-tokens 96 --output ../work/runs/stage1-validation.jsonl
+  --baseline-adapter ../work/runs/warmup/best \
+  --data ../work/data/diagnostics/validation.jsonl --candidate-mode hybrid \
+  --latent-steps 2 --max-tokens 96 --limit 100 --repeats 3 \
+  --output ../work/runs/stage1-comparison
 ```
 
 Each new training invocation resets Adam's state and records the source adapter.

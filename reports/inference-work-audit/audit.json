@@ -1,0 +1,87 @@
+{
+  "scope": "Post-observation accounting of the 100-question boundary diagnostic validation pilot; same selected adapter in both modes.",
+  "input_sha256": {
+    "curriculum-boundary-stage1/cot.jsonl": "500636ed99ff4260ba1507e39c108eddd4886b8a66a85ff5635e7f57c9e49421",
+    "curriculum-boundary-stage1/sources/1144c396c3bfc172/evaluate.py": "84f43a2aa1e527f9918dd2fb9b50a7e1ade253dcd3f88bed06ecd266d08f04d4",
+    "curriculum-boundary-stage1/hybrid.jsonl": "7fb5c343851355fffa3a3e2333f25849b0019345ebd04d89090ba27da028b20e"
+  },
+  "results": {
+    "overall": {
+      "n": 100,
+      "text_cot": {
+        "correct": 99,
+        "mean_prompt_tokens": 41.78,
+        "mean_generated_tokens": 22.07,
+        "mean_forced_tokens": 0,
+        "mean_latent_steps": 0,
+        "mean_transformer_positions": 62.85,
+        "inferred_mean_vocabulary_projections": 22.07
+      },
+      "hybrid_k2": {
+        "correct": 96,
+        "mean_prompt_tokens": 41.78,
+        "mean_generated_tokens": 15.64,
+        "mean_forced_tokens": 5,
+        "mean_latent_steps": 2,
+        "mean_transformer_positions": 63.42,
+        "inferred_mean_vocabulary_projections": 15.64
+      },
+      "generated_token_reduction_fraction": 0.29134571816946075,
+      "nominal_transformer_position_change_fraction": 0.009069212410501182
+    },
+    "arithmetic": {
+      "n": 53,
+      "text_cot": {
+        "correct": 52,
+        "mean_prompt_tokens": 33.15094339622642,
+        "mean_generated_tokens": 29.88679245283019,
+        "mean_forced_tokens": 0,
+        "mean_latent_steps": 0,
+        "mean_transformer_positions": 62.0377358490566,
+        "inferred_mean_vocabulary_projections": 29.88679245283019
+      },
+      "hybrid_k2": {
+        "correct": 49,
+        "mean_prompt_tokens": 33.15094339622642,
+        "mean_generated_tokens": 19.528301886792452,
+        "mean_forced_tokens": 5,
+        "mean_latent_steps": 2,
+        "mean_transformer_positions": 58.679245283018865,
+        "inferred_mean_vocabulary_projections": 19.528301886792452
+      },
+      "generated_token_reduction_fraction": 0.34659090909090917,
+      "nominal_transformer_position_change_fraction": -0.0541362530413626
+    },
+    "links": {
+      "n": 47,
+      "text_cot": {
+        "correct": 47,
+        "mean_prompt_tokens": 51.51063829787234,
+        "mean_generated_tokens": 13.25531914893617,
+        "mean_forced_tokens": 0,
+        "mean_latent_steps": 0,
+        "mean_transformer_positions": 63.765957446808514,
+        "inferred_mean_vocabulary_projections": 13.25531914893617
+      },
+      "hybrid_k2": {
+        "correct": 47,
+        "mean_prompt_tokens": 51.51063829787234,
+        "mean_generated_tokens": 11.25531914893617,
+        "mean_forced_tokens": 5,
+        "mean_latent_steps": 2,
+        "mean_transformer_positions": 68.76595744680851,
+        "inferred_mean_vocabulary_projections": 11.25531914893617
+      },
+      "generated_token_reduction_fraction": 0.1508828250401284,
+      "nominal_transformer_position_change_fraction": 0.07841174507841164
+    }
+  },
+  "interpretation": [
+    "Generated-token counts include EOS; forced transition tokens are separate.",
+    "The five-token transition is processed as one block; it is not five autoregressive generation steps.",
+    "Transformer positions are logical input positions, not measured FLOPs, executed layer counts, GPU time, energy, or bytes moved.",
+    "MLX lazy execution and Gemma shared KV can prune unused intermediate work.",
+    "Vocabulary projection counts are inferred from the archived serial decoder, not hardware counters.",
+    "This audit does not establish faster inference or lower total computation."
+  ]
+}
