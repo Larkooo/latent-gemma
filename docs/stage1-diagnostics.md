@@ -75,16 +75,33 @@ Paired: 53 both correct, 13 only feedback, 13 only shortened text, 49 both
 wrong. The two arms are different models at the same accuracy. At this budget
 the latent positions and their feedback contribute nothing.
 
+## Learning rate 1e-4 is too high for this LoRA setup
+
+Feedback stage 1 retrained from the same warmup with only the learning rate
+changed (2e-5 to 1e-4, the paper's value for full fine-tuning of GPT-2):
+
+| Arm | Correct | Validation loss | Truncated |
+|---|---:|---:|---:|
+| Feedback, 2e-5 | 66/128 | 0.544 | 1 |
+| Feedback, 1e-4 | 45/128 | 0.583 | 4 |
+
+Training loss stayed above the 2e-5 curve throughout (0.64 vs 0.50 over
+updates 201-300) with gradient-norm spikes up to 55. The 1e-4 model makes new
+arithmetic slips inside steps it still writes ("$200 - $198 = $12"), so the
+damage is general, not specific to the hidden step. Paired against the 2e-5
+run: 34 both correct, 32 only 2e-5, 11 only 1e-4. The candidate objectives
+below therefore use 2e-5, where the 66/128 baseline and its matched
+shortened-text control already exist.
+
 ## Pending runs
 
-Queued after this note was drafted, all from the same warmup and budget:
+Queued from the same warmup and budget at 2e-5:
 
-- Feedback at learning rate 1e-4, with the same ablation diagnostics.
-- Feedback at 1e-4 with an auxiliary objective that decodes the removed step's
-  result from the final latent state (`--value-aux-weight 0.5`).
-- Feedback at 1e-4 with the carried-value tokens upweighted in the text loss
+- Feedback with an auxiliary objective that decodes the removed step's result
+  from the final latent state (`--value-aux-weight 0.5`).
+- Feedback with the carried-value tokens upweighted in the text loss
   (`--carried-value-weight 5`).
-- Shortened-text and learned-pause controls at the same learning rate.
+- Learned-pause control.
 
 Results will be appended here with their prediction hashes.
 
