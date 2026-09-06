@@ -160,7 +160,9 @@ def test_pause_adapter_round_trip(tmp_path, model):
     config = AdapterConfig(**json.loads((tmp_path / "config.json").read_text())["adapter"])
     restored = LatentModel(Model(model.backbone.args), config)
     restored.backbone.load_weights(tree_flatten(model.backbone.parameters()))
-    restored.load_weights(list(mx.load(str(tmp_path / "adapter.safetensors")).items()), strict=False)
+    restored.load_weights(
+        list(mx.load(str(tmp_path / "adapter.safetensors")).items()), strict=False
+    )
     assert_close(restored.prefill(ids, 2)[0], expected)
 
 

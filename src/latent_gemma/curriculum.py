@@ -15,7 +15,7 @@ import mlx.nn as nn
 import mlx.optimizers as optim
 from mlx.utils import tree_flatten, tree_map, tree_unflatten
 
-from .data import encode_example, read_examples
+from .data import encode_example, read_examples, removed_step_result
 from .evaluate import generate
 from .model import parameter_counts, token_loss
 from .provenance import capture, sha256
@@ -35,6 +35,8 @@ class StageConfig:
     validation_max_tokens: int = 384
     checkpoint_every: int = 50
     log_every: int = 10
+    carried_value_weight: float = 1.0
+    value_aux_weight: float = 0.0
 
     def validate(self):
         for name in (
@@ -53,6 +55,10 @@ class StageConfig:
             raise ValueError("Latent and removed reasoning counts must be nonnegative")
         if not math.isfinite(self.learning_rate) or self.learning_rate <= 0:
             raise ValueError("learning_rate must be finite and positive")
+        if not math.isfinite(self.carried_value_weight) or self.carried_value_weight <= 0:
+            raise ValueError("carried_value_weight must be finite and positive")
+        if not math.isfinite(self.value_aux_weight) or self.value_aux_weight < 0:
+            raise ValueError("value_aux_weight must be finite and nonnegative")
 
 
 def atomic_json(path: Path, value):
@@ -76,11 +82,13 @@ def checkpoint_path(output: Path, pointer: str = "last") -> Path:
     return path
 
 
-def accumulated_gradient(model, tokenizer, records, latent_steps):
+def accumulated_gradient(model, tokenizer, records, latent_steps, value_aux_weight=0.0):
     """Microbatch one keeps full-vocabulary activations within laptop memory.
 
     Weight by supervised tokens, so accumulation matches the concatenated token
     objective even when reasoning lengths differ or the last batch is smaller.
+    Records may carry a fourth element: token ids of the removed step's result
+    for the auxiliary decoding branch.
     """
     value_and_grad = nn.value_and_grad(model, token_loss)
     total_tokens = sum(sum(record[2]) for record in records)
@@ -90,7 +98,10 @@ def accumulated_gradient(model, tokenizer, records, latent_steps):
     total_loss = 0.0
     for record in records:
         batch = make_batch([record], tokenizer.pad_token_id or 0)
-        loss, grads = value_and_grad(model, *batch, latent_steps)
+        value = None
+        if value_aux_weight > 0 and len(record) > 3 and record[3]:
+            value = mx.array([record[3]], dtype=mx.int32)
+        loss, grads = value_and_grad(model, *batch, latent_steps, "none", value, value_aux_weight)
         weight = sum(record[2]) / total_tokens
         if accumulated is None:
             accumulated = tree_map(lambda g: g * weight, grads)
@@ -273,12 +284,26 @@ def train_stage(
         atomic_json(output / "run.json", run)
         capture(output, model_path, source_adapter)
 
-    def encode(example):
+    def encode(example, weight=1.0):
         return encode_example(
-            tokenizer, example, "hybrid", config.reasoning_steps_to_drop, config.hybrid_boundary
+            tokenizer,
+            example,
+            "hybrid",
+            config.reasoning_steps_to_drop,
+            config.hybrid_boundary,
+            carried_value_weight=weight,
         )
 
-    records = [encode(x) for x in examples]
+    def training_record(example):
+        record = encode(example, config.carried_value_weight)
+        if config.value_aux_weight <= 0:
+            return record
+        result = removed_step_result(example, config.reasoning_steps_to_drop)
+        value_ids = tokenizer.encode(result, add_special_tokens=False) if result else None
+        return (*record, value_ids)
+
+    records = [training_record(x) for x in examples]
+    # Validation loss stays the unweighted text objective, comparable across arms.
     val_records = [encode(x) for x in validation]
     optimizer = optim.AdamW(learning_rate=config.learning_rate, weight_decay=0.0)
     metadata = {
@@ -338,7 +363,11 @@ def train_stage(
                 mx.random.seed(config.seed + step)
                 model.train()
                 loss, grads, tokens = accumulated_gradient(
-                    model, tokenizer, [records[i] for i in indices], config.latent_steps
+                    model,
+                    tokenizer,
+                    [records[i] for i in indices],
+                    config.latent_steps,
+                    config.value_aux_weight,
                 )
                 grads, norm = optim.clip_grad_norm(grads, max_norm=1.0)
                 mx.eval(norm)

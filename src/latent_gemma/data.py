@@ -142,6 +142,74 @@ def remaining_reasoning(example: Example, steps_to_drop: int | None) -> str:
     raise ValueError(f"No reasoning-step annotation policy for {example.task}")
 
 
+NUMBER = re.compile(r"\d[\d,]*(?:\.\d+)?")
+
+
+def _numbers(text: str) -> list[str]:
+    return [n.replace(",", "") for n in NUMBER.findall(text)]
+
+
+def removed_reasoning(example: Example, steps_to_drop: int | None) -> str:
+    """The annotated reasoning that a compressed target no longer contains."""
+    if steps_to_drop == 0:
+        return ""
+    if steps_to_drop is None:
+        return example.reasoning
+    if example.task == "gsm8k":
+        steps = [line.strip() for line in example.reasoning.splitlines() if line.strip()]
+        return "\n".join(steps[:steps_to_drop])
+    if example.task == "arithmetic":
+        return ". ".join(example.reasoning.split(". ")[:steps_to_drop])
+    return ""
+
+
+def carried_values(example: Example, steps_to_drop: int | None) -> list[str]:
+    """Numbers first computed in removed steps and reused by the supervised text."""
+    question = set(_numbers(example.question))
+    reused = set(_numbers(remaining_reasoning(example, steps_to_drop) + "\n" + example.answer))
+    values = []
+    for number in _numbers(removed_reasoning(example, steps_to_drop)):
+        if number not in question and number in reused and number not in values:
+            values.append(number)
+    return values
+
+
+def removed_step_result(example: Example, steps_to_drop: int | None) -> str | None:
+    """The last number computed in the removed steps that the question did not state."""
+    question = set(_numbers(example.question))
+    computed = [n for n in _numbers(removed_reasoning(example, steps_to_drop)) if n not in question]
+    return computed[-1] if computed else None
+
+
+def token_spans(tokenizer, ids: list[int]) -> list[tuple[int, int]]:
+    """Character span of every token in the decoded text, from cumulative decoding."""
+    spans, previous = [], 0
+    for i in range(1, len(ids) + 1):
+        current = len(tokenizer.decode(ids[:i]))
+        spans.append((previous, current))
+        previous = current
+    return spans
+
+
+def weight_carried_values(tokenizer, ids, mask, values, weight: float) -> list[float]:
+    """Raise the loss weight of the first supervised mention of each carried value."""
+    if weight == 1.0 or not values:
+        return mask
+    mask = list(mask)
+    text = tokenizer.decode(ids)
+    spans = token_spans(tokenizer, ids)
+    for value in values:
+        pattern = re.compile(r"(?<![\d.])" + re.escape(value) + r"(?![\d])")
+        for match in pattern.finditer(text):
+            start, end = match.span()
+            indices = [i for i, (a, b) in enumerate(spans) if a < end and b > start and mask[i]]
+            if indices:
+                for i in indices:
+                    mask[i] = weight
+                break
+    return mask
+
+
 def hybrid_boundary_text(boundary: str) -> str:
     if boundary == "none":
         return ""
@@ -156,6 +224,7 @@ def encode_example(
     mode: str,
     reasoning_steps_to_drop: int | None = 0,
     hybrid_boundary: str = "none",
+    carried_value_weight: float = 1.0,
 ):
     if mode not in {"direct", "cot", "latent", "hybrid"}:
         raise ValueError(f"Unknown mode: {mode}")
@@ -184,6 +253,9 @@ def encode_example(
         prefix_len = len(prefix)
     ids.append(tokenizer.eos_token_id)
     mask = [0.0] * prefix_len + [1.0] * (len(ids) - prefix_len)
+    if mode == "hybrid" and carried_value_weight != 1.0:
+        values = carried_values(example, reasoning_steps_to_drop)
+        mask = weight_carried_values(tokenizer, ids, mask, values, carried_value_weight)
     return prompt, ids, mask
 
 

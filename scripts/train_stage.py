@@ -31,6 +31,18 @@ def main():
     parser.add_argument("--checkpoint-every", type=int, default=50)
     parser.add_argument("--log-every", type=int, default=10)
     parser.add_argument("--memory-gb", type=float, default=16)
+    parser.add_argument(
+        "--carried-value-weight",
+        type=float,
+        default=1.0,
+        help="Loss weight on the first supervised mention of values computed in removed steps",
+    )
+    parser.add_argument(
+        "--value-aux-weight",
+        type=float,
+        default=0.0,
+        help="Weight of decoding the removed step's result from the final latent state",
+    )
     parser.add_argument("--resume", action="store_true")
     args = parser.parse_args()
     if args.memory_gb <= 0:
@@ -47,6 +59,8 @@ def main():
         validation_max_tokens=args.max_tokens,
         checkpoint_every=args.checkpoint_every,
         log_every=args.log_every,
+        carried_value_weight=args.carried_value_weight,
+        value_aux_weight=args.value_aux_weight,
     )
     config.validate()
     if args.output.exists() and not args.resume:

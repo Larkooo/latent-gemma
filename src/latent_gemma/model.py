@@ -202,15 +202,19 @@ class LatentModel(nn.Module):
             state = self.hidden(None, cache=cache, embeddings=feedback)
         return state, cache
 
+    def continuation_logits(self, state, cache, continuation: mx.array) -> mx.array:
+        """Predict every continuation token from a prefilled state and cache."""
+        if continuation.shape[1] > 1:
+            rest = self.hidden(continuation[:, :-1], cache=cache)
+            state = mx.concatenate([state, rest], axis=1)
+        return self.logits(state)
+
     def answer_logits(
         self, prompt: mx.array, continuation: mx.array, steps: int, ablation: str = "none"
     ) -> mx.array:
         """Predict every continuation token; inputs never contain the target at its position."""
         state, cache = self.prefill(prompt, steps, ablation)
-        if continuation.shape[1] > 1:
-            rest = self.hidden(continuation[:, :-1], cache=cache)
-            state = mx.concatenate([state, rest], axis=1)
-        return self.logits(state)
+        return self.continuation_logits(state, cache, continuation)
 
     def save_adapter(self, directory: Path, metadata: dict) -> None:
         directory.mkdir(parents=True, exist_ok=True)
@@ -250,9 +254,44 @@ def parameter_counts(model: LatentModel) -> dict[str, int]:
     }
 
 
-def token_loss(model: LatentModel, prompt, continuation, mask, steps: int, ablation: str = "none"):
-    # A training-time ablation turns latent positions into trained pause
-    # positions: the same count and cache writes, without state feedback.
-    logits = model.answer_logits(prompt, continuation, steps, ablation).astype(mx.float32)
+def clone_cache(cache: list[KVCache]) -> list[KVCache]:
+    """Independent caches holding the same history; later writes never alias."""
+    clones = []
+    for source in cache:
+        clone = KVCache()
+        if source.keys is not None:
+            clone.keys = source.keys[..., : source.offset, :]
+            clone.values = source.values[..., : source.offset, :]
+            clone.offset = source.offset
+        clones.append(clone)
+    return clones
+
+
+def token_loss(
+    model: LatentModel,
+    prompt,
+    continuation,
+    mask,
+    steps: int,
+    ablation: str = "none",
+    value=None,
+    value_weight: float = 0.0,
+):
+    """Weighted continuation loss, plus an optional removed-value decoding branch.
+
+    A training-time ablation turns latent positions into trained pause
+    positions: the same count and cache writes, without state feedback. The
+    optional branch decodes the removed step's result from the final latent
+    state on a cloned cache, so the supervised text never sees those tokens.
+    """
+    state, cache = model.prefill(prompt, steps, ablation)
+    branch = clone_cache(cache) if value is not None and value_weight > 0 else None
+    logits = model.continuation_logits(state, cache, continuation).astype(mx.float32)
     loss = nn.losses.cross_entropy(logits, continuation, reduction="none")
-    return mx.sum(loss * mask) / mx.maximum(mx.sum(mask), 1)
+    total = mx.sum(loss * mask) / mx.maximum(mx.sum(mask), 1)
+    if branch is not None:
+        value_logits = model.continuation_logits(state, branch, value).astype(mx.float32)
+        total = total + value_weight * mx.mean(
+            nn.losses.cross_entropy(value_logits, value, reduction="none")
+        )
+    return total
