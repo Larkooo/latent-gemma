@@ -8,9 +8,17 @@ Author and maintainer: [Larkooo](https://github.com/Larkooo).
 
 Gemma discussion: [Gemma 4 hybrid continuous-state reasoning](https://github.com/google-deepmind/gemma/discussions/795).
 
-## Results
+## Current status
 
-The current Gemma 4 E2B experiment uses two latent positions followed by a fixed
+Experimental continuous-state baseline, not an explicit mathematically structured
+reasoning system. The [September 2026 feasibility checkpoint](reports/feasibility-2026-09/README.md)
+records two simple base-inference outputs and one finite optimizer update with
+checkpoint reload equality. It establishes runtime feasibility only, not improved
+reasoning, historical-adapter reproduction, or a completed controlled experiment.
+
+## Historical results — September 5, 2026
+
+The historical Gemma 4 E2B experiment uses two latent positions followed by a fixed
 text transition. On 600 held-out diagnostic arithmetic and link-traversal questions:
 
 | Method | Accuracy | Median answer latency |
